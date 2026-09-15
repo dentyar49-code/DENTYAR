@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>DENTYAR — دستیار هوشمند دندان‌پزشکی | V22</title>
 <script>const DENTYAR_APP_VERSION = "V22";</script>
-<meta name="theme-color" content="#0f766e">
+<meta name="theme-color" content="#0d5150">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
@@ -14,20 +14,20 @@
 <meta name="apple-mobile-web-app-title" content="DENTYAR">
 <style>
   :root{
-    --navy:#153a63;
-    --navy-dark:#0f2a4a;
-    --turquoise:#16a3a3;
-    --turquoise-light:#e6f7f7;
-    --gold:#d69e1c;
-    --gold-dark:#b9800e;
-    --gold-light:#fbf1d6;
-    --bg:#eef2f6;
-    --card:#ffffff;
-    --text:#1c2b36;
-    --muted:#6b7c88;
-    --danger:#e2574c;
-    --success:#1e8f5f;
-    --border:#e1e8ec;
+    --navy:#0f4f4f;
+    --navy-dark:#0a3638;
+    --turquoise:#149c9a;
+    --turquoise-light:#e7f7f5;
+    --gold:#c9a35b;
+    --gold-dark:#9a7735;
+    --gold-light:#f6efdf;
+    --bg:#f5f7f6;
+    --card:#fffdf9;
+    --text:#17363a;
+    --muted:#64777a;
+    --danger:#b94d4d;
+    --success:#2f8062;
+    --border:#d9e5e2;
     --radius:14px;
   }
   *{box-sizing:border-box;}
@@ -63,7 +63,7 @@
   #topHeader .logoutBtn{width:58px;height:58px;flex:0 0 58px;border-radius:50%;background:var(--danger);color:#fff;border:none;padding:0;margin:0;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(226,87,76,.24);}
   #topHeader .logoutBtn svg{width:25px;height:25px;}
   #topHeader .headerBalance{display:none;}
-  @media(max-width:480px){#topHeader{grid-template-columns:66px minmax(0,1fr) 66px;gap:4px;padding:7px 7px 9px;}#topHeader .headerSide{width:66px;height:86px;transform:translateY(8px);}#topHeader .appBrand{min-width:0;}#topHeader .appLogo{width:72px;height:72px;}#topHeader .appName{font-size:18px;}#topHeader .appSlogan{font-size:9.5px;}#topHeader .clinicLogo{width:54px!important;height:54px!important;flex-basis:54px!important;}#topHeader .logoutBtn{width:54px;height:54px;flex-basis:54px;}#topHeader .clinicSideName{font-size:12.5px;max-width:92px;height:15px;line-height:15px;}#topHeader .logoutLabel{font-size:11.5px;height:15px;line-height:15px;}}
+  @media(max-width:480px){#topHeader{grid-template-columns:74px minmax(0,1fr) 74px;gap:4px;padding:7px 12px 9px;}#topHeader .headerSide{width:66px;height:86px;transform:translateY(8px);}#topHeader .appBrand{min-width:0;}#topHeader .appLogo{width:72px;height:72px;}#topHeader .appName{font-size:18px;}#topHeader .appSlogan{font-size:9.5px;}#topHeader .clinicLogo{width:54px!important;height:54px!important;flex-basis:54px!important;}#topHeader .logoutBtn{width:54px;height:54px;flex-basis:54px;}#topHeader .clinicSideName{font-size:12.5px;max-width:92px;height:15px;line-height:15px;}#topHeader .logoutLabel{font-size:11.5px;height:15px;line-height:15px;}}
 
 
   /* Fixed horizontally-scrolling nav strip (constant height regardless of item count) */
@@ -226,10 +226,10 @@
 
   /* ===== DENTYAR premium dental identity ===== */
   :root{
-    --navy:#123b5d; --navy-dark:#0b2942; --turquoise:#0f8f8a; --turquoise-light:#e7f6f5;
-    --gold:#c89a2b; --gold-dark:#9b741b; --gold-light:#fbf3df;
-    --bg:#f4f8fa; --card:#ffffff; --text:#18313f; --muted:#6b7e88;
-    --border:#dce8ec; --radius:14px;
+    --navy:#0d5150; --navy-dark:#083638; --turquoise:#159f9a; --turquoise-light:#e5f6f3;
+    --gold:#c7a15a; --gold-dark:#927038; --gold-light:#f5eddd;
+    --bg:#f4f7f5; --card:#fffefa; --text:#17383b; --muted:#637679;
+    --border:#d8e4e1; --radius:14px;
   }
   #lockScreen{background:radial-gradient(circle at 50% 18%,#ffffff 0,#f5fafb 38%,#eaf3f5 100%);}
   #lockScreen .lockLogo{width:92px;height:92px;object-fit:contain;filter:drop-shadow(0 7px 14px rgba(15,118,110,.14));animation:dentyarLogoIn .55s ease-out both, dentyarFloat 4s ease-in-out .7s infinite;}
@@ -367,7 +367,7 @@ const APP_KEY = 'lb_dental_v1';
 const DEFAULT_STATE = () => ({
   meta:{
     clinicName:'مطب لبخند زیبا', slogan:'Your Smart Dental Assistant', password:'12345678', profilePassword:'87654321',
-    logoDataUrl:null, supportPhone:'', supportEmail:'', fileNoDate:null, fileNoSeq:0, fileNoYear:null, fileNoMode:'continuous', fileNoResetDate:null, createdAt: Date.now(),
+    logoDataUrl:null, supportPhone:'', supportEmail:'', fileNoDate:null, fileNoSeq:0, fileNoYear:null, fileNoMode:'continuous', fileNoResetDate:null, createdAt: Date.now(), dashboardMetrics:['totalPatients','newPatients','todayVisits','todayAppointments','treatments','ongoing','completed','referrals','cancelled','revenue','received','debts','insurance','discounts','treatmentCount','topTreatment','dentists'],
     smsConfirmTemplate:'{نام} عزیز، نوبت شما برای تاریخ {تاریخ} ساعت {ساعت} با موفقیت ثبت شد.',
     smsReminderTemplate:'{نام} عزیز، یک ساعت تا رسیدن نوبت شما در تاریخ {تاریخ} ساعت {ساعت} باقی مانده است.',
     clinicProfile:{
@@ -738,7 +738,7 @@ function setFileNoMode(mode){
 
 function fmtMoney(n){
   n = Number(n)||0;
-  return n.toLocaleString('fa-IR') + ' تومان';
+  return faDigits(n.toLocaleString('en-US')) + ' تومان';
 }
 
 /* ===================== امور مالی و پرداخت استاندارد =====================
@@ -757,8 +757,8 @@ function calcVisitFinance(prefix){
   const afterDiscount=Math.max(0,gross-discount);
   const insurance=Math.min(moneyVal(prefix+'Insurance'), afterDiscount);
   const net=Math.max(0,afterDiscount-insurance);
-  const cash=moneyVal(prefix+'Cash'), card=moneyVal(prefix+'Card'), transfer=moneyVal(prefix+'Transfer'), other=moneyVal(prefix+'Other');
-  const paid=Math.min(net, Math.max(0,cash+card+transfer+other));
+  const cash=moneyVal(prefix+'Cash'), card=moneyVal(prefix+'Card'), transfer=moneyVal(prefix+'Transfer'), other=moneyVal(prefix+'Other'), refund=moneyVal(prefix+'Refund');
+  const paid=Math.min(net, Math.max(0,cash+card+transfer+other-refund));
   const balance=Math.max(0,net-paid);
   const netEl=document.getElementById(prefix+'Net'), paidEl=document.getElementById(prefix+'Paid'), balEl=document.getElementById(prefix+'Balance');
   if(netEl) netEl.textContent=fmtMoney(net);
@@ -766,10 +766,10 @@ function calcVisitFinance(prefix){
   if(balEl) balEl.textContent=fmtMoney(balance);
   const statusEl=document.getElementById(prefix+'PaymentStatus');
   if(statusEl) statusEl.textContent=net===0?'رایگان':(balance===0?'تسویه‌شده':(paid>0?'تسویه‌جزئی / بدهکار':'بدهکار'));
-  return {gross,discount,insurance,net,cash,card,transfer,other,paid,balance,paymentType:document.getElementById(prefix+'PaymentType')?.value||''};
+  return {gross,discount,insurance,net,cash,card,transfer,other,refund,paid,balance,paymentType:document.getElementById(prefix+'PaymentType')?.value||''};
 }
 function bindFinance(prefix){
-  ['Gross','Discount','Insurance','Cash','Card','Transfer','Other'].forEach(k=>{
+  ['Gross','Discount','Insurance','Cash','Card','Transfer','Other','Refund'].forEach(k=>{
     const el=document.getElementById(prefix+k);
     if(el) el.addEventListener('input',()=>calcVisitFinance(prefix));
   });
@@ -784,10 +784,11 @@ function financeOf(v){
   const insurance=Math.min(Number(v.insuranceShare)||0,afterDiscount);
   const net=Math.max(0,Number(v.netAmount ?? (afterDiscount-insurance))||0);
   const cash=Number(v.cashPaid)||0, card=Number(v.cardPaid)||0, transfer=Number(v.transferPaid)||0, other=Number(v.otherPaid)||0;
-  const paid=Math.min(net,Math.max(0,cash+card+transfer+other));
+  const refund=Math.max(0,Number(v.refund)||0);
+  const paid=Math.min(net,Math.max(0,cash+card+transfer+other-refund));
   const balance=Math.max(0,Number(v.balance ?? (net-paid))||0);
   const insuranceReceivable=insurance; const patientReceivable=Math.max(0,net);
-  return {gross,discount,insurance,net,cash,card,transfer,other,paid,balance,paymentType:v.paymentType||'',insuranceReceivable,patientReceivable};
+  return {gross,discount,insurance,net,cash,card,transfer,other,refund,paid,balance,paymentType:v.paymentType||'',insuranceReceivable,patientReceivable};
 }
 function normalizeFinancialData(){
   (STATE.patients||[]).forEach(p=>{
@@ -795,7 +796,7 @@ function normalizeFinancialData(){
       const f=financeOf(v);
       v.grossAmount=f.gross; v.discount=f.discount; v.insuranceShare=f.insurance;
       v.netAmount=f.net; v.cashPaid=f.cash; v.cardPaid=f.card; v.transferPaid=f.transfer;
-      v.otherPaid=f.other; v.paidAmount=f.paid; v.balance=f.balance;
+      v.otherPaid=f.other; v.refund=f.refund; v.paidAmount=f.paid; v.balance=f.balance;
       v.paymentType=v.paymentType || (f.paid===0?'بدون پرداخت':(f.card>0&&f.cash===0&&f.transfer===0&&f.other===0?'کارتخوان':f.cash>0&&f.card===0&&f.transfer===0&&f.other===0?'نقدی':'ترکیبی'));
     });
   });
@@ -851,6 +852,31 @@ function todayJalaliCompact(){
   const d = new Date();
   const [jy, jm, jd] = gregorianToJalali(d.getFullYear(), d.getMonth()+1, d.getDate());
   return String(jy) + String(jm).padStart(2,'0') + String(jd).padStart(2,'0');
+}
+function currentJalaliYear(){ return gregorianToJalali(new Date().getFullYear(),new Date().getMonth()+1,new Date().getDate())[0]; }
+function jalaliDateFromISO(iso){ if(!iso) return ''; const d=new Date(iso+'T12:00:00'); if(Number.isNaN(d.getTime())) return ''; const [jy,jm,jd]=gregorianToJalali(d.getFullYear(),d.getMonth()+1,d.getDate()); return faDateString(jy,jm,jd); }
+
+/* ---------- فارسی‌سازی سراسری اعداد و تاریخ‌ها ---------- */
+const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+function faDigits(value){
+  return String(value ?? '').replace(/[0-9]/g, d=>FA_DIGITS[d]);
+}
+function toFaTextNodeTree(root=document.body){
+  const walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node){
+      const p=node.parentElement;
+      if(!p || ['SCRIPT','STYLE','TEXTAREA'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+      if(p.closest('[data-no-fa-digits]')) return NodeFilter.FILTER_REJECT;
+      return /[0-9]/.test(node.nodeValue||'') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const nodes=[]; let n; while(n=walker.nextNode()) nodes.push(n);
+  nodes.forEach(x=>{ x.nodeValue=faDigits(x.nodeValue); });
+}
+function faDateString(y,m,d){ return `${faDigits(y)}/${faDigits(String(m).padStart(2,'0'))}/${faDigits(String(d).padStart(2,'0'))}`; }
+function currentJalaliDateFa(){
+  const [y,m,d]=gregorianToJalali(new Date().getFullYear(),new Date().getMonth()+1,new Date().getDate());
+  return faDateString(y,m,d);
 }
 
 /* ---------- Toast ---------- */
@@ -1239,141 +1265,36 @@ function renderPage(){
 
 /* ===================== داشبورد ===================== */
 function renderDashboard(){
-  const patients = STATE.patients;
-  const thisYear = new Date().getFullYear();
-  const totalPatients = patients.length;
-  const yearPatients = patients.filter(p=> new Date(p.createdAt).getFullYear()===thisYear).length;
-  const male = patients.filter(p=>p.gender==='مرد').length;
-  const female = patients.filter(p=>p.gender==='زن').length;
-
-  // Treatment type counts across all visits
-  const typeCounts = {};
-  let totalRevenue = 0;
-  let totalPaidRevenue = 0, totalBalanceRevenue = 0, totalInsuranceRevenue = 0, totalDiscountRevenue = 0;
-  const dentistWorkload = {};
-  const outcomeCounts = {};
-  let positiveCount=0, negativeCount=0;
-  patients.forEach(p=>{
-    (p.visits||[]).forEach(v=>{
-      typeCounts[v.treatmentType] = (typeCounts[v.treatmentType]||0)+1;
-      const vf=financeOf(v);
-      totalRevenue += vf.net;
-      totalPaidRevenue += vf.paid;
-      totalBalanceRevenue += vf.balance;
-      totalInsuranceRevenue += vf.insurance;
-      totalDiscountRevenue += vf.discount;
-      if(v.dentistId){ dentistWorkload[v.dentistId] = (dentistWorkload[v.dentistId]||0)+1; }
-      if(v.outcome){
-        outcomeCounts[v.outcome] = (outcomeCounts[v.outcome]||0)+1;
-        if(v.outcome==='تکمیل‌شده') positiveCount++;
-        else if(v.outcome==='لغوشده') negativeCount++;
-      }
-    });
-  });
-
-  const typeRows = Object.entries(typeCounts).sort((a,b)=>b[1]-a[1]);
-  const topTreatment = typeRows.length? typeRows[0][0] : '—';
-  const dentistRows = Object.entries(dentistWorkload).map(([id,count])=>{
-    const d = STATE.dentists.find(x=>x.id===id);
-    return {name: d? d.name : 'نامشخص', count};
-  }).sort((a,b)=>b.count-a.count);
-
-  // بیماران نیازمند پیگیری: آخرین مراجعه‌شان بیش از ۶ ماه (۱۸۰ روز) پیش بوده است
-  const RECALL_DAYS = 180;
-  const now = Date.now();
-  const recallList = patients.filter(p=>{
-    if(!(p.visits||[]).length) return false;
-    const lastVisitTs = Math.max(...p.visits.map(v=> new Date(v.date).getTime()||0));
-    return (now - lastVisitTs) / 86400000 > RECALL_DAYS;
-  }).sort((a,b)=>{
-    const la = Math.max(...a.visits.map(v=> new Date(v.date).getTime()||0));
-    const lb = Math.max(...b.visits.map(v=> new Date(v.date).getTime()||0));
-    return la - lb;
-  });
-
-  document.getElementById('pageContent').innerHTML = `
-    <div class="sectionTitle" style="margin-top:0">نمای کلی</div>
-    <div class="statGrid">
-      <div class="statCard c-teal clickable" onclick="navigate('reports',{dateFrom:'${thisYear}-01-01'})">
-        <div class="iconBadge">${NAV_ICONS.appointments}</div>
-        <div class="num">${yearPatients}</div><div class="lbl">بیماران سال ${thisYear}</div>
-      </div>
-      <div class="statCard c-navy clickable" onclick="navigate('patients')">
-        <div class="iconBadge">${ICON_HEART}</div>
-        <div class="num">${totalPatients}</div><div class="lbl">کل بیماران</div>
-      </div>
-      <div class="statCard c-gold clickable" onclick="navigate('reports',{gender:'زن'})">
-        <div class="iconBadge">${ICON_PEOPLE}</div>
-        <div class="num">${female}</div><div class="lbl">بیماران زن</div>
-      </div>
-      <div class="statCard c-green clickable" onclick="navigate('reports',{gender:'مرد'})">
-        <div class="iconBadge">${ICON_PEOPLE}</div>
-        <div class="num">${male}</div><div class="lbl">بیماران مرد</div>
-      </div>
-      <div class="statCard c-red clickable" onclick="navigate('reports',{outcome:'لغوشده'})">
-        <div class="iconBadge">${ICON_X}</div>
-        <div class="num">${negativeCount}</div><div class="lbl">نتیجه منفی</div>
-      </div>
-      <div class="statCard c-teal clickable" onclick="navigate('reports',{outcome:'تکمیل‌شده'})">
-        <div class="iconBadge">${ICON_CHECK}</div>
-        <div class="num">${positiveCount}</div><div class="lbl">نتیجه مثبت</div>
-      </div>
-      <div class="statCard c-deepnavy clickable" onclick="navigate('dentists')">
-        <div class="iconBadge">${ICON_PEOPLE}</div>
-        <div class="num">${STATE.dentists.length}</div><div class="lbl">دندان‌پزشکان</div>
-      </div>
-      <div class="statCard c-purple clickable" onclick="navigate('reports',{treatmentType:'${esc(topTreatment)}'})">
-        <div class="iconBadge">${ICON_CLIPBOARD}</div>
-        <div class="num" style="font-size:12px">${esc(topTreatment)}</div><div class="lbl">پرتکرارترین درمان</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>خلاصه مالی</h3>
-      <div class="financeSummary">
-        <div><span>خالص خدمات</span><b>${fmtMoney(totalRevenue)}</b></div>
-        <div><span>تخفیف</span><b>${fmtMoney(totalDiscountRevenue)}</b></div>
-        <div><span>سهم بیمه</span><b>${fmtMoney(totalInsuranceRevenue)}</b></div>
-        <div><span>دریافت‌شده</span><b>${fmtMoney(totalPaidRevenue)}</b></div>
-        <div><span>باقیمانده</span><b>${fmtMoney(totalBalanceRevenue)}</b></div>
-      </div>
-    </div>
-
-    <div class="sectionTitle">آمار کامل بیماری‌ها / درمان‌ها (${(Object.values(typeCounts).reduce((a,b)=>a+b,0))} مراجعه)</div>
-    <div class="card" style="overflow-x:auto">
-      ${typeRows.length? `<table><tr><th>نوع بیماری / درمان</th><th>تعداد</th><th>عملیات</th></tr>${typeRows.map(([t,c])=>`
-        <tr><td>${esc(t)}</td><td>${c}</td><td><button class="btn btn-outline btn-sm" onclick="navigate('reports',{treatmentType:'${esc(t)}'})">مشاهده</button></td></tr>
-      `).join('')}${STATE.lists.treatmentTypes.filter(t=>!(t in typeCounts)).map(t=>`
-        <tr><td>${esc(t)}</td><td>0</td><td><button class="btn btn-outline btn-sm" onclick="navigate('reports',{treatmentType:'${esc(t)}'})">مشاهده</button></td></tr>
-      `).join('')}</table>` : `<div class="empty">هنوز درمانی ثبت نشده است</div>`}
-    </div>
-
-    <div class="sectionTitle">حجم کاری دندان‌پزشکان</div>
-    <div class="card">
-      ${dentistRows.length? `<table><tr><th>دندان‌پزشک</th><th>تعداد مراجعات</th></tr>${dentistRows.map(d=>`
-        <tr><td>${esc(d.name)}</td><td>${d.count}</td></tr>
-      `).join('')}</table>` : `<div class="empty">هنوز مراجعه‌ای ثبت نشده است</div>`}
-    </div>
-
-    <div class="sectionTitle">بیماران نیازمند پیگیری (بیش از ۶ ماه از آخرین مراجعه)</div>
-    <div class="card">
-      ${recallList.length? recallList.slice(0,20).map(p=>{
-        const lastVisitTs = Math.max(...p.visits.map(v=> new Date(v.date).getTime()||0));
-        return `
-        <div class="row" style="justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed var(--border)" onclick="openPatientId='${p.id}'; navigate('patients');">
-          <div>
-            <b style="font-size:12.5px">${esc(p.name)}</b>
-            <div style="font-size:10.5px;color:var(--muted)">آخرین مراجعه: ${fmtDateFa(lastVisitTs)}${p.phone? ' · '+esc(p.phone):''}</div>
-          </div>
-          <span class="badge badge-gold">پیگیری</span>
-        </div>
-      `}).join('') : `<div class="empty">بیمار نیازمند پیگیری وجود ندارد</div>`}
-    </div>
+  const patients=STATE.patients||[];
+  const today=todayISO(), jy=currentJalaliYear();
+  const visits=patients.flatMap(p=>(p.visits||[]).map(v=>({p,v})));
+  const todayVisits=visits.filter(x=>x.v.date===today).length;
+  const todayAppointments=(STATE.appointments||[]).filter(a=>a.date===today).length;
+  const yearPatients=patients.filter(p=>p.createdAt && gregorianToJalali(new Date(p.createdAt).getFullYear(),new Date(p.createdAt).getMonth()+1,new Date(p.createdAt).getDate())[0]===jy).length;
+  const totalPatients=patients.length;
+  const completed=visits.filter(x=>x.v.outcome==='تکمیل‌شده').length;
+  const ongoing=visits.filter(x=>x.v.outcome==='در حال درمان').length;
+  const referrals=visits.filter(x=>x.v.outcome==='ارجاع‌شده').length;
+  const cancelled=visits.filter(x=>x.v.outcome==='لغوشده').length;
+  const female=patients.filter(p=>p.gender==='زن').length, male=patients.filter(p=>p.gender==='مرد').length;
+  const totals=visits.reduce((a,x)=>{const f=financeOf(x.v);a.gross+=f.gross;a.discount+=f.discount;a.insurance+=f.insurance;a.net+=f.net;a.cash+=f.cash;a.nonCash+=f.card+f.transfer+f.other;a.refund+=f.refund;a.paid+=f.paid;a.balance+=f.balance;return a},{gross:0,discount:0,insurance:0,net:0,cash:0,nonCash:0,refund:0,paid:0,balance:0});
+  const typeCounts={}; visits.forEach(x=>{const t=x.v.treatmentType||'سایر';typeCounts[t]=(typeCounts[t]||0)+1});
+  const typeRows=Object.entries(typeCounts).sort((a,b)=>b[1]-a[1]);
+  const topTreatment=typeRows[0]?.[0]||'—';
+  const metricDefs={
+    totalPatients:['کل بیماران',totalPatients,'patients',ICON_HEART,'c-navy'], newPatients:[`بیماران جدید سال ${jy}`,yearPatients,'reports',NAV_ICONS.appointments,'c-teal'], todayVisits:['مراجعات امروز',todayVisits,'reports',ICON_CLIPBOARD,'c-green'], todayAppointments:['نوبت‌های امروز',todayAppointments,'appointments',NAV_ICONS.appointments,'c-gold'], treatments:['درمان‌های تکمیل‌شده',completed,'reports',ICON_CHECK,'c-green'], ongoing:['درمان‌های در حال انجام',ongoing,'reports',ICON_CLIPBOARD,'c-purple'], referrals:['ارجاع‌شده',referrals,'reports',ICON_PEOPLE,'c-navy'], cancelled:['نوبت/درمان لغوشده',cancelled,'reports',ICON_X,'c-red'], revenue:['خالص خدمات',fmtMoney(totals.net),'reports',ICON_CLIPBOARD,'c-teal'], received:['کل دریافتی',fmtMoney(totals.paid),'reports',ICON_CHECK,'c-green'], debts:['مطالبات/باقیمانده',fmtMoney(totals.balance),'reports',ICON_X,'c-red'], insurance:['سهم بیمه',fmtMoney(totals.insurance),'reports',ICON_PEOPLE,'c-gold'], discounts:['کل تخفیف',fmtMoney(totals.discount),'reports',ICON_CLIPBOARD,'c-purple'], cash:['دریافت نقدی',fmtMoney(totals.cash),'reports',ICON_CHECK,'c-green'], nonCash:['دریافت غیرنقدی',fmtMoney(totals.nonCash),'reports',ICON_CHECK,'c-teal'], refunds:['استرداد وجه',fmtMoney(totals.refund),'reports',ICON_X,'c-red'], treatmentCount:['تعداد کل درمان‌ها',visits.length,'reports',ICON_CLIPBOARD,'c-teal'], topTreatment:['پرتکرارترین درمان',topTreatment,'reports',ICON_CLIPBOARD,'c-purple'], dentists:['دندان‌پزشکان',STATE.dentists.length,'dentists',ICON_PEOPLE,'c-deepnavy'], female:['بیماران زن',female,'reports',ICON_PEOPLE,'c-gold'], male:['بیماران مرد',male,'reports',ICON_PEOPLE,'c-green']
+  };
+  const keys=(STATE.meta.dashboardMetrics||Object.keys(metricDefs)).filter(k=>metricDefs[k]);
+  document.getElementById('pageContent').innerHTML=`
+    <div class="sectionTitle" style="margin-top:0">نمای کلی سال ${jy}</div>
+    <div class="statGrid">${keys.map(k=>{const d=metricDefs[k];const nav=d[2]==='reports'?"navigate('reports')":`navigate('${d[2]}')`;return `<div class="statCard ${d[4]} clickable" onclick="${nav}"><div class="iconBadge">${d[3]}</div><div class="num" style="font-size:${String(d[1]).length>14?'11':'16'}px">${esc(String(d[1]))}</div><div class="lbl">${esc(d[0])}</div></div>`}).join('')}</div>
+    <div class="card"><h3>خلاصه مالی</h3><div class="financeSummary"><div><span>مبلغ ناخالص خدمات</span><b>${fmtMoney(totals.gross)}</b></div><div><span>تخفیف</span><b>${fmtMoney(totals.discount)}</b></div><div><span>سهم بیمه</span><b>${fmtMoney(totals.insurance)}</b></div><div><span>خالص قابل پرداخت</span><b>${fmtMoney(totals.net)}</b></div><div><span>دریافت نقدی</span><b>${fmtMoney(totals.cash)}</b></div><div><span>دریافت غیرنقدی</span><b>${fmtMoney(totals.nonCash)}</b></div><div><span>استرداد وجه</span><b>${fmtMoney(totals.refund)}</b></div><div><span>کل دریافتی</span><b>${fmtMoney(totals.paid)}</b></div><div><span>مطالبات/باقیمانده</span><b>${fmtMoney(totals.balance)}</b></div></div></div>
+    <div class="sectionTitle">تفکیک مالی و درمانی</div>
+    <div class="card" style="overflow-x:auto"><table><tr><th>شاخص</th><th>مقدار</th></tr><tr><td>مبلغ ناخالص خدمات</td><td>${fmtMoney(totals.gross)}</td></tr><tr><td>تخفیف</td><td>${fmtMoney(totals.discount)}</td></tr><tr><td>سهم بیمه</td><td>${fmtMoney(totals.insurance)}</td></tr><tr><td>خالص قابل پرداخت</td><td>${fmtMoney(totals.net)}</td></tr><tr><td>دریافت نقدی</td><td>${fmtMoney(totals.cash)}</td></tr><tr><td>دریافت غیرنقدی</td><td>${fmtMoney(totals.nonCash)}</td></tr><tr><td>استرداد وجه</td><td>${fmtMoney(totals.refund)}</td></tr><tr><td>کل دریافتی</td><td>${fmtMoney(totals.paid)}</td></tr><tr><td>باقیمانده/مطالبات</td><td>${fmtMoney(totals.balance)}</td></tr></table></div>
+    <div class="sectionTitle">خدمات پرتکرار</div><div class="card" style="overflow-x:auto">${typeRows.length?`<table><tr><th>خدمت</th><th>تعداد</th></tr>${typeRows.slice(0,15).map(r=>`<tr><td>${esc(r[0])}</td><td>${r[1]}</td></tr>`).join('')}</table>`:'<div class="empty">هنوز درمانی ثبت نشده است</div>'}</div>
   `;
 }
-/* ===================== ثبت بیمار (پس از رسیدن نوبت) ===================== */
-// پنل مستقل: نوبت‌های در انتظار برای ثبت پرونده، به‌علاوه امکان ثبت بیمار جدید بدون نوبت قبلی (مراجعه‌ی حضوری).
-// فرم ثبت، اطلاعات بیمار و اولین مرحله‌ی درمان (نوع درمان، دندان‌پزشک، نتیجه، هزینه) را هم‌زمان ثبت می‌کند.
+
 function renderRegister(){
   if(pageParams && pageParams.appointmentId){
     openRegisterForm(pageParams.appointmentId);
@@ -1997,6 +1918,7 @@ function renderPatientFile(id){
         <div><label>انتقال بانکی (تومان)</label><input type="text" id="vTransfer" inputmode="numeric" placeholder="0"></div>
         <div><label>سایر پرداخت‌ها (تومان)</label><input type="text" id="vOther" inputmode="numeric" placeholder="0"></div>
       </div>
+      <div class="grid2"><div><label>استرداد وجه (تومان)</label><input type="text" id="vRefund" inputmode="numeric" placeholder="0"></div><div></div></div>
       <label>دندان‌پزشک</label>
       <select id="vDentist"><option value="">— انتخاب —</option>${STATE.dentists.map(d=>`<option value="${d.id}">${esc(d.name)}</option>`).join('')}</select>
       <label>خدمات درمانی (امکان انتخاب یک یا چند خدمت)</label>
@@ -2201,6 +2123,7 @@ function addVisit(patientId){
     cardPaid: moneyVal('vCard'),
     transferPaid: moneyVal('vTransfer'),
     otherPaid: moneyVal('vOther'),
+    refund: moneyVal('vRefund'),
     paidAmount: calcVisitFinance('v').paid,
     balance: calcVisitFinance('v').balance,
     paymentType: document.getElementById('vPaymentType').value,
@@ -2412,13 +2335,13 @@ function renderReports(){
 
     <div class="card" style="overflow-x:auto">
       ${rows.length? `<table>
-        <tr><th>نام</th><th>پرونده</th><th>کد ملی</th><th>تلفن</th><th>بیمه پایه</th><th>بیمه تکمیلی</th><th>شماره بیمه</th><th>قرارداد/بیمه‌نامه</th><th>سقف تعهد</th><th>فرانشیز</th><th>تاریخ</th><th>نوع درمان</th><th>دندان‌پزشک</th><th>نتیجه</th><th>ناخالص</th><th>تخفیف</th><th>سهم بیمه</th><th>خالص</th><th>پرداختی</th><th>باقیمانده</th><th>نوع پرداخت</th><th>وضعیت تسویه</th></tr>
+        <tr><th>نام</th><th>پرونده</th><th>کد ملی</th><th>تلفن</th><th>بیمه پایه</th><th>بیمه تکمیلی</th><th>شماره بیمه</th><th>قرارداد/بیمه‌نامه</th><th>سقف تعهد</th><th>فرانشیز</th><th>تاریخ</th><th>نوع درمان</th><th>دندان‌پزشک</th><th>نتیجه</th><th>ناخالص</th><th>تخفیف</th><th>سهم بیمه</th><th>خالص</th><th>استرداد</th><th>پرداختی</th><th>باقیمانده</th><th>نوع پرداخت</th><th>وضعیت تسویه</th></tr>
         ${rows.slice(0,200).map(r=>`
           <tr>
             <td>${esc(r.patient.name)}</td><td>${r.patient.fileNo}</td><td>${esc(r.patient.nationalId||'-')}</td><td>${esc(r.patient.phone||'-')}</td>
             <td>${esc(r.patient.baseInsurance||r.patient.insuranceType||'بدون بیمه')}</td><td>${esc(r.patient.supplementalInsurance||'ندارد')}</td><td>${esc(r.patient.insuranceNumber||'-')}</td><td>${esc(r.patient.policyNumber||'-')}</td><td>${r.patient.coverageCeiling?fmtMoney(r.patient.coverageCeiling):'-'}</td><td>${Number(r.patient.franchisePercent||0)}%</td>
             <td>${r.visit? fmtDateFa(r.visit.date):'-'}</td><td>${r.visit? esc(r.visit.treatmentType):'-'}</td><td>${r.visit&&r.visit.dentistId? esc((STATE.dentists.find(d=>d.id===r.visit.dentistId)||{}).name||''):'-'}</td><td>${r.visit? esc(r.visit.outcome||''):'-'}</td>
-            ${(()=>{const f=r.visit?financeOf(r.visit):null; const st=f?(f.net===0?'رایگان':(f.balance===0?'تسویه‌شده':(f.paid>0?'تسویه جزئی / بدهکار':'بدهکار'))):'-'; return `<td>${f?fmtMoney(f.gross):'-'}</td><td>${f?fmtMoney(f.discount):'-'}</td><td>${f?fmtMoney(f.insurance):'-'}</td><td>${f?fmtMoney(f.net):'-'}</td><td>${f?fmtMoney(f.paid):'-'}</td><td>${f?fmtMoney(f.balance):'-'}</td><td>${f?esc(f.paymentType||'-'):'-'}</td><td>${st}</td>`})()}
+            ${(()=>{const f=r.visit?financeOf(r.visit):null; const st=f?(f.net===0?'رایگان':(f.balance===0?'تسویه‌شده':(f.paid>0?'تسویه جزئی / بدهکار':'بدهکار'))):'-'; return `<td>${f?fmtMoney(f.gross):'-'}</td><td>${f?fmtMoney(f.discount):'-'}</td><td>${f?fmtMoney(f.insurance):'-'}</td><td>${f?fmtMoney(f.net):'-'}</td><td>${f?fmtMoney(f.refund):'-'}</td><td>${f?fmtMoney(f.paid):'-'}</td><td>${f?fmtMoney(f.balance):'-'}</td><td>${f?esc(f.paymentType||'-'):'-'}</td><td>${st}</td>`})()}
           </tr>
         `).join('')}
       </table>${rows.length>200? `<div class="empty">فقط ۲۰۰ ردیف اول نمایش داده می‌شود — برای مشاهده‌ی کامل، خروجی بگیرید.</div>`:''}` : `<div class="empty">نتیجه‌ای یافت نشد</div>`}
@@ -2459,7 +2382,7 @@ function getReportRowsForExport(){
     }
     return true;
   });
-  const header = ['نام بیمار','شماره پرونده','کد ملی','تلفن','بیمه پایه','بیمه تکمیلی','شماره بیمه / بیمه‌شده','شماره بیمه‌نامه / قرارداد','سقف تعهد بیمه','فرانشیز درصد','تاریخ','نوع درمان','دندان‌پزشک','نتیجه','مبلغ ناخالص (تومان)','تخفیف (تومان)','سهم بیمه (تومان)','خالص قابل پرداخت (تومان)','پرداخت نقدی','پرداخت کارتخوان','انتقال بانکی','سایر پرداخت','کل پرداختی','باقیمانده','نوع پرداخت','وضعیت تسویه'];
+  const header = ['نام بیمار','شماره پرونده','کد ملی','تلفن','بیمه پایه','بیمه تکمیلی','شماره بیمه / بیمه‌شده','شماره بیمه‌نامه / قرارداد','سقف تعهد بیمه','فرانشیز درصد','تاریخ','نوع درمان','دندان‌پزشک','نتیجه','مبلغ ناخالص (تومان)','تخفیف (تومان)','سهم بیمه (تومان)','خالص قابل پرداخت (تومان)','پرداخت نقدی','پرداخت کارتخوان','انتقال بانکی','سایر پرداخت','استرداد وجه','کل پرداختی','باقیمانده','نوع پرداخت','وضعیت تسویه'];
   const body = rows.map(r=>{
     const f=r.visit?financeOf(r.visit):null;
     return [
@@ -2468,7 +2391,7 @@ function getReportRowsForExport(){
       r.visit&&r.visit.dentistId? (STATE.dentists.find(d=>d.id===r.visit.dentistId)||{}).name||'':'',
       r.visit? r.visit.outcome||'':'',
       f?f.gross:'', f?f.discount:'', f?f.insurance:'', f?f.net:'',
-      f?f.cash:'', f?f.card:'', f?f.transfer:'', f?f.other:'', f?f.paid:'', f?f.balance:'',
+      f?f.cash:'', f?f.card:'', f?f.transfer:'', f?f.other:'', f?f.refund:'', f?f.paid:'', f?f.balance:'',
       f?f.paymentType:'', f?(f.net===0?'رایگان':(f.balance===0?'تسویه‌شده':(f.paid>0?'تسویه‌جزئی / بدهکار':'بدهکار'))):''
     ];
   });
@@ -2504,10 +2427,15 @@ function renderBackup(){
     <div class="card">
       <h3>ارسال برنامه به دستگاه دیگر</h3>
       <p style="font-size:13px;color:var(--muted)">یک نسخه از خود برنامه (با یا بدون اطلاعات) بسازید تا روی گوشی یا لپ‌تاپ دیگر منتقل کنید.</p>
-      <div class="row">
-        <button class="btn btn-gold col" onclick="exportAppTransfer(true)">با اطلاعات</button>
-        <button class="btn btn-outline col" onclick="exportAppTransfer(false)">بدون اطلاعات (خالی)</button>
+      <div class="grid2">
+        <button class="btn btn-gold" onclick="shareAppTransfer(true)">📤 ارسال با اطلاعات</button>
+        <button class="btn btn-outline" onclick="shareAppTransfer(false)">📤 ارسال بدون اطلاعات</button>
       </div>
+      <div class="row" style="margin-top:8px">
+        <button class="btn btn-outline col" onclick="exportAppTransfer(true)">دانلود نسخه با اطلاعات</button>
+        <button class="btn btn-outline col" onclick="exportAppTransfer(false)">دانلود نسخه خالی</button>
+      </div>
+      <div class="notice" style="margin-top:9px">با گزینه «ارسال»، فهرست اشتراک‌گذاری خود گوشی باز می‌شود؛ هر پیام‌رسان نصب‌شده مانند واتساپ، تلگرام، بله و سایر برنامه‌های سازگار در همان فهرست قابل انتخاب است.</div>
     </div>
 
     <div class="sectionTitle">تاریخچه‌ی پشتیبان‌ها (${history.length})</div>
@@ -2615,6 +2543,45 @@ function performRestore(snap, mode){
 }
 
 /* ---------- ارسال برنامه به دستگاه دیگر ---------- */
+async function shareAppTransfer(withData){
+  // Build the same standalone transferable app used by the download action.
+  const htmlTemplate = document.documentElement.outerHTML;
+  let finalHtml = htmlTemplate;
+  const dataToEmbed = withData ? DEFAULT_STATE_MERGE() : DEFAULT_STATE();
+  const declPrefix = 'const EMBEDDED_STATE = ' + '___LB_BOOT' + '_STATE_SENTINEL___;';
+  const declReplacement = 'const EMBEDDED_STATE = ' + JSON.stringify(dataToEmbed) + ';';
+  const lastIdx = finalHtml.lastIndexOf(declPrefix);
+  if(lastIdx !== -1){
+    finalHtml = finalHtml.slice(0,lastIdx) + declReplacement + finalHtml.slice(lastIdx+declPrefix.length);
+  }
+  const blob = new Blob([finalHtml], {type:'text/html'});
+  const fileName = withData ? 'DENTYAR-با-اطلاعات.html' : 'DENTYAR-خالی.html';
+  const file = new File([blob], fileName, {type:'text/html'});
+
+  // Android/iOS native share sheet: exposes WhatsApp, Telegram, Bale, etc.
+  // according to whatever compatible apps are actually installed on the device.
+  try{
+    if(navigator.share){
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        await navigator.share({
+          title:'DENTYAR — Your Smart Dental Assistant',
+          text:withData ? 'نسخه DENTYAR همراه با اطلاعات' : 'نسخه خالی DENTYAR',
+          files:[file]
+        });
+        toast('پنجره ارسال برنامه باز شد');
+        return;
+      }
+      await navigator.share({title:'DENTYAR',text:withData ? 'نسخه DENTYAR همراه با اطلاعات' : 'نسخه خالی DENTYAR'});
+    }
+  }catch(e){
+    if(e && e.name==='AbortError') return;
+    console.warn('Web Share failed:', e);
+  }
+  // Fallback for browsers/WebViews that cannot share files.
+  downloadBlob(new TextEncoder().encode(finalHtml), fileName, 'text/html');
+  toast('اشتراک‌گذاری مستقیم پشتیبانی نشد؛ فایل برای ارسال ذخیره شد');
+}
+
 function exportAppTransfer(withData){
   // Rebuild a full standalone HTML using current DOC as template, embedding (or clearing) state.
   const htmlTemplate = document.documentElement.outerHTML;
@@ -2653,25 +2620,32 @@ function renderSettings(){
     </div>
 
     <div class="card">
+      <h3>تنظیم شاخص‌های داشبورد</h3>
+      <p style="font-size:12px;color:var(--muted);line-height:1.9">همه شاخص‌های استاندارد در برنامه موجودند؛ فقط موارد انتخاب‌شده روی داشبورد نمایش داده می‌شوند.</p>
+      <div class="grid2">${Object.entries({totalPatients:'کل بیماران',newPatients:'بیماران جدید سال',todayVisits:'مراجعات امروز',todayAppointments:'نوبت‌های امروز',treatments:'درمان‌های تکمیل‌شده',ongoing:'درمان‌های در حال انجام',referrals:'ارجاع‌شده',cancelled:'لغوشده',revenue:'خالص خدمات',received:'کل دریافتی',debts:'مطالبات/باقیمانده',insurance:'سهم بیمه',discounts:'کل تخفیف',cash:'دریافت نقدی',nonCash:'دریافت غیرنقدی',refunds:'استرداد وجه',treatmentCount:'تعداد کل درمان‌ها',topTreatment:'پرتکرارترین درمان',dentists:'دندان‌پزشکان',female:'بیماران زن',male:'بیماران مرد'}).map(([k,l])=>`<label class="switchLabel"><input type="checkbox" class="dashMetric" value="${k}" ${(STATE.meta.dashboardMetrics||[]).includes(k)?'checked':''}><span>${l}</span></label>`).join('')}</div>
+      <button class="btn btn-primary btn-block" style="margin-top:10px" onclick="saveDashboardMetrics()">ذخیره شاخص‌های داشبورد</button>
+    </div>
+
+    <div class="card">
       <h3>🔄 بروزرسانی برنامه</h3>
       <div class="updateBox">
         <div class="updateStatus">
-          <span>نسخه نصب‌شده: <b id="currentAppVersion">V22</b></span>
+          <span>نسخه نصب‌شده: <b id="currentAppVersion">V۲۴</b></span>
           <span class="updateBadge" id="updateStateBadge">آماده</span>
         </div>
         <p style="font-size:12px;color:var(--muted);line-height:1.9;margin:6px 0">
           فایل APK نسخه جدید را در این بخش انتخاب کنید. اطلاعات و تنظیمات DENTYAR قبل از بروزرسانی حفظ می‌شوند.
-          <b>این بخش فایل بروزرسانی را برای همین دستگاه نگه می‌دارد؛ نصب نهایی APK توسط سیستم اندروید انجام می‌شود.</b>
+          <b>فایل APK نسخه جدید را اینجا انتخاب و ذخیره کنید؛ سپس «اجرای فایل بروزرسانی» آن را برای نصب به سیستم اندروید تحویل می‌دهد و تأیید نهایی نصب با اندروید است.</b>
         </p>
         <div class="grid2">
-          <div><label>شماره نسخه جدید</label><input id="updateVersionInput" placeholder="مثلاً V23"></div>
+          <div><label>شماره نسخه جدید</label><input id="updateVersionInput" placeholder="مثلاً V24"></div>
           <div><label>عنوان تغییرات</label><input id="updateNoteInput" placeholder="مثلاً اصلاح داشبورد"></div>
         </div>
         <label style="margin-top:8px">فایل APK نسخه جدید</label>
         <input type="file" id="updateApkInput" accept=".apk,application/vnd.android.package-archive">
         <div class="updateActions">
           <button class="btn btn-primary" onclick="saveAppUpdatePackage()">ذخیره نسخه جدید</button>
-          <button class="btn btn-outline" onclick="downloadSavedAppUpdate()">دریافت فایل بروزرسانی</button>
+          <button class="btn btn-outline" onclick="executeSavedAppUpdate()">اجرای فایل بروزرسانی</button>
         </div>
         <div id="savedUpdateInfo" style="font-size:11px;color:var(--muted);margin-top:8px">هنوز فایل بروزرسانی ذخیره نشده است.</div>
       </div>
@@ -2761,6 +2735,7 @@ function setTreatmentPrice(type, value){
   saveState();
   toast('قیمت ذخیره شد');
 }
+function saveDashboardMetrics(){ STATE.meta.dashboardMetrics=Array.from(document.querySelectorAll('.dashMetric:checked')).map(x=>x.value); saveState(); toast('شاخص‌های داشبورد ذخیره شد'); navigate('dashboard'); }
 function saveAppUpdatePackage(){
   const input=document.getElementById('updateApkInput');
   const file=input?.files?.[0];
@@ -2791,6 +2766,23 @@ function saveAppUpdatePackage(){
     };
   };
   reader.readAsArrayBuffer(file);
+}
+function executeSavedAppUpdate(){
+  const req=indexedDB.open('dentyar_updates_v1',1);
+  req.onupgradeneeded=e=>{ if(!e.target.result.objectStoreNames.contains('updates')) e.target.result.createObjectStore('updates',{keyPath:'id'}); };
+  req.onsuccess=e=>{
+    const db=e.target.result; const tx=db.transaction('updates','readonly');
+    tx.objectStore('updates').get('latest').onsuccess=ev=>{
+      const rec=ev.target.result;
+      if(!rec){ modalAlert('بروزرسانی','هنوز فایل APK نسخه جدید ذخیره نشده است.'); db.close(); return; }
+      const url=URL.createObjectURL(rec.blob);
+      const a=document.createElement('a'); a.href=url; a.download=rec.fileName||('DENTYAR-'+rec.version+'.apk'); a.rel='noopener';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),120000);
+      toast('فایل APK اجرا شد؛ نصب نهایی با تأیید اندروید انجام می‌شود');
+      db.close();
+    };
+  };
 }
 function downloadSavedAppUpdate(){
   const req=indexedDB.open('dentyar_updates_v1',1);
@@ -3148,5 +3140,15 @@ startDentyarIDBMirror();
 });
 </script>
 
+
+<script>
+// سراسری: هر متن جدیدی که در رابط کاربری تولید شود نیز با ارقام فارسی نمایش داده می‌شود.
+(function(){
+  const run=()=>toFaTextNodeTree(document.body);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run,{once:true}); else run();
+  const mo=new MutationObserver(()=>run());
+  mo.observe(document.body,{subtree:true,childList:true,characterData:true});
+})();
+</script>
 </body>
 </html>
