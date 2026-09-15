@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>DENTYAR — دستیار هوشمند دندان‌پزشکی | V22</title>
-<script>const DENTYAR_APP_VERSION = "V22";</script>
+<title>DENTYAR — دستیار هوشمند دندان‌پزشکی | V25</title>
+<script>const DENTYAR_APP_VERSION = "V25";</script>
 <meta name="theme-color" content="#0d5150">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
@@ -369,7 +369,7 @@ const DEFAULT_STATE = () => ({
     clinicName:'مطب لبخند زیبا', slogan:'Your Smart Dental Assistant', password:'12345678', profilePassword:'87654321',
     logoDataUrl:null, supportPhone:'', supportEmail:'', fileNoDate:null, fileNoSeq:0, fileNoYear:null, fileNoMode:'continuous', fileNoResetDate:null, createdAt: Date.now(), dashboardMetrics:['totalPatients','newPatients','todayVisits','todayAppointments','treatments','ongoing','completed','referrals','cancelled','revenue','received','debts','insurance','discounts','treatmentCount','topTreatment','dentists'],
     smsConfirmTemplate:'{نام} عزیز، نوبت شما برای تاریخ {تاریخ} ساعت {ساعت} با موفقیت ثبت شد.',
-    smsReminderTemplate:'{نام} عزیز، یک ساعت تا رسیدن نوبت شما در تاریخ {تاریخ} ساعت {ساعت} باقی مانده است.',
+    smsReminderTemplate:'{نام} عزیز، یک ساعت تا رسیدن نوبت شما در تاریخ {تاریخ} ساعت {ساعت} باقی‌مانده است.',
     clinicProfile:{
       legalName:'', managerName:'', medicalDirector:'', clinicPhone:'', clinicMobile:'', clinicEmail:'', website:'',
       address:'', city:'', postalCode:'', licenseNo:'', nationalIdentifier:'', economicCode:'', workingHours:'', emergencyPhone:'', notes:''
@@ -1184,7 +1184,7 @@ const PAGES = [
   {id:'register', label:'ثبت بیمار', icon:'register'},
   {id:'patients', label:'بیماران', icon:'patients'},
   {id:'dentists', label:'دندان‌پزشکان', icon:'dentists'},
-  {id:'reports', label:'گزارشات', icon:'reports'},
+  {id:'reports', label:'گزارش‌ها', icon:'reports'},
   {id:'backup', label:'پشتیبان‌گیری', icon:'backup'},
   {id:'settings', label:'تنظیمات', icon:'settings'},
   {id:'profile', label:'پروفایل', icon:'profile'},
@@ -2244,7 +2244,7 @@ function deleteDentist(id){
     saveState(); renderDentists(); toast('حذف شد');
   });
 }
-/* ===================== گزارشات ===================== */
+/* ===================== گزارش‌ها ===================== */
 let reportFilters = {};
 function renderReports(){
   if(pageParams && Object.keys(pageParams).length){
@@ -2638,7 +2638,7 @@ function renderSettings(){
           <b>فایل APK نسخه جدید را اینجا انتخاب و ذخیره کنید؛ سپس «اجرای فایل بروزرسانی» آن را برای نصب به سیستم اندروید تحویل می‌دهد و تأیید نهایی نصب با اندروید است.</b>
         </p>
         <div class="grid2">
-          <div><label>شماره نسخه جدید</label><input id="updateVersionInput" placeholder="مثلاً V24"></div>
+          <div><label>شماره نسخه جدید</label><input id="updateVersionInput" placeholder="مثلاً V25"></div>
           <div><label>عنوان تغییرات</label><input id="updateNoteInput" placeholder="مثلاً اصلاح داشبورد"></div>
         </div>
         <label style="margin-top:8px">فایل APK نسخه جدید</label>
@@ -3021,7 +3021,7 @@ const GUIDE_SECTIONS = [
   {title:'نوبت‌دهی', text:'برای ثبت یک پیش‌نوبت، نام، شماره تماس، تاریخ و ساعت مدنظر، دندان‌پزشک و نوع درمان احتمالی را وارد کنید. هر زمان بیمار برای درمان مراجعه کرد، با یک کلیک می‌توانید پیش‌نوبت را به ثبت‌نام کامل بیمار تبدیل کنید.'},
   {title:'بیماران', text:'برای ثبت بیمار جدید فقط وارد کردن نام الزامی است. سایر اطلاعات مانند کد ملی، تلفن، جنسیت و آدرس اختیاری هستند. اگر کد ملی تکراری وارد شود، سامانه هشدار می‌دهد. با ورود به پرونده‌ی هر بیمار می‌توانید تاریخچه‌ی مراجعات، هزینه‌ی هر مرحله درمان و فایل‌های پیوستی مانند عکس رادیوگرافی را مدیریت کنید.'},
   {title:'دندان‌پزشکان', text:'می‌توانید دندان‌پزشکان را به‌صورت تکی یا دسته‌جمعی (هر نام در یک خط) اضافه کنید و تخصص هرکدام را مشخص یا ویرایش نمایید.'},
-  {title:'گزارشات', text:'در این بخش می‌توانید با ترکیب چند فیلتر (تاریخ، جنسیت، دندان‌پزشک، نوع درمان، نتیجه) و همچنین جستجوی آزاد، گزارش دلخواه خود را بسازید و آن را به‌صورت فایل CSV یا Excel واقعی (شامل ستون هزینه) دانلود کنید.'},
+  {title:'گزارش‌ها', text:'در این بخش می‌توانید با ترکیب چند فیلتر (تاریخ، جنسیت، دندان‌پزشک، نوع درمان، نتیجه) و همچنین جستجوی آزاد، گزارش دلخواه خود را بسازید و آن را به‌صورت فایل CSV یا Excel واقعی (شامل ستون هزینه) دانلود کنید.'},
   {title:'پشتیبان‌گیری', text:'به‌طور منظم از دکمه‌ی «تهیه‌ی پشتیبان» استفاده کنید تا یک فایل کامل از اطلاعات دانلود شود. برای بازگرداندن اطلاعات، می‌توانید از تاریخچه‌ی داخل برنامه یا فایل دانلودشده استفاده کنید و انتخاب کنید که اطلاعات «ادغام» شود یا به‌طور کامل «جایگزین» گردد. برای انتقال برنامه به گوشی یا لپ‌تاپ دیگر، از گزینه‌ی «ارسال برنامه به دستگاه دیگر» استفاده کنید.'},
   {title:'تنظیمات', text:'از این بخش می‌توانید رمز عبور ورود، نام کلینیک و لیست‌های قابل انتخاب (مانند انواع درمان، نتایج درمان، تخصص‌ها و انواع بیمه) را مدیریت کنید.'},
 ];
