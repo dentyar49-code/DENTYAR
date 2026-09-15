@@ -1,4 +1,4 @@
-name: Build DENTYAR APK
+name: DENTYAR APK Download
 
 on:
   workflow_dispatch:
@@ -11,30 +11,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: دریافت پروژه
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: تنظیم Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: نصب وابستگی‌ها
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
         run: npm install
 
-      - name: ایجاد پروژه Android
+      - name: Prepare web assets
+        run: |
+          mkdir -p www
+          cp index.html manifest.json sw.js www/
+          cp icon-*.png www/
+
+      - name: Add Android
         run: npx cap add android
 
-      - name: همگام‌سازی DENTYAR
+      - name: Sync DENTYAR
         run: npx cap sync android
 
-      - name: ساخت APK
+      - name: Build APK
         working-directory: android
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: ذخیره APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: DENTYAR-APK
