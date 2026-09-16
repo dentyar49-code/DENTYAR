@@ -1,0 +1,12 @@
+{
+  "app": "DENTYAR",
+  "version": "V27",
+  "focus": [
+    "financial-calculation-standardization",
+    "real-file-save-and-share",
+    "truthful-export-status",
+    "transfer-package-share",
+    "persian-jalali-filenames"
+  ],
+  "notes": "APK sharing remains an external build/distribution task; in-app transfer shares an HTML transfer package."
+}
