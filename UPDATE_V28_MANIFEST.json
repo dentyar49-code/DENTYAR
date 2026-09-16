@@ -1,0 +1,15 @@
+{
+  "app": "DENTYAR",
+  "version": "V28",
+  "focus": [
+    "cross-platform-responsive-ui",
+    "safe-area-and-touch-standards",
+    "web-pwa-update-center-in-settings",
+    "android-apk-update-center-in-settings",
+    "indexeddb-data-preservation",
+    "excel-csv-export-preservation",
+    "turquoise-dentyar-branding",
+    "cache-version-v28"
+  ],
+  "notes": "نسخه V28 برای اجرای استاندارد در Android، iPhone/iPad، تبلت و رایانه‌های رومیزی/لپ‌تاپ به‌صورت Web/PWA آماده شده است. بروزرسانی وب از داخل تنظیمات انجام می‌شود و بسته APK نیز برای Android از همان بخش قابل مدیریت است."
+}

@@ -5,15 +5,17 @@
   "description": "DENTYAR — Your Smart Dental Assistant",
   "lang": "fa-IR",
   "dir": "rtl",
-  "start_url": "./index.html",
+  "start_url": "./index.html?v=28",
   "scope": "./",
   "display": "standalone",
   "display_override": [
     "window-controls-overlay",
-    "standalone"
+    "standalone",
+    "minimal-ui",
+    "browser"
   ],
-  "orientation": "portrait-primary",
-  "background_color": "#ffffff",
+  "orientation": "any",
+  "background_color": "#f4f8f7",
   "theme_color": "#0f766e",
   "prefer_related_applications": false,
   "icons": [
