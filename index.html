@@ -2497,6 +2497,56 @@ table{background:#0a3937!important;color:#e7f5f3!important}th{background:#0e514d
 #dentyarBottomSafeBar{position:fixed;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg,#075e59,#18c4bb,#075e59);box-shadow:0 -1px 9px rgba(24,196,187,.42);z-index:1200;padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box;pointer-events:none}
 </style>
 
+<style id="dentyar-v30-fix-header-align-bottombar">
+/* اصلاح هدفمند سه مورد گزارش‌شده — بدون تغییر رنگ/تم/محتوای دیگر:
+   ۱) عدم تراز عمودی لگوها (یکی بالا یکی پایین)
+   ۲) بریده‌شدن/پنهان‌شدن نام مطب در سمت راست هدر
+   ۳) نوار فیروزه‌ای پایین صفحه که به‌سختی دیده می‌شد
+   این بلوک آخرین بخش استایل صفحه است تا بدون حذف بلوک‌های قبلی، به‌صورت قطعی اعمال شود. */
+
+/* هر دو طرف هدر (خروج/مطب) دقیقاً یک transform و یک ارتفاع یکسان داشته باشند،
+   در همه‌ی breakpointها — تا هیچ‌وقت یکی بالاتر یا پایین‌تر از دیگری نیفتد */
+#topHeader{align-items:stretch!important;}
+#topHeader .headerSide{
+  transform:none!important;
+  justify-content:center!important;
+  height:auto!important;
+  align-self:stretch!important;
+}
+#topHeader .appBrand{align-self:stretch!important;justify-content:center!important;}
+
+/* عرض ستون سمت راست/چپ هدر و عرض مجاز متن، همیشه هماهنگ با عرض واقعی گرید باشند
+   تا نام مطب (سمت راست) هرگز بریده یا پنهان نشود */
+#topHeader{grid-template-columns:minmax(56px,72px) minmax(0,1fr) minmax(56px,72px)!important;}
+#topHeader .clinicSideName,#topHeader .logoutLabel{
+  max-width:100%!important;
+  width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  display:block!important;
+}
+@media(max-width:480px){
+  #topHeader{grid-template-columns:minmax(48px,60px) minmax(0,1fr) minmax(48px,60px)!important;}
+}
+@media(max-width:380px){
+  #topHeader{grid-template-columns:minmax(42px,52px) minmax(0,1fr) minmax(42px,52px)!important;}
+}
+
+/* شبکه‌ی ایمنی مستقل از اندازه‌گیری JS: اگر syncFixedTopHeight به هر دلیلی دیر اجرا شود،
+   محتوای صفحه هرگز زیر هدر ثابت پنهان نمی‌ماند. مقدار fallback از رندر واقعی JS بزرگ‌تر انتخاب شده
+   تا فقط در لحظه‌ی کوتاه بارگذاری اولیه به کار بیاید و مقدار دقیق JS بلافاصله جایگزینش می‌شود. */
+#app{padding-top:150px;}
+@media(max-width:480px){#app{padding-top:130px;}}
+
+/* نوار فیروزه‌ای پایین: ارتفاع بیشتر و z-index بالاتر از هر عنصر دیگر صفحه تا همیشه قابل مشاهده باشد */
+#dentyarBottomSafeBar{
+  height:10px!important;
+  z-index:999999!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+
 </head><body>
       <h2>DENTYAR</h2>
       <div class="muted">${esc(STATE.meta.slogan||'')}</div>
