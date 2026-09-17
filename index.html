@@ -2182,374 +2182,8 @@ function printReceipt(patientId, visitId){
       td:first-child{color:#6b7c88;}
       .total{font-size:17px;font-weight:bold;color:#1e8f5f;text-align:left;margin-top:16px;}
       .footer{margin-top:30px;font-size:12px;color:#6b7c88;text-align:center;}
-    
-  /* DENTYAR typography & premium card refinement */
-  :root{
-    --font-fa:"Vazirmatn","IRANSansX","Yekan Bakh","Shabnam",Tahoma,Arial,sans-serif;
-    --font-en:"Inter","Segoe UI",Arial,sans-serif;
-    --card:#ffffff;
-    --card-soft:#f5fafb;
-    --card-blue:#f3f7fb;
-    --card-teal:#eff9f8;
-    --border:#d7e2e7;
-  }
-  html,body{font-family:var(--font-fa);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
-  body{font-weight:500;}
-  h1,h2,h3,h4,h5,h6,.clinicName,.clinicSlogan,.sectionTitle,.statCard .num,.btn,.badge,th,b,strong{font-weight:800;}
-  .clinicName{font-family:var(--font-fa);font-size:18px!important;}
-  #topHeader .clinicSlogan{font-size:14px!important;line-height:1.5;}
-  .card{padding:16px!important;margin-bottom:13px!important;border:1px solid var(--border)!important;border-radius:16px!important;background:linear-gradient(145deg,#fff 0%,var(--card-soft) 100%)!important;box-shadow:0 5px 18px rgba(21,58,99,.07)!important;}
-  .card h3{font-size:16px!important;line-height:1.6;margin-bottom:11px!important;letter-spacing:-.1px;}
-  label{font-size:14px!important;font-weight:700!important;line-height:1.6;margin:8px 0 5px!important;}
-  input,select,textarea{font-size:16px!important;font-weight:600!important;line-height:1.6!important;padding:10px 12px!important;border-radius:10px!important;}
-  .btn{font-size:15px!important;padding:10px 16px!important;line-height:1.5;}
-  .btn-sm{font-size:13px!important;padding:7px 11px!important;}
-  table{font-size:14px!important;}
-  th,td{padding:9px 7px!important;line-height:1.6;}
-  th{font-weight:800!important;}
-  .statCard .num{font-size:18px!important;}
-  .statCard .lbl{font-size:12px!important;}
-  .badge{font-size:13px!important;padding:4px 9px!important;}
-  .empty{font-size:15px!important;}
-  .sectionTitle{font-size:14px!important;}
-  .kv{font-size:15px!important;padding:8px 0;}
-  .chip{font-size:14px!important;padding:7px 13px!important;}
-  .tabBar button{font-size:15px!important;padding:10px!important;}
-  .modalBox h3{font-size:18px!important;}
-  #lockScreen h2{font-size:24px!important;font-weight:900!important;}
-  #lockScreen .lockSlogan{font-family:var(--font-en);font-size:15px!important;font-weight:800!important;}
-  #lockError{font-size:14px!important;}
-  #lockHint{font-size:13px!important;}
-  .pinPad button{font-size:21px!important;}
-  /* English labels and slogan: cleaner premium sans-serif */
-  [lang="en"],.en,.english{font-family:var(--font-en)!important;letter-spacing:.15px;}
-  @media(max-width:480px){
-    html,body{font-size:15.5px;}
-    .card{padding:14px!important;}
-    .card h3{font-size:15.5px!important;}
-    input,select,textarea{font-size:15.5px!important;}
-  }
-</style><style>
-/* ===== DENTYAR V5 — readability and logo reliability ===== */
-:root{
-  --font-fa:"Tahoma","Vazirmatn","IRANSansX","IRANSans","Segoe UI",Arial,sans-serif;
-  --font-en:Georgia,"Times New Roman","Segoe UI",serif;
-}
-html,body{font-family:var(--font-fa)!important;font-size:18px!important;line-height:1.9!important;color:#173544!important;font-weight:700!important;}
-body *{text-rendering:optimizeLegibility;}
-.clinicName{font-size:21px!important;font-weight:900!important;color:#123b5d!important;}
-.brandEn{font-family:var(--font-en)!important;font-size:16px!important;font-weight:800!important;color:#7a5a10!important;}
-.brandFa{font-size:16px!important;font-weight:900!important;color:#123b5d!important;}
-.card{background:#fff!important;border:1px solid #d2e0e5!important;box-shadow:0 5px 18px rgba(18,59,93,.09)!important;border-radius:16px!important;padding:18px!important;}
-.card h3{font-size:19px!important;font-weight:900!important;color:#123b5d!important;}
-.sectionTitle{font-size:17px!important;font-weight:900!important;color:#173f55!important;}
-label{font-size:17px!important;font-weight:800!important;color:#284a5b!important;}
-input,select,textarea{font-size:18px!important;font-weight:700!important;color:#173544!important;line-height:1.7!important;padding:12px 13px!important;}
-input::placeholder,textarea::placeholder{font-size:17px!important;font-weight:600!important;color:#607783!important;opacity:1!important;}
-.btn{font-size:17px!important;font-weight:900!important;min-height:48px!important;}
-.btn-sm{font-size:15px!important;font-weight:800!important;min-height:42px!important;}
-table{font-size:16.5px!important;}
-th{font-size:16.5px!important;font-weight:900!important;color:#24485a!important;}
-td{font-size:16px!important;font-weight:700!important;color:#203d4b!important;}
-.kv{font-size:17px!important;font-weight:700!important;}
-.badge{font-size:15px!important;font-weight:900!important;}
-.chip{font-size:16px!important;font-weight:800!important;}
-.tabBar button{font-size:16px!important;font-weight:900!important;}
-.navItem{font-size:15px!important;font-weight:900!important;}
-.statCard .num{font-size:21px!important;font-weight:900!important;}
-.statCard .lbl{font-size:15px!important;font-weight:800!important;}
-.empty{font-size:17px!important;font-weight:700!important;}
-#topHeader .clinicLogo{width:58px!important;height:58px!important;border-radius:50%!important;object-fit:cover!important;background:#fff!important;display:block!important;}
-#lockScreen .lockLogo{width:165px!important;height:165px!important;object-fit:cover!important;background:#000!important;border-radius:50%!important;padding:0!important;box-shadow:0 10px 32px rgba(18,59,93,.20)!important;}
-#lockScreen h2{font-size:32px!important;font-weight:900!important;}
-#lockScreen .lockSlogan{font-size:16px!important;font-weight:800!important;}
-#lockHint{font-size:14px!important;font-weight:700!important;}
-#lockError{font-size:15px!important;font-weight:800!important;}
-@media(max-width:480px){
-  html,body{font-size:17px!important;}
-  .card{padding:16px!important;}
-  .card h3{font-size:18px!important;}
-  label{font-size:16.5px!important;}
-  input,select,textarea{font-size:17px!important;}
-  .btn{font-size:16px!important;}
-  table{font-size:15.5px!important;}
-  th{font-size:15.5px!important;}
-  td{font-size:15px!important;}
-  .navItem{font-size:14.5px!important;}
-}
-<style>
-/* ===== DENTYAR V7 — استانداردسازی امور مالی ===== */
-.financeSummary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0;padding:10px;border:1px solid #d9e7ec;border-radius:12px;background:#f7fbfc}
-.financeSummary div{display:flex;justify-content:space-between;gap:8px;padding:7px 8px;border-radius:8px;background:#fff}
-.financeSummary span{color:#355463;font-size:14px;font-weight:700}
-.financeSummary b{color:#123b5d;font-size:14px;font-weight:900}
-.financeMini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:9px;padding:8px;background:#f7fbfc;border:1px solid #e0eaee;border-radius:10px}
-.financeMini span{font-size:13px;color:#355463}
-.financeMini b{font-weight:900;color:#173d4d}
-@media(min-width:650px){.financeSummary{grid-template-columns:repeat(4,minmax(0,1fr));}.financeMini{grid-template-columns:repeat(3,minmax(0,1fr));}}
-</style>
-<style id="dentyar-update-styles">
-.updateBox{border:1px solid var(--border);border-radius:14px;padding:12px;background:linear-gradient(180deg,#fbffff,#f7fbfb)}
-.updateStatus{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:8px 0;font-size:12px}
-.updateBadge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#e8f5f3;color:#0f766e;font-weight:800}
-.updateActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
-@media(max-width:560px){.updateActions{grid-template-columns:1fr}.updateBox{padding:10px}}
-</style>
+    </style>
 
-/* ==================== DENTYAR V28 — Cross-platform responsive layer ==================== */
-:root{--safe-top:env(safe-area-inset-top,0px);--safe-right:env(safe-area-inset-right,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px);}
-html{min-height:100%;background:var(--v26-bg,#f4f8f7);-webkit-text-size-adjust:100%;text-size-adjust:100%;}
-body{min-height:100%;width:100%;overflow-x:hidden;padding-bottom:var(--safe-bottom);}
-button,input,select,textarea{touch-action:manipulation;}
-input,select,textarea{max-width:100%;}
-#fixedTop{padding-top:var(--safe-top);}
-#topHeader{width:100%;grid-template-columns:minmax(72px,96px) minmax(0,1fr) minmax(72px,96px);}
-#topHeader .appLogo{object-fit:contain;background:#fff;}
-#bottomNav{padding-bottom:calc(7px + var(--safe-bottom));}
-#app{width:100%;max-width:none!important;padding-left:0!important;padding-right:0!important;}
-#pageContent,.page{width:min(100% - 20px,1180px);max-width:1180px!important;}
-#pageContent{margin-inline:auto;}
-.card{min-width:0;overflow:hidden;}
-.row{flex-wrap:wrap;}
-.row>.col{min-width:0;}
-.grid2,.grid3{width:100%;}
-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;}
-.modalBox{padding-bottom:calc(14px + var(--safe-bottom));}
-.fab{bottom:calc(18px + var(--safe-bottom));}
-.updateBox{width:100%;}
-.updateActions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
-.platformBadge{display:inline-flex;align-items:center;justify-content:center;padding:4px 9px;border-radius:999px;background:var(--v26-mint,#e9f7f5);color:var(--v26-teal-dark,#0b5e58);font-size:11px;font-weight:800;}
-.updateHint{font-size:12px;line-height:1.9;color:var(--v26-muted,#607477);background:#f6fbfa;border:1px solid var(--v26-line,#d6e4e1);border-radius:10px;padding:9px;margin-top:8px;}
-@media (min-width:768px){
-  #topHeader{padding-inline:24px;grid-template-columns:110px minmax(260px,1fr) 110px;}
-  #topHeader .headerSide{width:100px;}
-  #topHeader .appLogo{width:88px;height:88px;}
-  #topHeader .appName{font-size:22px;}
-  #topHeader .appSlogan{font-size:12px;}
-  #bottomNav{justify-content:center;gap:8px;overflow-x:auto;}
-  .page{padding:14px;}
-  #pageContent{padding-bottom:40px;}
-}
-@media (min-width:1200px){
-  #topHeader{padding-inline:36px;}
-  .card{padding:16px!important;}
-}
-@media (max-width:767px){
-  #pageContent,.page{width:calc(100% - 12px);}
-  .grid2,.grid3{grid-template-columns:1fr;}
-  .updateActions{grid-template-columns:1fr;}
-  .row{gap:7px;}
-  .row>.btn{width:100%;}
-  #topHeader .appSlogan{max-width:45vw;overflow:hidden;text-overflow:ellipsis;}
-}
-@media (max-width:420px){
-  #topHeader{grid-template-columns:62px minmax(0,1fr) 62px;padding-inline:6px;}
-  #topHeader .headerSide{width:58px;}
-  #topHeader .appLogo{width:62px;height:62px;}
-  #topHeader .appName{font-size:17px;}
-  #topHeader .appSlogan{font-size:8.5px;}
-  #topHeader .clinicLogo,#topHeader .logoutBtn{width:48px!important;height:48px!important;flex-basis:48px!important;}
-  #topHeader .clinicSideName,#topHeader .logoutLabel{font-size:10px;max-width:64px;}
-}
-@media (orientation:landscape) and (max-height:600px){
-  #topHeader{grid-template-columns:74px minmax(0,1fr) 74px;padding-block:4px;}
-  #topHeader .headerSide{height:64px;transform:none;}
-  #topHeader .appLogo{width:50px;height:50px;}
-  #topHeader .clinicLogo,#topHeader .logoutBtn{width:44px!important;height:44px!important;flex-basis:44px!important;}
-  #topHeader .appName{font-size:16px;}
-  #topHeader .appSlogan{font-size:8px;}
-  #topHeader .clinicSideName,#topHeader .logoutLabel{font-size:9px;height:12px;line-height:12px;margin-top:1px;}
-}
-@media (min-width:768px) and (max-width:1024px){
-  .grid2{grid-template-columns:repeat(2,minmax(0,1fr));}
-  .grid3{grid-template-columns:repeat(2,minmax(0,1fr));}
-}
-@media (pointer:coarse){
-  .btn,.navItem{min-height:44px;}
-  .navItem{padding-inline:12px;}
-}
-@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}}
-
-
-
-<style id="dentyar-v29-final-polish">
-:root{
-  --dty-teal:#0f766e;--dty-teal-2:#14b8a6;--dty-deep:#073b3a;--dty-bg:#e8f1ef;
-  --dty-card:#f5faf9;--dty-line:#b9d9d4;--dty-text:#123c3b;
-}
-html,body{background:linear-gradient(180deg,#dfeceb 0%,#e9f2f1 38%,#dce9e7 100%)!important;color:var(--dty-text)!important;}
-body{font-size:14px!important;font-weight:600!important;}
-#fixedTop{border:1px solid #79bdb7!important;border-top:0!important;border-radius:0 0 16px 16px!important;background:rgba(236,248,246,.98)!important;box-shadow:0 7px 24px rgba(5,75,71,.18)!important;overflow:hidden;}
-#topHeader{min-height:78px!important;padding:5px 10px 6px!important;grid-template-columns:58px minmax(0,1fr) 58px!important;background:linear-gradient(180deg,#edf9f7,#dff0ee)!important;border-bottom:0!important;gap:5px!important;}
-#topHeader .headerSide{width:54px!important;height:68px!important;transform:none!important;justify-content:flex-start!important;gap:2px!important;}
-#topHeader .appBrand{min-width:0!important;}
-#topHeader .appLogo{width:56px!important;height:56px!important;border-radius:15px!important;background:#f7fffe!important;border:2px solid #8ad3cb!important;box-shadow:0 3px 12px rgba(15,118,110,.2)!important;object-fit:contain!important;}
-#topHeader .appName{font-size:19px!important;color:var(--dty-deep)!important;margin-top:2px!important;letter-spacing:1px!important;}
-#topHeader .appSlogan{font-size:9px!important;color:#0f766e!important;margin-top:1px!important;max-width:100%!important;}
-#topHeader .clinicLogo,#topHeader .logoutBtn{width:44px!important;height:44px!important;flex-basis:44px!important;border-radius:13px!important;}
-#topHeader .clinicLogo{border:2px solid #8ad3cb!important;background:#f7fffe!important;}
-#topHeader .clinicSideName,#topHeader .logoutLabel{font-size:9px!important;line-height:12px!important;height:12px!important;color:#075e59!important;max-width:58px!important;margin-top:1px!important;}
-#topHeader .logoutBtn{background:linear-gradient(145deg,#0f766e,#0a5c57)!important;box-shadow:0 3px 10px rgba(15,118,110,.25)!important;}
-#dentyarAccentBar{height:6px!important;background:linear-gradient(90deg,#075e59 0%,#0f766e 25%,#14b8a6 50%,#5eead4 72%,#0f766e 100%)!important;box-shadow:0 1px 7px rgba(15,118,110,.45)!important;}
-#bottomNav{background:#d9ece9!important;border-top:0!important;padding:5px 7px!important;gap:5px!important;}
-.navItem{min-height:38px!important;padding:6px 9px!important;border-radius:11px!important;border:1px solid #acd2cd!important;background:#edf8f6!important;color:#075e59!important;font-size:11px!important;box-shadow:0 2px 5px rgba(7,80,76,.07)!important;}
-.navItem.active{background:linear-gradient(135deg,#075e59,#14a89d)!important;border-color:#075e59!important;color:#fff!important;box-shadow:0 4px 11px rgba(7,94,89,.24)!important;}
-#app{background:transparent!important;}
-.page,#pageContent{width:min(calc(100% - 16px),1180px)!important;max-width:1180px!important;margin-inline:auto!important;}
-.page{padding:9px 0 28px!important;}
-.card{background:linear-gradient(145deg,#f9fdfc,#eaf4f2)!important;border:1px solid #b9d9d4!important;border-radius:15px!important;box-shadow:0 5px 16px rgba(7,76,72,.09)!important;padding:11px!important;}
-.card h3,.sectionTitle{color:#075e59!important;font-weight:900!important;}
-.sectionTitle{font-size:15px!important;margin:9px 2px!important;}
-.statGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;}
-.statCard{min-height:76px!important;padding:8px 6px!important;border-radius:14px!important;background:linear-gradient(145deg,#f6fbfa,#dcecea)!important;border:1px solid #b9d9d4!important;box-shadow:0 4px 12px rgba(7,76,72,.08)!important;}
-.statCard .num{font-size:15px!important;color:#075e59!important;}
-.statCard .lbl{font-size:10px!important;color:#355e5b!important;}
-.statCard .iconBadge{background:#cce9e5!important;border:1px solid #a4d7d1!important;}
-.financeSummary{gap:7px!important;}
-.financeSummary>div{background:#e3f1ef!important;border:1px solid #b9d9d4!important;border-radius:11px!important;padding:8px!important;}
-input[type=text],input[type=number],input[type=date],input[type=time],input[type=tel],input[type=password],select,textarea{background:#f4f9f8!important;border-color:#b8d5d1!important;color:#123c3b!important;min-height:40px!important;}
-.btn-primary,.btn-navy{background:linear-gradient(135deg,#075e59,#14a89d)!important;}
-.btn-outline{background:#eef9f7!important;color:#0f766e!important;border-color:#69bdb5!important;}
-table{font-size:12px!important;background:#f7fbfa!important;border-radius:10px!important;overflow:hidden;}
-th{background:#dceeea!important;color:#075e59!important;}
-th,td{padding:8px 6px!important;}
-/* never allow fixed chrome to cover content */
-@media(max-width:767px){
-  #topHeader{grid-template-columns:52px minmax(0,1fr) 52px!important;}
-  #topHeader .headerSide{width:50px!important;}
-  #topHeader .appLogo{width:50px!important;height:50px!important;}
-  #topHeader .appName{font-size:17px!important;}
-  #topHeader .appSlogan{font-size:8px!important;}
-  #topHeader .clinicLogo,#topHeader .logoutBtn{width:40px!important;height:40px!important;flex-basis:40px!important;}
-  #topHeader .clinicSideName,#topHeader .logoutLabel{font-size:8px!important;max-width:50px!important;}
-  .navItem{font-size:10.5px!important;padding-inline:8px!important;}
-  .page{padding-top:7px!important;}
-}
-@media(max-width:380px){.statGrid{grid-template-columns:1fr!important}.navItem{padding-inline:7px!important;font-size:10px!important}.card{padding:9px!important}}
-</style>
-<style id="dentyar-v29-premium">
-/* DENTYAR V30 — premium dental identity */
-html,body{background:linear-gradient(180deg,#f1f8f7 0%,#f8fbfa 42%,#eef5f4 100%)!important;}
-#fixedTop{background:rgba(255,255,255,.96)!important;backdrop-filter:blur(12px);box-shadow:0 5px 22px rgba(10,80,76,.08)!important;}
-#topHeader{border-bottom:0!important;background:linear-gradient(180deg,#ffffff 0%,#f8fcfb 100%)!important;}
-#dentyarAccentBar{height:5px!important;width:100%;background:linear-gradient(90deg,#0b5e58 0%,#12a6a0 45%,#42c7bf 70%,#0f766e 100%);box-shadow:0 1px 6px rgba(15,118,110,.24);}
-#bottomNav{border-top:1px solid #d7ebe8!important;background:rgba(255,255,255,.97)!important;}
-.navItem{border-radius:12px!important;border:1px solid transparent!important;}
-.navItem.active{background:linear-gradient(135deg,#0b5e58,#149c9a)!important;border-color:#0b5e58!important;box-shadow:0 5px 14px rgba(15,118,110,.2)!important;}
-.card{background:linear-gradient(145deg,#ffffff 0%,#f9fdfc 100%)!important;border-color:#d4e8e5!important;box-shadow:0 5px 18px rgba(17,83,79,.07)!important;}
-.card h3{letter-spacing:-.15px!important;}
-.statCard{background:linear-gradient(145deg,#ffffff,#f4faf9)!important;border:1px solid #d4e8e5!important;box-shadow:0 4px 14px rgba(17,83,79,.07)!important;}
-.statCard .iconBadge{background:#e5f6f3!important;color:#0f766e!important;}
-.statCard .num{color:#123f40!important;font-weight:900!important;}
-.statCard .lbl{color:#4d696b!important;font-weight:800!important;}
-.financeSummary{background:linear-gradient(135deg,#e9f8f5,#f7fcfb)!important;border-color:#c5e6e1!important;}
-.financeSummary>div{border-radius:10px;padding:7px 8px;background:rgba(255,255,255,.58);border:1px solid rgba(198,228,224,.7);}
-.sectionTitle{color:#0b5e58!important;font-weight:900!important;}
-.btn-primary{background:linear-gradient(135deg,#0b5e58,#159f9a)!important;border-color:#0b5e58!important;}
-.btn-outline{background:#fff!important;border-color:#159f9a!important;color:#0b766f!important;}
-.updateBox{border-color:#c5e6e1!important;background:linear-gradient(145deg,#ffffff,#f1faf8)!important;box-shadow:0 5px 18px rgba(17,83,79,.06);}
-.updateBadge,.platformBadge{background:#e4f7f4!important;color:#0b6c66!important;}
-@media(max-width:700px){#dentyarAccentBar{height:4px!important}.card{border-radius:13px!important}.statCard{padding:10px!important}}
-</style>
-
-<style id="dentyar-v30-ui">
-:root{
-  --d30-deep:#062f2e;--d30-deep2:#0a403e;--d30-panel:#0e4a47;--d30-panel2:#125551;
-  --d30-teal:#18c4bb;--d30-teal2:#0e9f99;--d30-line:#2b6d69;--d30-text:#eaf8f6;--d30-muted:#a9cfcb;
-  --d30-soft:#dff4f1;--d30-gold:#d9b46b;--d30-red:#e06c67;
-}
-html,body{background:radial-gradient(circle at 50% -10%,#155d58 0%,#082f2e 45%,#041f1f 100%)!important;color:var(--d30-text)!important;min-height:100%;overflow-x:hidden;}
-body{font-size:14px!important;line-height:1.7!important;font-weight:600!important;padding-bottom:calc(10px + env(safe-area-inset-bottom))!important;}
-#fixedTop{background:rgba(5,42,41,.97)!important;border:1px solid rgba(24,196,187,.45)!important;border-top:0!important;box-shadow:0 8px 26px rgba(0,0,0,.34)!important;overflow:hidden;backdrop-filter:blur(14px);}
-#topHeader{background:linear-gradient(180deg,#0d4a47,#082f2e)!important;border-bottom:0!important;grid-template-columns:64px minmax(0,1fr) 64px!important;padding:7px 9px 8px!important;gap:6px!important;}
-#topHeader .headerSide{width:58px!important;height:72px!important;transform:none!important;}
-#topHeader .appLogo{width:58px!important;height:58px!important;border-radius:15px!important;background:#eaf9f7!important;border:2px solid var(--d30-teal)!important;box-shadow:0 0 0 2px rgba(24,196,187,.08),0 5px 18px rgba(0,0,0,.3)!important;object-fit:contain!important;}
-#topHeader .appName{font-size:20px!important;color:#ecfffd!important;letter-spacing:1.2px!important;margin-top:2px!important;}
-#topHeader .appSlogan{font-size:9.5px!important;color:#8ce8e2!important;}
-#topHeader .clinicLogo,#topHeader .logoutBtn{width:48px!important;height:48px!important;flex-basis:48px!important;border-radius:14px!important;}
-#topHeader .clinicLogo{border:2px solid var(--d30-teal)!important;background:#eaf9f7!important;}
-#topHeader .clinicSideName,#topHeader .logoutLabel{font-size:9px!important;line-height:12px!important;height:12px!important;color:#b9e6e2!important;max-width:62px!important;margin-top:3px!important;}
-#topHeader .logoutBtn{background:linear-gradient(145deg,#18a9a1,#08716c)!important;box-shadow:0 4px 13px rgba(0,0,0,.28)!important;}
-#dentyarAccentBar{height:6px!important;background:linear-gradient(90deg,#063e3b,#0d8f89,#18c4bb,#0d8f89,#063e3b)!important;box-shadow:0 0 12px rgba(24,196,187,.5)!important;}
-#bottomNav{background:#062f2e!important;border-top:1px solid #2b6d69!important;padding:5px 7px!important;gap:5px!important;}
-.navItem{min-height:39px!important;background:#0d4542!important;border:1px solid #28635f!important;color:#b9e6e2!important;border-radius:11px!important;box-shadow:none!important;font-size:11px!important;padding:6px 9px!important;}
-.navItem svg{stroke:#8edbd6!important}.navItem.active{background:linear-gradient(135deg,#0b8d87,#18b9b0)!important;border-color:#38d8d0!important;color:#fff!important;box-shadow:0 4px 12px rgba(24,196,187,.2)!important}.navItem.active svg{stroke:#fff!important}
-#app{background:transparent!important;max-width:none!important;padding-left:0!important;padding-right:0!important;}
-.page,#pageContent{width:min(calc(100% - 18px),1180px)!important;max-width:1180px!important;margin-inline:auto!important;}
-.page{padding:12px 0 34px!important;}
-.card{background:linear-gradient(145deg,rgba(18,85,81,.98),rgba(9,58,56,.98))!important;border:1px solid var(--d30-line)!important;border-radius:15px!important;box-shadow:0 7px 20px rgba(0,0,0,.2)!important;color:var(--d30-text)!important;}
-.card h3,.sectionTitle{color:#8ce8e2!important;font-weight:900!important}.sectionTitle{font-size:14px!important;margin:11px 2px 7px!important}
-label{color:var(--d30-muted)!important}.empty{color:var(--d30-muted)!important}
-input[type=text],input[type=number],input[type=date],input[type=time],input[type=tel],input[type=password],select,textarea{background:#082f2e!important;border-color:#32736e!important;color:#eaf8f6!important;box-shadow:inset 0 1px 2px rgba(0,0,0,.2)!important;}
-input::placeholder,textarea::placeholder{color:#719b97!important}.notice{background:#0b403e!important;border-color:#28635f!important;color:#b9e6e2!important}
-.btn-primary,.btn-navy{background:linear-gradient(135deg,#0c8e88,#18b9b0)!important;border-color:#42d8d0!important;color:#fff!important}.btn-outline{background:#0b403e!important;color:#8ce8e2!important;border-color:#35b8b1!important}.btn-danger{background:#3c2424!important;color:#ffb3ae!important;border-color:#b85b57!important}
-table{background:#0a3937!important;color:#e7f5f3!important}th{background:#0e514d!important;color:#9cebe5!important}th,td{border-color:#2b6d69!important}
-.badge-muted{background:#194845!important;color:#b9e6e2!important}.badge-success{background:#154c3e!important;color:#8ce1c2!important}.badge-danger{background:#4a2928!important;color:#ffb5b0!important}.badge-gold{background:#4b3d26!important;color:#f0d49b!important}
-.financeSummary{background:transparent!important;border:0!important;padding:0!important}.financeSummary>div{background:#0b403e!important;border-color:#2b6d69!important}
-/* Dashboard: compact, aligned and clinically focused. */
-.dashboardHero{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 16px;margin-bottom:10px;border:1px solid #2b7771;border-radius:17px;background:linear-gradient(135deg,#0e504c,#082f2e);box-shadow:0 8px 22px rgba(0,0,0,.22);}
-.dashboardHero h1{margin:2px 0 1px;font-size:20px;color:#effffd;font-weight:900}.dashboardHero p{margin:0;color:#a9cfcb;font-size:11px}.dashboardKicker{color:#5de1d9;font-size:10px;font-weight:900;letter-spacing:.4px}.heroTooth{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:#0a403e;border:1px solid #2b7771}.heroTooth svg{width:32px;height:32px;stroke:#4fe0d7}
-.dashboardStats{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important}.dashboardStats .statCard{min-width:0;min-height:88px!important;padding:9px 6px!important;background:linear-gradient(145deg,#124d4a,#0a3735)!important;border:1px solid #2b6d69!important;border-radius:13px!important;color:#eafffd!important;box-shadow:0 5px 14px rgba(0,0,0,.18)!important}.dashboardStats .statCard .iconBadge{width:24px;height:24px;border-radius:8px;background:#0b5b56!important;border:1px solid #2e817b!important}.dashboardStats .statCard .iconBadge svg{width:13px;height:13px}.dashboardStats .statCard .num{font-size:17px!important;color:#eafffd!important;font-weight:900!important;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dashboardStats .statCard .lbl{font-size:10px!important;color:#a9cfcb!important;font-weight:800!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.financeCard{padding:9px!important}.financeGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.financeItem{min-width:0;padding:9px 8px;border-radius:11px;border:1px solid #2b6d69;background:#0b403e;display:flex;flex-direction:column;gap:2px}.financeItem span{font-size:10px;color:#a9cfcb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.financeItem b{font-size:13px;color:#ecfffd;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.finance-insurance{border-color:#7d6841;background:#403824}.finance-balance{border-color:#774b49;background:#3a2727}.servicesCard{padding:8px!important}.servicesList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.serviceRow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid #2b6d69;background:#0b403e;border-radius:10px}.serviceRow span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#c8e7e4;font-size:11px}.serviceRow b{min-width:28px;text-align:center;border-radius:8px;background:#0e625d;color:#8ce8e2;font-size:11px;padding:2px 5px}
-/* Every screen respects safe-area and never horizontally overflows on narrow phones. */
-@media(max-width:900px){.dashboardStats{grid-template-columns:repeat(3,minmax(0,1fr))!important}.financeGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:700px){
-  #topHeader{grid-template-columns:52px minmax(0,1fr) 52px!important;padding:6px 7px 7px!important}.page{padding-bottom:38px!important}.dashboardStats{grid-template-columns:repeat(2,minmax(0,1fr))!important}.financeGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboardHero{padding:12px 12px}.dashboardHero h1{font-size:17px}.heroTooth{width:42px;height:42px}.card{padding:10px!important}.grid2,.grid3{grid-template-columns:1fr!important}.row{min-width:0}.row>*{min-width:0}.servicesList{grid-template-columns:1fr}.navItem{font-size:10px!important;padding-inline:7px!important}.tableWrap,table{max-width:100%}.statCard{min-width:0!important}
-}
-@media(max-width:380px){#topHeader .appLogo{width:46px!important;height:46px!important}#topHeader .clinicLogo,#topHeader .logoutBtn{width:38px!important;height:38px!important;flex-basis:38px!important}.dashboardStats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important}.financeGrid{grid-template-columns:1fr 1fr}.dashboardStats .statCard{min-height:82px!important}.dashboardStats .statCard .num{font-size:15px!important}.dashboardStats .statCard .lbl{font-size:9px!important}}
-/* Fixed turquoise edge at the bottom, above Android/iOS system navigation area. */
-#dentyarBottomSafeBar{position:fixed;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg,#075e59,#18c4bb,#075e59);box-shadow:0 -1px 9px rgba(24,196,187,.42);z-index:1200;padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box;pointer-events:none}
-</style>
-
-<style id="dentyar-v30-fix-header-align-bottombar">
-/* اصلاح هدفمند سه مورد گزارش‌شده — بدون تغییر رنگ/تم/محتوای دیگر:
-   ۱) عدم تراز عمودی لگوها (یکی بالا یکی پایین)
-   ۲) بریده‌شدن/پنهان‌شدن نام مطب در سمت راست هدر
-   ۳) نوار فیروزه‌ای پایین صفحه که به‌سختی دیده می‌شد
-   این بلوک آخرین بخش استایل صفحه است تا بدون حذف بلوک‌های قبلی، به‌صورت قطعی اعمال شود. */
-
-/* هر دو طرف هدر (خروج/مطب) دقیقاً یک transform و یک ارتفاع یکسان داشته باشند،
-   در همه‌ی breakpointها — تا هیچ‌وقت یکی بالاتر یا پایین‌تر از دیگری نیفتد */
-#topHeader{align-items:stretch!important;}
-#topHeader .headerSide{
-  transform:none!important;
-  justify-content:center!important;
-  height:auto!important;
-  align-self:stretch!important;
-}
-#topHeader .appBrand{align-self:stretch!important;justify-content:center!important;}
-
-/* عرض ستون سمت راست/چپ هدر و عرض مجاز متن، همیشه هماهنگ با عرض واقعی گرید باشند
-   تا نام مطب (سمت راست) هرگز بریده یا پنهان نشود */
-#topHeader{grid-template-columns:minmax(56px,72px) minmax(0,1fr) minmax(56px,72px)!important;}
-#topHeader .clinicSideName,#topHeader .logoutLabel{
-  max-width:100%!important;
-  width:100%!important;
-  overflow:hidden!important;
-  text-overflow:ellipsis!important;
-  white-space:nowrap!important;
-  display:block!important;
-}
-@media(max-width:480px){
-  #topHeader{grid-template-columns:minmax(48px,60px) minmax(0,1fr) minmax(48px,60px)!important;}
-}
-@media(max-width:380px){
-  #topHeader{grid-template-columns:minmax(42px,52px) minmax(0,1fr) minmax(42px,52px)!important;}
-}
-
-/* شبکه‌ی ایمنی مستقل از اندازه‌گیری JS: اگر syncFixedTopHeight به هر دلیلی دیر اجرا شود،
-   محتوای صفحه هرگز زیر هدر ثابت پنهان نمی‌ماند. مقدار fallback از رندر واقعی JS بزرگ‌تر انتخاب شده
-   تا فقط در لحظه‌ی کوتاه بارگذاری اولیه به کار بیاید و مقدار دقیق JS بلافاصله جایگزینش می‌شود. */
-#app{padding-top:150px;}
-@media(max-width:480px){#app{padding-top:130px;}}
-
-/* نوار فیروزه‌ای پایین: ارتفاع بیشتر و z-index بالاتر از هر عنصر دیگر صفحه تا همیشه قابل مشاهده باشد */
-#dentyarBottomSafeBar{
-  height:10px!important;
-  z-index:999999!important;
-  opacity:1!important;
-  visibility:visible!important;
-}
 
 </head><body>
       <h2>DENTYAR</h2>
@@ -3759,6 +3393,375 @@ function renderContact(){
 .fieldSettingRow b{display:block;font-size:13px;color:#173d4d}.fieldSettingRow small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
 .switchLabel{display:flex!important;align-items:center;gap:4px!important;font-size:11px!important;margin:0!important;white-space:nowrap}.switchLabel input{width:18px;height:18px;min-height:auto}
 @media(max-width:520px){.fieldSettingRow{grid-template-columns:1fr auto auto}.fieldSettingRow .btn{grid-column:2/4;justify-self:end}.fieldSettingRow b{font-size:12px}}
+</style>
+<style id="dentyar-legacy-theme-restored">
+  /* DENTYAR typography & premium card refinement */
+  :root{
+    --font-fa:"Vazirmatn","IRANSansX","Yekan Bakh","Shabnam",Tahoma,Arial,sans-serif;
+    --font-en:"Inter","Segoe UI",Arial,sans-serif;
+    --card:#ffffff;
+    --card-soft:#f5fafb;
+    --card-blue:#f3f7fb;
+    --card-teal:#eff9f8;
+    --border:#d7e2e7;
+  }
+  html,body{font-family:var(--font-fa);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  body{font-weight:500;}
+  h1,h2,h3,h4,h5,h6,.clinicName,.clinicSlogan,.sectionTitle,.statCard .num,.btn,.badge,th,b,strong{font-weight:800;}
+  .clinicName{font-family:var(--font-fa);font-size:18px!important;}
+  #topHeader .clinicSlogan{font-size:14px!important;line-height:1.5;}
+  .card{padding:16px!important;margin-bottom:13px!important;border:1px solid var(--border)!important;border-radius:16px!important;background:linear-gradient(145deg,#fff 0%,var(--card-soft) 100%)!important;box-shadow:0 5px 18px rgba(21,58,99,.07)!important;}
+  .card h3{font-size:16px!important;line-height:1.6;margin-bottom:11px!important;letter-spacing:-.1px;}
+  label{font-size:14px!important;font-weight:700!important;line-height:1.6;margin:8px 0 5px!important;}
+  input,select,textarea{font-size:16px!important;font-weight:600!important;line-height:1.6!important;padding:10px 12px!important;border-radius:10px!important;}
+  .btn{font-size:15px!important;padding:10px 16px!important;line-height:1.5;}
+  .btn-sm{font-size:13px!important;padding:7px 11px!important;}
+  table{font-size:14px!important;}
+  th,td{padding:9px 7px!important;line-height:1.6;}
+  th{font-weight:800!important;}
+  .statCard .num{font-size:18px!important;}
+  .statCard .lbl{font-size:12px!important;}
+  .badge{font-size:13px!important;padding:4px 9px!important;}
+  .empty{font-size:15px!important;}
+  .sectionTitle{font-size:14px!important;}
+  .kv{font-size:15px!important;padding:8px 0;}
+  .chip{font-size:14px!important;padding:7px 13px!important;}
+  .tabBar button{font-size:15px!important;padding:10px!important;}
+  .modalBox h3{font-size:18px!important;}
+  #lockScreen h2{font-size:24px!important;font-weight:900!important;}
+  #lockScreen .lockSlogan{font-family:var(--font-en);font-size:15px!important;font-weight:800!important;}
+  #lockError{font-size:14px!important;}
+  #lockHint{font-size:13px!important;}
+  .pinPad button{font-size:21px!important;}
+  /* English labels and slogan: cleaner premium sans-serif */
+  [lang="en"],.en,.english{font-family:var(--font-en)!important;letter-spacing:.15px;}
+  @media(max-width:480px){
+    html,body{font-size:15.5px;}
+    .card{padding:14px!important;}
+    .card h3{font-size:15.5px!important;}
+    input,select,textarea{font-size:15.5px!important;}
+  }
+</style><style>
+/* ===== DENTYAR V5 — readability and logo reliability ===== */
+:root{
+  --font-fa:"Tahoma","Vazirmatn","IRANSansX","IRANSans","Segoe UI",Arial,sans-serif;
+  --font-en:Georgia,"Times New Roman","Segoe UI",serif;
+}
+html,body{font-family:var(--font-fa)!important;font-size:18px!important;line-height:1.9!important;color:#173544!important;font-weight:700!important;}
+body *{text-rendering:optimizeLegibility;}
+.clinicName{font-size:21px!important;font-weight:900!important;color:#123b5d!important;}
+.brandEn{font-family:var(--font-en)!important;font-size:16px!important;font-weight:800!important;color:#7a5a10!important;}
+.brandFa{font-size:16px!important;font-weight:900!important;color:#123b5d!important;}
+.card{background:#fff!important;border:1px solid #d2e0e5!important;box-shadow:0 5px 18px rgba(18,59,93,.09)!important;border-radius:16px!important;padding:18px!important;}
+.card h3{font-size:19px!important;font-weight:900!important;color:#123b5d!important;}
+.sectionTitle{font-size:17px!important;font-weight:900!important;color:#173f55!important;}
+label{font-size:17px!important;font-weight:800!important;color:#284a5b!important;}
+input,select,textarea{font-size:18px!important;font-weight:700!important;color:#173544!important;line-height:1.7!important;padding:12px 13px!important;}
+input::placeholder,textarea::placeholder{font-size:17px!important;font-weight:600!important;color:#607783!important;opacity:1!important;}
+.btn{font-size:17px!important;font-weight:900!important;min-height:48px!important;}
+.btn-sm{font-size:15px!important;font-weight:800!important;min-height:42px!important;}
+table{font-size:16.5px!important;}
+th{font-size:16.5px!important;font-weight:900!important;color:#24485a!important;}
+td{font-size:16px!important;font-weight:700!important;color:#203d4b!important;}
+.kv{font-size:17px!important;font-weight:700!important;}
+.badge{font-size:15px!important;font-weight:900!important;}
+.chip{font-size:16px!important;font-weight:800!important;}
+.tabBar button{font-size:16px!important;font-weight:900!important;}
+.navItem{font-size:15px!important;font-weight:900!important;}
+.statCard .num{font-size:21px!important;font-weight:900!important;}
+.statCard .lbl{font-size:15px!important;font-weight:800!important;}
+.empty{font-size:17px!important;font-weight:700!important;}
+#topHeader .clinicLogo{width:58px!important;height:58px!important;border-radius:50%!important;object-fit:cover!important;background:#fff!important;display:block!important;}
+#lockScreen .lockLogo{width:165px!important;height:165px!important;object-fit:cover!important;background:#000!important;border-radius:50%!important;padding:0!important;box-shadow:0 10px 32px rgba(18,59,93,.20)!important;}
+#lockScreen h2{font-size:32px!important;font-weight:900!important;}
+#lockScreen .lockSlogan{font-size:16px!important;font-weight:800!important;}
+#lockHint{font-size:14px!important;font-weight:700!important;}
+#lockError{font-size:15px!important;font-weight:800!important;}
+@media(max-width:480px){
+  html,body{font-size:17px!important;}
+  .card{padding:16px!important;}
+  .card h3{font-size:18px!important;}
+  label{font-size:16.5px!important;}
+  input,select,textarea{font-size:17px!important;}
+  .btn{font-size:16px!important;}
+  table{font-size:15.5px!important;}
+  th{font-size:15.5px!important;}
+  td{font-size:15px!important;}
+  .navItem{font-size:14.5px!important;}
+}
+<style>
+/* ===== DENTYAR V7 — استانداردسازی امور مالی ===== */
+.financeSummary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0;padding:10px;border:1px solid #d9e7ec;border-radius:12px;background:#f7fbfc}
+.financeSummary div{display:flex;justify-content:space-between;gap:8px;padding:7px 8px;border-radius:8px;background:#fff}
+.financeSummary span{color:#355463;font-size:14px;font-weight:700}
+.financeSummary b{color:#123b5d;font-size:14px;font-weight:900}
+.financeMini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:9px;padding:8px;background:#f7fbfc;border:1px solid #e0eaee;border-radius:10px}
+.financeMini span{font-size:13px;color:#355463}
+.financeMini b{font-weight:900;color:#173d4d}
+@media(min-width:650px){.financeSummary{grid-template-columns:repeat(4,minmax(0,1fr));}.financeMini{grid-template-columns:repeat(3,minmax(0,1fr));}}
+</style>
+<style id="dentyar-update-styles">
+.updateBox{border:1px solid var(--border);border-radius:14px;padding:12px;background:linear-gradient(180deg,#fbffff,#f7fbfb)}
+.updateStatus{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:8px 0;font-size:12px}
+.updateBadge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#e8f5f3;color:#0f766e;font-weight:800}
+.updateActions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+@media(max-width:560px){.updateActions{grid-template-columns:1fr}.updateBox{padding:10px}}
+</style>
+
+/* ==================== DENTYAR V28 — Cross-platform responsive layer ==================== */
+:root{--safe-top:env(safe-area-inset-top,0px);--safe-right:env(safe-area-inset-right,0px);--safe-bottom:env(safe-area-inset-bottom,0px);--safe-left:env(safe-area-inset-left,0px);}
+html{min-height:100%;background:var(--v26-bg,#f4f8f7);-webkit-text-size-adjust:100%;text-size-adjust:100%;}
+body{min-height:100%;width:100%;overflow-x:hidden;padding-bottom:var(--safe-bottom);}
+button,input,select,textarea{touch-action:manipulation;}
+input,select,textarea{max-width:100%;}
+#fixedTop{padding-top:var(--safe-top);}
+#topHeader{width:100%;grid-template-columns:minmax(72px,96px) minmax(0,1fr) minmax(72px,96px);}
+#topHeader .appLogo{object-fit:contain;background:#fff;}
+#bottomNav{padding-bottom:calc(7px + var(--safe-bottom));}
+#app{width:100%;max-width:none!important;padding-left:0!important;padding-right:0!important;}
+#pageContent,.page{width:min(100% - 20px,1180px);max-width:1180px!important;}
+#pageContent{margin-inline:auto;}
+.card{min-width:0;overflow:hidden;}
+.row{flex-wrap:wrap;}
+.row>.col{min-width:0;}
+.grid2,.grid3{width:100%;}
+table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;}
+.modalBox{padding-bottom:calc(14px + var(--safe-bottom));}
+.fab{bottom:calc(18px + var(--safe-bottom));}
+.updateBox{width:100%;}
+.updateActions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+.platformBadge{display:inline-flex;align-items:center;justify-content:center;padding:4px 9px;border-radius:999px;background:var(--v26-mint,#e9f7f5);color:var(--v26-teal-dark,#0b5e58);font-size:11px;font-weight:800;}
+.updateHint{font-size:12px;line-height:1.9;color:var(--v26-muted,#607477);background:#f6fbfa;border:1px solid var(--v26-line,#d6e4e1);border-radius:10px;padding:9px;margin-top:8px;}
+@media (min-width:768px){
+  #topHeader{padding-inline:24px;grid-template-columns:110px minmax(260px,1fr) 110px;}
+  #topHeader .headerSide{width:100px;}
+  #topHeader .appLogo{width:88px;height:88px;}
+  #topHeader .appName{font-size:22px;}
+  #topHeader .appSlogan{font-size:12px;}
+  #bottomNav{justify-content:center;gap:8px;overflow-x:auto;}
+  .page{padding:14px;}
+  #pageContent{padding-bottom:40px;}
+}
+@media (min-width:1200px){
+  #topHeader{padding-inline:36px;}
+  .card{padding:16px!important;}
+}
+@media (max-width:767px){
+  #pageContent,.page{width:calc(100% - 12px);}
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .updateActions{grid-template-columns:1fr;}
+  .row{gap:7px;}
+  .row>.btn{width:100%;}
+  #topHeader .appSlogan{max-width:45vw;overflow:hidden;text-overflow:ellipsis;}
+}
+@media (max-width:420px){
+  #topHeader{grid-template-columns:62px minmax(0,1fr) 62px;padding-inline:6px;}
+  #topHeader .headerSide{width:58px;}
+  #topHeader .appLogo{width:62px;height:62px;}
+  #topHeader .appName{font-size:17px;}
+  #topHeader .appSlogan{font-size:8.5px;}
+  #topHeader .clinicLogo,#topHeader .logoutBtn{width:48px!important;height:48px!important;flex-basis:48px!important;}
+  #topHeader .clinicSideName,#topHeader .logoutLabel{font-size:10px;max-width:64px;}
+}
+@media (orientation:landscape) and (max-height:600px){
+  #topHeader{grid-template-columns:74px minmax(0,1fr) 74px;padding-block:4px;}
+  #topHeader .headerSide{height:64px;transform:none;}
+  #topHeader .appLogo{width:50px;height:50px;}
+  #topHeader .clinicLogo,#topHeader .logoutBtn{width:44px!important;height:44px!important;flex-basis:44px!important;}
+  #topHeader .appName{font-size:16px;}
+  #topHeader .appSlogan{font-size:8px;}
+  #topHeader .clinicSideName,#topHeader .logoutLabel{font-size:9px;height:12px;line-height:12px;margin-top:1px;}
+}
+@media (min-width:768px) and (max-width:1024px){
+  .grid2{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .grid3{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (pointer:coarse){
+  .btn,.navItem{min-height:44px;}
+  .navItem{padding-inline:12px;}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}}
+
+
+
+<style id="dentyar-v29-final-polish">
+:root{
+  --dty-teal:#0f766e;--dty-teal-2:#14b8a6;--dty-deep:#073b3a;--dty-bg:#e8f1ef;
+  --dty-card:#f5faf9;--dty-line:#b9d9d4;--dty-text:#123c3b;
+}
+html,body{background:linear-gradient(180deg,#dfeceb 0%,#e9f2f1 38%,#dce9e7 100%)!important;color:var(--dty-text)!important;}
+body{font-size:14px!important;font-weight:600!important;}
+#fixedTop{border:1px solid #79bdb7!important;border-top:0!important;border-radius:0 0 16px 16px!important;background:rgba(236,248,246,.98)!important;box-shadow:0 7px 24px rgba(5,75,71,.18)!important;overflow:hidden;}
+#topHeader{min-height:78px!important;padding:5px 10px 6px!important;grid-template-columns:58px minmax(0,1fr) 58px!important;background:linear-gradient(180deg,#edf9f7,#dff0ee)!important;border-bottom:0!important;gap:5px!important;}
+#topHeader .headerSide{width:54px!important;height:68px!important;transform:none!important;justify-content:flex-start!important;gap:2px!important;}
+#topHeader .appBrand{min-width:0!important;}
+#topHeader .appLogo{width:56px!important;height:56px!important;border-radius:15px!important;background:#f7fffe!important;border:2px solid #8ad3cb!important;box-shadow:0 3px 12px rgba(15,118,110,.2)!important;object-fit:contain!important;}
+#topHeader .appName{font-size:19px!important;color:var(--dty-deep)!important;margin-top:2px!important;letter-spacing:1px!important;}
+#topHeader .appSlogan{font-size:9px!important;color:#0f766e!important;margin-top:1px!important;max-width:100%!important;}
+#topHeader .clinicLogo,#topHeader .logoutBtn{width:44px!important;height:44px!important;flex-basis:44px!important;border-radius:13px!important;}
+#topHeader .clinicLogo{border:2px solid #8ad3cb!important;background:#f7fffe!important;}
+#topHeader .clinicSideName,#topHeader .logoutLabel{font-size:9px!important;line-height:12px!important;height:12px!important;color:#075e59!important;max-width:58px!important;margin-top:1px!important;}
+#topHeader .logoutBtn{background:linear-gradient(145deg,#0f766e,#0a5c57)!important;box-shadow:0 3px 10px rgba(15,118,110,.25)!important;}
+#dentyarAccentBar{height:6px!important;background:linear-gradient(90deg,#075e59 0%,#0f766e 25%,#14b8a6 50%,#5eead4 72%,#0f766e 100%)!important;box-shadow:0 1px 7px rgba(15,118,110,.45)!important;}
+#bottomNav{background:#d9ece9!important;border-top:0!important;padding:5px 7px!important;gap:5px!important;}
+.navItem{min-height:38px!important;padding:6px 9px!important;border-radius:11px!important;border:1px solid #acd2cd!important;background:#edf8f6!important;color:#075e59!important;font-size:11px!important;box-shadow:0 2px 5px rgba(7,80,76,.07)!important;}
+.navItem.active{background:linear-gradient(135deg,#075e59,#14a89d)!important;border-color:#075e59!important;color:#fff!important;box-shadow:0 4px 11px rgba(7,94,89,.24)!important;}
+#app{background:transparent!important;}
+.page,#pageContent{width:min(calc(100% - 16px),1180px)!important;max-width:1180px!important;margin-inline:auto!important;}
+.page{padding:9px 0 28px!important;}
+.card{background:linear-gradient(145deg,#f9fdfc,#eaf4f2)!important;border:1px solid #b9d9d4!important;border-radius:15px!important;box-shadow:0 5px 16px rgba(7,76,72,.09)!important;padding:11px!important;}
+.card h3,.sectionTitle{color:#075e59!important;font-weight:900!important;}
+.sectionTitle{font-size:15px!important;margin:9px 2px!important;}
+.statGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;}
+.statCard{min-height:76px!important;padding:8px 6px!important;border-radius:14px!important;background:linear-gradient(145deg,#f6fbfa,#dcecea)!important;border:1px solid #b9d9d4!important;box-shadow:0 4px 12px rgba(7,76,72,.08)!important;}
+.statCard .num{font-size:15px!important;color:#075e59!important;}
+.statCard .lbl{font-size:10px!important;color:#355e5b!important;}
+.statCard .iconBadge{background:#cce9e5!important;border:1px solid #a4d7d1!important;}
+.financeSummary{gap:7px!important;}
+.financeSummary>div{background:#e3f1ef!important;border:1px solid #b9d9d4!important;border-radius:11px!important;padding:8px!important;}
+input[type=text],input[type=number],input[type=date],input[type=time],input[type=tel],input[type=password],select,textarea{background:#f4f9f8!important;border-color:#b8d5d1!important;color:#123c3b!important;min-height:40px!important;}
+.btn-primary,.btn-navy{background:linear-gradient(135deg,#075e59,#14a89d)!important;}
+.btn-outline{background:#eef9f7!important;color:#0f766e!important;border-color:#69bdb5!important;}
+table{font-size:12px!important;background:#f7fbfa!important;border-radius:10px!important;overflow:hidden;}
+th{background:#dceeea!important;color:#075e59!important;}
+th,td{padding:8px 6px!important;}
+/* never allow fixed chrome to cover content */
+@media(max-width:767px){
+  #topHeader{grid-template-columns:52px minmax(0,1fr) 52px!important;}
+  #topHeader .headerSide{width:50px!important;}
+  #topHeader .appLogo{width:50px!important;height:50px!important;}
+  #topHeader .appName{font-size:17px!important;}
+  #topHeader .appSlogan{font-size:8px!important;}
+  #topHeader .clinicLogo,#topHeader .logoutBtn{width:40px!important;height:40px!important;flex-basis:40px!important;}
+  #topHeader .clinicSideName,#topHeader .logoutLabel{font-size:8px!important;max-width:50px!important;}
+  .navItem{font-size:10.5px!important;padding-inline:8px!important;}
+  .page{padding-top:7px!important;}
+}
+@media(max-width:380px){.statGrid{grid-template-columns:1fr!important}.navItem{padding-inline:7px!important;font-size:10px!important}.card{padding:9px!important}}
+</style>
+<style id="dentyar-v29-premium">
+/* DENTYAR V30 — premium dental identity */
+html,body{background:linear-gradient(180deg,#f1f8f7 0%,#f8fbfa 42%,#eef5f4 100%)!important;}
+#fixedTop{background:rgba(255,255,255,.96)!important;backdrop-filter:blur(12px);box-shadow:0 5px 22px rgba(10,80,76,.08)!important;}
+#topHeader{border-bottom:0!important;background:linear-gradient(180deg,#ffffff 0%,#f8fcfb 100%)!important;}
+#dentyarAccentBar{height:5px!important;width:100%;background:linear-gradient(90deg,#0b5e58 0%,#12a6a0 45%,#42c7bf 70%,#0f766e 100%);box-shadow:0 1px 6px rgba(15,118,110,.24);}
+#bottomNav{border-top:1px solid #d7ebe8!important;background:rgba(255,255,255,.97)!important;}
+.navItem{border-radius:12px!important;border:1px solid transparent!important;}
+.navItem.active{background:linear-gradient(135deg,#0b5e58,#149c9a)!important;border-color:#0b5e58!important;box-shadow:0 5px 14px rgba(15,118,110,.2)!important;}
+.card{background:linear-gradient(145deg,#ffffff 0%,#f9fdfc 100%)!important;border-color:#d4e8e5!important;box-shadow:0 5px 18px rgba(17,83,79,.07)!important;}
+.card h3{letter-spacing:-.15px!important;}
+.statCard{background:linear-gradient(145deg,#ffffff,#f4faf9)!important;border:1px solid #d4e8e5!important;box-shadow:0 4px 14px rgba(17,83,79,.07)!important;}
+.statCard .iconBadge{background:#e5f6f3!important;color:#0f766e!important;}
+.statCard .num{color:#123f40!important;font-weight:900!important;}
+.statCard .lbl{color:#4d696b!important;font-weight:800!important;}
+.financeSummary{background:linear-gradient(135deg,#e9f8f5,#f7fcfb)!important;border-color:#c5e6e1!important;}
+.financeSummary>div{border-radius:10px;padding:7px 8px;background:rgba(255,255,255,.58);border:1px solid rgba(198,228,224,.7);}
+.sectionTitle{color:#0b5e58!important;font-weight:900!important;}
+.btn-primary{background:linear-gradient(135deg,#0b5e58,#159f9a)!important;border-color:#0b5e58!important;}
+.btn-outline{background:#fff!important;border-color:#159f9a!important;color:#0b766f!important;}
+.updateBox{border-color:#c5e6e1!important;background:linear-gradient(145deg,#ffffff,#f1faf8)!important;box-shadow:0 5px 18px rgba(17,83,79,.06);}
+.updateBadge,.platformBadge{background:#e4f7f4!important;color:#0b6c66!important;}
+@media(max-width:700px){#dentyarAccentBar{height:4px!important}.card{border-radius:13px!important}.statCard{padding:10px!important}}
+</style>
+
+<style id="dentyar-v30-ui">
+:root{
+  --d30-deep:#062f2e;--d30-deep2:#0a403e;--d30-panel:#0e4a47;--d30-panel2:#125551;
+  --d30-teal:#18c4bb;--d30-teal2:#0e9f99;--d30-line:#2b6d69;--d30-text:#eaf8f6;--d30-muted:#a9cfcb;
+  --d30-soft:#dff4f1;--d30-gold:#d9b46b;--d30-red:#e06c67;
+}
+html,body{background:radial-gradient(circle at 50% -10%,#155d58 0%,#082f2e 45%,#041f1f 100%)!important;color:var(--d30-text)!important;min-height:100%;overflow-x:hidden;}
+body{font-size:14px!important;line-height:1.7!important;font-weight:600!important;padding-bottom:calc(10px + env(safe-area-inset-bottom))!important;}
+#fixedTop{background:rgba(5,42,41,.97)!important;border:1px solid rgba(24,196,187,.45)!important;border-top:0!important;box-shadow:0 8px 26px rgba(0,0,0,.34)!important;overflow:hidden;backdrop-filter:blur(14px);}
+#topHeader{background:linear-gradient(180deg,#0d4a47,#082f2e)!important;border-bottom:0!important;grid-template-columns:64px minmax(0,1fr) 64px!important;padding:7px 9px 8px!important;gap:6px!important;}
+#topHeader .headerSide{width:58px!important;height:72px!important;transform:none!important;}
+#topHeader .appLogo{width:58px!important;height:58px!important;border-radius:15px!important;background:#eaf9f7!important;border:2px solid var(--d30-teal)!important;box-shadow:0 0 0 2px rgba(24,196,187,.08),0 5px 18px rgba(0,0,0,.3)!important;object-fit:contain!important;}
+#topHeader .appName{font-size:20px!important;color:#ecfffd!important;letter-spacing:1.2px!important;margin-top:2px!important;}
+#topHeader .appSlogan{font-size:9.5px!important;color:#8ce8e2!important;}
+#topHeader .clinicLogo,#topHeader .logoutBtn{width:48px!important;height:48px!important;flex-basis:48px!important;border-radius:14px!important;}
+#topHeader .clinicLogo{border:2px solid var(--d30-teal)!important;background:#eaf9f7!important;}
+#topHeader .clinicSideName,#topHeader .logoutLabel{font-size:9px!important;line-height:12px!important;height:12px!important;color:#b9e6e2!important;max-width:62px!important;margin-top:3px!important;}
+#topHeader .logoutBtn{background:linear-gradient(145deg,#18a9a1,#08716c)!important;box-shadow:0 4px 13px rgba(0,0,0,.28)!important;}
+#dentyarAccentBar{height:6px!important;background:linear-gradient(90deg,#063e3b,#0d8f89,#18c4bb,#0d8f89,#063e3b)!important;box-shadow:0 0 12px rgba(24,196,187,.5)!important;}
+#bottomNav{background:#062f2e!important;border-top:1px solid #2b6d69!important;padding:5px 7px!important;gap:5px!important;}
+.navItem{min-height:39px!important;background:#0d4542!important;border:1px solid #28635f!important;color:#b9e6e2!important;border-radius:11px!important;box-shadow:none!important;font-size:11px!important;padding:6px 9px!important;}
+.navItem svg{stroke:#8edbd6!important}.navItem.active{background:linear-gradient(135deg,#0b8d87,#18b9b0)!important;border-color:#38d8d0!important;color:#fff!important;box-shadow:0 4px 12px rgba(24,196,187,.2)!important}.navItem.active svg{stroke:#fff!important}
+#app{background:transparent!important;max-width:none!important;padding-left:0!important;padding-right:0!important;}
+.page,#pageContent{width:min(calc(100% - 18px),1180px)!important;max-width:1180px!important;margin-inline:auto!important;}
+.page{padding:12px 0 34px!important;}
+.card{background:linear-gradient(145deg,rgba(18,85,81,.98),rgba(9,58,56,.98))!important;border:1px solid var(--d30-line)!important;border-radius:15px!important;box-shadow:0 7px 20px rgba(0,0,0,.2)!important;color:var(--d30-text)!important;}
+.card h3,.sectionTitle{color:#8ce8e2!important;font-weight:900!important}.sectionTitle{font-size:14px!important;margin:11px 2px 7px!important}
+label{color:var(--d30-muted)!important}.empty{color:var(--d30-muted)!important}
+input[type=text],input[type=number],input[type=date],input[type=time],input[type=tel],input[type=password],select,textarea{background:#082f2e!important;border-color:#32736e!important;color:#eaf8f6!important;box-shadow:inset 0 1px 2px rgba(0,0,0,.2)!important;}
+input::placeholder,textarea::placeholder{color:#719b97!important}.notice{background:#0b403e!important;border-color:#28635f!important;color:#b9e6e2!important}
+.btn-primary,.btn-navy{background:linear-gradient(135deg,#0c8e88,#18b9b0)!important;border-color:#42d8d0!important;color:#fff!important}.btn-outline{background:#0b403e!important;color:#8ce8e2!important;border-color:#35b8b1!important}.btn-danger{background:#3c2424!important;color:#ffb3ae!important;border-color:#b85b57!important}
+table{background:#0a3937!important;color:#e7f5f3!important}th{background:#0e514d!important;color:#9cebe5!important}th,td{border-color:#2b6d69!important}
+.badge-muted{background:#194845!important;color:#b9e6e2!important}.badge-success{background:#154c3e!important;color:#8ce1c2!important}.badge-danger{background:#4a2928!important;color:#ffb5b0!important}.badge-gold{background:#4b3d26!important;color:#f0d49b!important}
+.financeSummary{background:transparent!important;border:0!important;padding:0!important}.financeSummary>div{background:#0b403e!important;border-color:#2b6d69!important}
+/* Dashboard: compact, aligned and clinically focused. */
+.dashboardHero{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 16px;margin-bottom:10px;border:1px solid #2b7771;border-radius:17px;background:linear-gradient(135deg,#0e504c,#082f2e);box-shadow:0 8px 22px rgba(0,0,0,.22);}
+.dashboardHero h1{margin:2px 0 1px;font-size:20px;color:#effffd;font-weight:900}.dashboardHero p{margin:0;color:#a9cfcb;font-size:11px}.dashboardKicker{color:#5de1d9;font-size:10px;font-weight:900;letter-spacing:.4px}.heroTooth{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:#0a403e;border:1px solid #2b7771}.heroTooth svg{width:32px;height:32px;stroke:#4fe0d7}
+.dashboardStats{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important}.dashboardStats .statCard{min-width:0;min-height:88px!important;padding:9px 6px!important;background:linear-gradient(145deg,#124d4a,#0a3735)!important;border:1px solid #2b6d69!important;border-radius:13px!important;color:#eafffd!important;box-shadow:0 5px 14px rgba(0,0,0,.18)!important}.dashboardStats .statCard .iconBadge{width:24px;height:24px;border-radius:8px;background:#0b5b56!important;border:1px solid #2e817b!important}.dashboardStats .statCard .iconBadge svg{width:13px;height:13px}.dashboardStats .statCard .num{font-size:17px!important;color:#eafffd!important;font-weight:900!important;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dashboardStats .statCard .lbl{font-size:10px!important;color:#a9cfcb!important;font-weight:800!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.financeCard{padding:9px!important}.financeGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.financeItem{min-width:0;padding:9px 8px;border-radius:11px;border:1px solid #2b6d69;background:#0b403e;display:flex;flex-direction:column;gap:2px}.financeItem span{font-size:10px;color:#a9cfcb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.financeItem b{font-size:13px;color:#ecfffd;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.finance-insurance{border-color:#7d6841;background:#403824}.finance-balance{border-color:#774b49;background:#3a2727}.servicesCard{padding:8px!important}.servicesList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.serviceRow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border:1px solid #2b6d69;background:#0b403e;border-radius:10px}.serviceRow span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#c8e7e4;font-size:11px}.serviceRow b{min-width:28px;text-align:center;border-radius:8px;background:#0e625d;color:#8ce8e2;font-size:11px;padding:2px 5px}
+/* Every screen respects safe-area and never horizontally overflows on narrow phones. */
+@media(max-width:900px){.dashboardStats{grid-template-columns:repeat(3,minmax(0,1fr))!important}.financeGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){
+  #topHeader{grid-template-columns:52px minmax(0,1fr) 52px!important;padding:6px 7px 7px!important}.page{padding-bottom:38px!important}.dashboardStats{grid-template-columns:repeat(2,minmax(0,1fr))!important}.financeGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboardHero{padding:12px 12px}.dashboardHero h1{font-size:17px}.heroTooth{width:42px;height:42px}.card{padding:10px!important}.grid2,.grid3{grid-template-columns:1fr!important}.row{min-width:0}.row>*{min-width:0}.servicesList{grid-template-columns:1fr}.navItem{font-size:10px!important;padding-inline:7px!important}.tableWrap,table{max-width:100%}.statCard{min-width:0!important}
+}
+@media(max-width:380px){#topHeader .appLogo{width:46px!important;height:46px!important}#topHeader .clinicLogo,#topHeader .logoutBtn{width:38px!important;height:38px!important;flex-basis:38px!important}.dashboardStats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important}.financeGrid{grid-template-columns:1fr 1fr}.dashboardStats .statCard{min-height:82px!important}.dashboardStats .statCard .num{font-size:15px!important}.dashboardStats .statCard .lbl{font-size:9px!important}}
+/* Fixed turquoise edge at the bottom, above Android/iOS system navigation area. */
+#dentyarBottomSafeBar{position:fixed;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg,#075e59,#18c4bb,#075e59);box-shadow:0 -1px 9px rgba(24,196,187,.42);z-index:1200;padding-bottom:env(safe-area-inset-bottom);box-sizing:content-box;pointer-events:none}
+</style>
+
+<style id="dentyar-v30-fix-header-align-bottombar">
+/* اصلاح هدفمند سه مورد گزارش‌شده — بدون تغییر رنگ/تم/محتوای دیگر:
+   ۱) عدم تراز عمودی لگوها (یکی بالا یکی پایین)
+   ۲) بریده‌شدن/پنهان‌شدن نام مطب در سمت راست هدر
+   ۳) نوار فیروزه‌ای پایین صفحه که به‌سختی دیده می‌شد
+   این بلوک آخرین بخش استایل صفحه است تا بدون حذف بلوک‌های قبلی، به‌صورت قطعی اعمال شود. */
+
+/* هر دو طرف هدر (خروج/مطب) دقیقاً یک transform و یک ارتفاع یکسان داشته باشند،
+   در همه‌ی breakpointها — تا هیچ‌وقت یکی بالاتر یا پایین‌تر از دیگری نیفتد */
+#topHeader{align-items:stretch!important;}
+#topHeader .headerSide{
+  transform:none!important;
+  justify-content:center!important;
+  height:auto!important;
+  align-self:stretch!important;
+}
+#topHeader .appBrand{align-self:stretch!important;justify-content:center!important;}
+
+/* عرض ستون سمت راست/چپ هدر و عرض مجاز متن، همیشه هماهنگ با عرض واقعی گرید باشند
+   تا نام مطب (سمت راست) هرگز بریده یا پنهان نشود */
+#topHeader{grid-template-columns:minmax(56px,72px) minmax(0,1fr) minmax(56px,72px)!important;}
+#topHeader .clinicSideName,#topHeader .logoutLabel{
+  max-width:100%!important;
+  width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  display:block!important;
+}
+@media(max-width:480px){
+  #topHeader{grid-template-columns:minmax(48px,60px) minmax(0,1fr) minmax(48px,60px)!important;}
+}
+@media(max-width:380px){
+  #topHeader{grid-template-columns:minmax(42px,52px) minmax(0,1fr) minmax(42px,52px)!important;}
+}
+
+/* شبکه‌ی ایمنی مستقل از اندازه‌گیری JS: اگر syncFixedTopHeight به هر دلیلی دیر اجرا شود،
+   محتوای صفحه هرگز زیر هدر ثابت پنهان نمی‌ماند. مقدار fallback از رندر واقعی JS بزرگ‌تر انتخاب شده
+   تا فقط در لحظه‌ی کوتاه بارگذاری اولیه به کار بیاید و مقدار دقیق JS بلافاصله جایگزینش می‌شود. */
+#app{padding-top:150px;}
+@media(max-width:480px){#app{padding-top:130px;}}
+
+/* نوار فیروزه‌ای پایین: ارتفاع بیشتر و z-index بالاتر از هر عنصر دیگر صفحه تا همیشه قابل مشاهده باشد */
+#dentyarBottomSafeBar{
+  height:10px!important;
+  z-index:999999!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
 </style>
 </head>
 <body>
