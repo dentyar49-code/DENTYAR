@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dentyar-v28-pwa';
+const CACHE_NAME = 'dentyar-v29-pwa';
 const APP_SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon-192-maskable.png', './icon-512-maskable.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
