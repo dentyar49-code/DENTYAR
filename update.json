@@ -1,7 +1,7 @@
 {
   "app": "DENTYAR",
   "version": "V30",
-  "notes": "نسخه V30؛ بازطراحی کامل داشبورد، هویت فیروزه‌ای تیره، تراز و واکنش‌گرایی بهتر، اعداد فارسی، خروجی واقعی گزارش و بروزرسانی داخلی.",
+  "notes": "نسخه V30؛ دیزاین فاخر فیروزه‌ای، فیت و قرینه‌سازی، اعداد فارسی، خروجی Excel و بروزرسانی داخلی.",
   "android": {
     "version": "V30",
     "apkUrl": "https://github.com/dentyar49-code/DENTYAR/releases/latest/download/DENTYAR-latest.apk",

@@ -15,8 +15,8 @@
     "browser"
   ],
   "orientation": "any",
-  "background_color": "#062f2e",
-  "theme_color": "#0e9f99",
+  "background_color": "#f4f8f7",
+  "theme_color": "#0f766e",
   "prefer_related_applications": false,
   "icons": [
     {
