@@ -1403,6 +1403,9 @@ function renderBottomNav(){
     </button>
   `).join('');
   syncFixedTopHeight();
+  // تب فعال باید کامل در دید افقی نوار ناوبری قرار بگیرد، نه اینکه نصفه از لبه‌ی صفحه بیرون بماند
+  const activeTab = document.querySelector('#bottomNav .navItem.active');
+  if(activeTab) activeTab.scrollIntoView({inline:'center', block:'nearest'});
 }
 // Measures the actual rendered height of the fixed header+nav block and applies it
 // as top padding on #app, so page content never sits hidden behind the fixed bar —
@@ -1768,7 +1771,7 @@ function renderAppointments(){
       <label>نام و نام‌خانوادگی *</label>
       <input type="text" id="apName" placeholder="مثال: علی احمدی">
       <label>شماره تماس</label>
-      <input type="tel" id="apPhone" placeholder="09xxxxxxxxx">
+      <input type="tel" id="apPhone" placeholder="۰۹xxxxxxxxx">
       <label>شماره تماس جایگزین</label><input type="tel" id="apAltPhone">
       <div class="grid2">
         <div><label>کد ملی</label><input type="text" id="apNid"></div>
@@ -3778,6 +3781,16 @@ const EMBEDDED_STATE = ___LB_BOOT_STATE_SENTINEL___;
 window.addEventListener('DOMContentLoaded', function(){
   loadState();
 startDentyarIDBMirror();
+  // رنگ‌آمیزی نوار وضعیت بالای اندروید (System Status Bar) با همان فیروزه‌ای تیره‌ی برنامه.
+  // توجه: نوار پایین سیستم (System Navigation Bar) با CSS یا این افزونه قابل رنگ‌آمیزی نیست؛
+  // آن بخش نیاز به تغییر کد بومی اندروید (MainActivity) دارد که خارج از این فایل است.
+  try{
+    const C=window.Capacitor;
+    if(C && C.isNativePlatform && C.isNativePlatform() && C.Plugins && C.Plugins.StatusBar){
+      C.Plugins.StatusBar.setBackgroundColor({color:'#0d4a47'}).catch(()=>{});
+      C.Plugins.StatusBar.setStyle({style:'DARK'}).catch(()=>{});
+    }
+  }catch(_){}
   if(EMBEDDED_STATE){
     // Only apply embedded state on very first load of a transferred copy (no existing localStorage yet was already handled by loadState default)
     // If this file was opened as a transfer copy and localStorage is empty/default, seed it.
