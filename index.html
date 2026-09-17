@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DENTYAR — Your Smart Dental Assistant | V29</title>
 <script>const DENTYAR_APP_VERSION = "V29";</script>
-<meta name="theme-color" content="#0d5150">
+<meta name="theme-color" content="#0f766e">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
@@ -930,6 +930,13 @@ function jalaliDateFromISO(iso){ if(!iso) return ''; const d=new Date(iso+'T12:0
 const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
 function faDigits(value){
   return String(value ?? '').replace(/[0-9]/g, d=>FA_DIGITS[d]);
+}
+function formatAllNumericInputs(){
+  document.querySelectorAll('input[type=tel],input[inputmode=numeric],input[type=number]').forEach(el=>{
+    if(el.value) el.value=faDigits(toEnDigits(el.value));
+    el.setAttribute('dir','ltr');
+    el.style.textAlign='right';
+  });
 }
 function toFaTextNodeTree(root=document.body){
   const walker=document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -2333,6 +2340,62 @@ table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;}}
 
 
+
+<style id="dentyar-v29-final-polish">
+:root{
+  --dty-teal:#0f766e;--dty-teal-2:#14b8a6;--dty-deep:#073b3a;--dty-bg:#e8f1ef;
+  --dty-card:#f5faf9;--dty-line:#b9d9d4;--dty-text:#123c3b;
+}
+html,body{background:linear-gradient(180deg,#dfeceb 0%,#e9f2f1 38%,#dce9e7 100%)!important;color:var(--dty-text)!important;}
+body{font-size:14px!important;font-weight:600!important;}
+#fixedTop{border:1px solid #79bdb7!important;border-top:0!important;border-radius:0 0 16px 16px!important;background:rgba(236,248,246,.98)!important;box-shadow:0 7px 24px rgba(5,75,71,.18)!important;overflow:hidden;}
+#topHeader{min-height:78px!important;padding:5px 10px 6px!important;grid-template-columns:58px minmax(0,1fr) 58px!important;background:linear-gradient(180deg,#edf9f7,#dff0ee)!important;border-bottom:0!important;gap:5px!important;}
+#topHeader .headerSide{width:54px!important;height:68px!important;transform:none!important;justify-content:flex-start!important;gap:2px!important;}
+#topHeader .appBrand{min-width:0!important;}
+#topHeader .appLogo{width:56px!important;height:56px!important;border-radius:15px!important;background:#f7fffe!important;border:2px solid #8ad3cb!important;box-shadow:0 3px 12px rgba(15,118,110,.2)!important;object-fit:contain!important;}
+#topHeader .appName{font-size:19px!important;color:var(--dty-deep)!important;margin-top:2px!important;letter-spacing:1px!important;}
+#topHeader .appSlogan{font-size:9px!important;color:#0f766e!important;margin-top:1px!important;max-width:100%!important;}
+#topHeader .clinicLogo,#topHeader .logoutBtn{width:44px!important;height:44px!important;flex-basis:44px!important;border-radius:13px!important;}
+#topHeader .clinicLogo{border:2px solid #8ad3cb!important;background:#f7fffe!important;}
+#topHeader .clinicSideName,#topHeader .logoutLabel{font-size:9px!important;line-height:12px!important;height:12px!important;color:#075e59!important;max-width:58px!important;margin-top:1px!important;}
+#topHeader .logoutBtn{background:linear-gradient(145deg,#0f766e,#0a5c57)!important;box-shadow:0 3px 10px rgba(15,118,110,.25)!important;}
+#dentyarAccentBar{height:6px!important;background:linear-gradient(90deg,#075e59 0%,#0f766e 25%,#14b8a6 50%,#5eead4 72%,#0f766e 100%)!important;box-shadow:0 1px 7px rgba(15,118,110,.45)!important;}
+#bottomNav{background:#d9ece9!important;border-top:0!important;padding:5px 7px!important;gap:5px!important;}
+.navItem{min-height:38px!important;padding:6px 9px!important;border-radius:11px!important;border:1px solid #acd2cd!important;background:#edf8f6!important;color:#075e59!important;font-size:11px!important;box-shadow:0 2px 5px rgba(7,80,76,.07)!important;}
+.navItem.active{background:linear-gradient(135deg,#075e59,#14a89d)!important;border-color:#075e59!important;color:#fff!important;box-shadow:0 4px 11px rgba(7,94,89,.24)!important;}
+#app{background:transparent!important;}
+.page,#pageContent{width:min(calc(100% - 16px),1180px)!important;max-width:1180px!important;margin-inline:auto!important;}
+.page{padding:9px 0 28px!important;}
+.card{background:linear-gradient(145deg,#f9fdfc,#eaf4f2)!important;border:1px solid #b9d9d4!important;border-radius:15px!important;box-shadow:0 5px 16px rgba(7,76,72,.09)!important;padding:11px!important;}
+.card h3,.sectionTitle{color:#075e59!important;font-weight:900!important;}
+.sectionTitle{font-size:15px!important;margin:9px 2px!important;}
+.statGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;}
+.statCard{min-height:76px!important;padding:8px 6px!important;border-radius:14px!important;background:linear-gradient(145deg,#f6fbfa,#dcecea)!important;border:1px solid #b9d9d4!important;box-shadow:0 4px 12px rgba(7,76,72,.08)!important;}
+.statCard .num{font-size:15px!important;color:#075e59!important;}
+.statCard .lbl{font-size:10px!important;color:#355e5b!important;}
+.statCard .iconBadge{background:#cce9e5!important;border:1px solid #a4d7d1!important;}
+.financeSummary{gap:7px!important;}
+.financeSummary>div{background:#e3f1ef!important;border:1px solid #b9d9d4!important;border-radius:11px!important;padding:8px!important;}
+input[type=text],input[type=number],input[type=date],input[type=time],input[type=tel],input[type=password],select,textarea{background:#f4f9f8!important;border-color:#b8d5d1!important;color:#123c3b!important;min-height:40px!important;}
+.btn-primary,.btn-navy{background:linear-gradient(135deg,#075e59,#14a89d)!important;}
+.btn-outline{background:#eef9f7!important;color:#0f766e!important;border-color:#69bdb5!important;}
+table{font-size:12px!important;background:#f7fbfa!important;border-radius:10px!important;overflow:hidden;}
+th{background:#dceeea!important;color:#075e59!important;}
+th,td{padding:8px 6px!important;}
+/* never allow fixed chrome to cover content */
+@media(max-width:767px){
+  #topHeader{grid-template-columns:52px minmax(0,1fr) 52px!important;}
+  #topHeader .headerSide{width:50px!important;}
+  #topHeader .appLogo{width:50px!important;height:50px!important;}
+  #topHeader .appName{font-size:17px!important;}
+  #topHeader .appSlogan{font-size:8px!important;}
+  #topHeader .clinicLogo,#topHeader .logoutBtn{width:40px!important;height:40px!important;flex-basis:40px!important;}
+  #topHeader .clinicSideName,#topHeader .logoutLabel{font-size:8px!important;max-width:50px!important;}
+  .navItem{font-size:10.5px!important;padding-inline:8px!important;}
+  .page{padding-top:7px!important;}
+}
+@media(max-width:380px){.statGrid{grid-template-columns:1fr!important}.navItem{padding-inline:7px!important;font-size:10px!important}.card{padding:9px!important}}
+</style>
 <style id="dentyar-v29-premium">
 /* DENTYAR V29 — premium dental identity */
 html,body{background:linear-gradient(180deg,#f1f8f7 0%,#f8fbfa 42%,#eef5f4 100%)!important;}
@@ -2602,7 +2665,7 @@ function renderReports(){
       </div>
       <div class="row" style="margin-top:10px">
         <button class="btn btn-gold col" onclick="exportReportCSV()">خروجی CSV</button>
-        <button class="btn btn-navy col" onclick="exportReportXLSX()">خروجی Excel</button>
+        <button class="btn btn-navy col" onclick="exportReportXLSX()">دانلود گزارش Excel</button>
         <button class="btn btn-outline col" onclick="exportReportPDF()">خروجی PDF</button>
       </div>
     </div>
@@ -2915,7 +2978,7 @@ function renderSettings(){
         <div class="card" id="androidUpdateCard" style="margin-top:10px;margin-bottom:0;padding:10px!important;background:#f9fcfb!important">
           <h3 style="font-size:15px!important">بسته Android (APK)</h3>
           <p style="font-size:12px;color:var(--muted);line-height:1.9;margin:4px 0 8px">
-            این بخش مخصوص نسخه Android است. فایل APK نسخه جدید را همین‌جا انتخاب و ذخیره کنید؛ سپس اجرای نصب از همین قسمت انجام می‌شود. iPhone/iPad فایل APK را نصب نمی‌کند و از نسخه وب/PWA استفاده می‌کند.
+            این بخش مخصوص نسخه Android است. آخرین نسخه از سرور بررسی و در صورت انتشار، از همین بخش دریافت و برای نصب به Android تحویل داده می‌شود؛ در صورت نیاز امکان انتخاب دستی APK نیز وجود دارد. iPhone/iPad فایل APK را نصب نمی‌کند و از نسخه وب/PWA استفاده می‌کند.
           </p>
           <div class="grid2">
             <div><label>شماره نسخه جدید</label><input id="updateVersionInput" placeholder="مثلاً V29"></div>
@@ -2924,7 +2987,7 @@ function renderSettings(){
           <label style="margin-top:8px">فایل APK نسخه جدید</label>
           <input type="file" id="updateApkInput" accept=".apk,application/vnd.android.package-archive">
           <div class="updateActions">
-            <button class="btn btn-primary" onclick="saveAppUpdatePackage()">ذخیره نسخه Android</button>
+            <button class="btn btn-primary" onclick="checkAndInstallAndroidUpdate()">بررسی و نصب آخرین نسخه</button><button class="btn btn-outline" onclick="saveAppUpdatePackage()">ذخیره APK</button>
             <button class="btn btn-outline" onclick="executeSavedAppUpdate()">اجرای نصب Android</button>
           </div>
           <div id="updateStateBadge" class="updateBadge" style="margin-top:8px">آماده</div>
@@ -3050,20 +3113,75 @@ function updatePlatformUi(){
 async function checkAndApplyWebUpdate(){
   const badge=document.getElementById('dentyarPlatformBadge');
   if(badge) badge.textContent='در حال بررسی…';
+  const manifestUrl='https://raw.githubusercontent.com/dentyar49-code/DENTYAR/main/update.json?ts='+Date.now();
   try{
-    if('serviceWorker' in navigator){
-      const regs=await navigator.serviceWorker.getRegistrations();
-      for(const reg of regs){ try{ await reg.update(); }catch(e){} }
+    const res=await fetch(manifestUrl,{cache:'no-store',headers:{'Accept':'application/json'}});
+    if(!res.ok) throw new Error('update manifest '+res.status);
+    const remote=await res.json();
+    const remoteVersion=String(remote.version||'').toUpperCase();
+    const current=String(DENTYAR_APP_VERSION||'V29').toUpperCase();
+    if(!remoteVersion){throw new Error('missing version');}
+    const num=v=>Number(String(v).replace(/[^0-9]/g,''))||0;
+    if(num(remoteVersion)<=num(current)){
+      if(badge) badge.textContent=getDentyarPlatform();
+      modalAlert('بروزرسانی DENTYAR',`نسخه فعلی ${faDigits(current)} است و بروزرسانی جدیدی منتشر نشده است.`);
+      return;
     }
-    if('caches' in window){
-      const keys=await caches.keys();
-      await Promise.all(keys.filter(k=>/^dentyar-/i.test(k)).map(k=>caches.delete(k)));
-    }
-    toast('بروزرسانی بررسی شد؛ برنامه با نسخه وب جدید بارگذاری می‌شود');
-    setTimeout(()=>location.reload(),250);
+    const ok=confirm(`نسخه ${remoteVersion} آماده است. بروزرسانی وب انجام شود؟`);
+    if(!ok) return;
+    // The web/PWA update is always applied on the same deployment URL so the clinic data remains local.
+    if('serviceWorker' in navigator){for(const reg of await navigator.serviceWorker.getRegistrations()){try{await reg.update()}catch(e){}}}
+    if('caches' in window){for(const k of await caches.keys()){if(/^dentyar-/i.test(k)) await caches.delete(k);}}
+    location.reload(true);
   }catch(e){
-    if(badge) badge.textContent='خطا در بررسی';
-    modalAlert('بروزرسانی','بررسی نسخه وب انجام نشد. اتصال اینترنت و دسترسی مرورگر به ذخیره‌سازی را بررسی کنید.');
+    console.error('DENTYAR web update check failed',e);
+    if(badge) badge.textContent=getDentyarPlatform();
+    modalAlert('بروزرسانی DENTYAR','بررسی بروزرسانی انجام نشد. فایل update.json باید در مخزن اصلی DENTYAR قرار داشته باشد و اتصال اینترنت فعال باشد.');
+  }
+}
+
+async function checkAndInstallAndroidUpdate(){
+  const badge=document.getElementById('updateStateBadge');
+  if(badge) badge.textContent='در حال بررسی…';
+  try{
+    const r=await fetch('https://raw.githubusercontent.com/dentyar49-code/DENTYAR/main/update.json?ts='+Date.now(),{cache:'no-store',headers:{'Accept':'application/json'}});
+    if(!r.ok) throw new Error('manifest '+r.status);
+    const m=await r.json();
+    const remoteVersion=String(m.version||m.android?.version||'').toUpperCase();
+    const current=String(DENTYAR_APP_VERSION||'V29').toUpperCase();
+    const num=v=>Number(String(v).replace(/[^0-9]/g,''))||0;
+    if(!remoteVersion || num(remoteVersion)<=num(current)){
+      if(badge) badge.textContent='به‌روز';
+      modalAlert('بروزرسانی DENTYAR',`نسخه نصب‌شده ${faDigits(current)} است و نسخه جدیدی منتشر نشده است.`);
+      return;
+    }
+    const apkUrl=String(m.android?.apkUrl||m.apkUrl||'').trim();
+    if(!apkUrl) throw new Error('missing apkUrl');
+    if(!confirm(`نسخه ${remoteVersion} آماده نصب است. دریافت و نصب انجام شود؟`)) return;
+    if(badge) badge.textContent='در حال دریافت APK…';
+    const ar=await fetch(apkUrl,{cache:'no-store'});
+    if(!ar.ok) throw new Error('apk '+ar.status);
+    const blob=await ar.blob();
+    const fileName=String(m.android?.fileName||('DENTYAR-'+remoteVersion+'.apk')).replace(/[\\/:*?"<>|]/g,'_');
+    await new Promise((resolve,reject)=>{
+      const req=indexedDB.open('dentyar_updates_v1',1);
+      req.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains('updates'))e.target.result.createObjectStore('updates',{keyPath:'id'});};
+      req.onerror=()=>reject(req.error||new Error('IDB open failed'));
+      req.onsuccess=e=>{
+        const db=e.target.result,tx=db.transaction('updates','readwrite');
+        tx.objectStore('updates').put({id:'latest',version:remoteVersion,note:m.notes||'',fileName,size:blob.size,blob,savedAt:Date.now()});
+        tx.oncomplete=()=>{db.close();resolve();};
+        tx.onerror=()=>{db.close();reject(tx.error||new Error('IDB write failed'));};
+      };
+    });
+    if(badge) badge.textContent='نسخه دریافت شد';
+    const info=document.getElementById('savedUpdateInfo');
+    if(info) info.textContent=`نسخه ${remoteVersion} | ${fileName} | ${Math.round(blob.size/1024)} کیلوبایت`;
+    await executeSavedAppUpdate();
+  }catch(e){
+    console.error('DENTYAR Android update failed',e);
+    if(badge) badge.textContent='خطا';
+    modalAlert('بروزرسانی Android','دریافت یا نصب خودکار انجام نشد. بررسی کنید اینترنت فعال باشد و آخرین APK در بخش Releases مخزن DENTYAR منتشر شده باشد.');
   }
 }
 
@@ -3121,7 +3239,7 @@ async function executeSavedAppUpdate(){
           await fs.writeFile({path,data,directory:'CACHE',recursive:true});
           if(fs.getUri && opener && opener.openFile){
             const u=await fs.getUri({path,directory:'CACHE'});
-            await opener.openFile({path:u.uri||u.path,mimeType:'application/vnd.android.package-archive'});
+            await opener.openFile({path:String(u.uri||u.path),mimeType:'application/vnd.android.package-archive'});
             toast('نصب بروزرسانی آغاز شد؛ تأیید نهایی با اندروید انجام می‌شود');
           }else{
             toast('APK در حافظه موقت برنامه ذخیره شد؛ اجرای نصب را دوباره بزنید');
@@ -3504,6 +3622,7 @@ startDentyarIDBMirror();
   const run=()=>{
     setupV26JalaliDates(document);
     toFaTextNodeTree(document.body);
+    formatAllNumericInputs();
     document.querySelectorAll('input[type=text],input[type=tel],input[type=number]').forEach(el=>{
       if(/(Gross|Discount|Insurance|CoverageCeiling|Cash|Card|Transfer|Other|Refund|Price|Amount|Cost|Paid|Balance)/i.test(el.id||'')) el.setAttribute('data-v26-number','1');
     });
@@ -3511,7 +3630,17 @@ startDentyarIDBMirror();
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run,{once:true}); else run();
   const mo=new MutationObserver(()=>run());
   mo.observe(document.body,{subtree:true,childList:true,characterData:true});
-  document.addEventListener('blur',e=>{
+  
+  document.addEventListener('input',e=>{
+    const el=e.target;
+    if(!el || !el.matches) return;
+    if(el.matches('input[type=tel],input[inputmode=numeric],input[type=number]')){
+      const pos=el.selectionStart;
+      const converted=faDigits(toEnDigits(el.value));
+      if(converted!==el.value){ el.value=converted; try{el.setSelectionRange(pos,pos);}catch(_){} }
+    }
+  },true);
+document.addEventListener('blur',e=>{
     const el=e.target;
     if(el && el.matches && el.matches('input[data-v26-number]') && el.value.trim()) el.value=faDigits(toEnDigits(el.value));
   },true);

@@ -1,0 +1,10 @@
+{
+  "app": "DENTYAR",
+  "version": "V29",
+  "notes": "نسخه V29؛ طراحی فیروزه‌ای تخصصی، رابط واکنش‌گرا، خروجی Excel واقعی و مرکز بروزرسانی داخلی.",
+  "android": {
+    "version": "V29",
+    "apkUrl": "https://github.com/dentyar49-code/DENTYAR/releases/latest/download/DENTYAR-latest.apk",
+    "fileName": "DENTYAR-latest.apk"
+  }
+}
