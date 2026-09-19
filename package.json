@@ -1,8 +1,8 @@
 {
   "name": "dentyar-multiplatform",
-  "version": "29.0.0",
+  "version": "30.0.0",
   "private": true,
-  "description": "DENTYAR — Your Smart Dental Assistant",
+  "description": "DENTYAR — Your Smart Dental Assistant | V30",
   "scripts": {
     "web": "npx serve www",
     "sync": "npx cap sync",
@@ -14,7 +14,9 @@
   "dependencies": {
     "@capacitor/core": "^7.4.0",
     "@capacitor/filesystem": "^7.1.0",
-    "@capacitor/share": "^7.0.0"
+    "@capacitor/share": "^7.0.0",
+    "@capacitor/status-bar": "^7.0.0",
+    "@capawesome-team/capacitor-file-opener": "7.0.0"
   },
   "devDependencies": {
     "@capacitor/cli": "^7.4.0",
