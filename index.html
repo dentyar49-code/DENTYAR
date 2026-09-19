@@ -2523,18 +2523,39 @@ function exportReportPDF(){
   const rows=getReportRowsForExport();
   const title='گزارش دنت‌یار';
   const body=rows.map((r,i)=>'<tr>'+r.map(c=>'<td>'+esc(faDigits(c==null?'':c))+'</td>').join('')+'</tr>').join('');
-  const w=window.open('','_blank');
-  if(!w){ toast('پنجره چاپ توسط مرورگر مسدود شد'); return; }
-  w.document.write(`<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><title>${title}</title>
+  const html=`<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><title>${title}</title>
   <style>body{font-family:Tahoma,Arial,sans-serif;padding:18px;color:#17363a}h2{text-align:center;color:#0f766e}
   table{width:100%;border-collapse:collapse;font-size:11px}th,td{border:1px solid #ccdcd9;padding:6px;text-align:right}
   tr:first-child{font-weight:bold;background:#e9f7f5}
-  #dentyarPdfBackBtn{position:fixed;top:12px;left:12px;z-index:999;background:#12305e;color:#fff;border:none;border-radius:10px;padding:10px 16px;font-family:inherit;font-size:13px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.2);}
-  @media print{body{padding:0}#dentyarPdfBackBtn{display:none}}</style></head>
-  <body><button id="dentyarPdfBackBtn" onclick="window.close()">✕ بازگشت</button><h2>${title}</h2><div>تاریخ تهیه: ${currentJalaliDateFa()}</div><br><table>${body}</table>
-  <script>setTimeout(()=>window.print(),350);<\/script></body></html>`);
-  w.document.close();
-  toast('نسخه چاپی آماده شد؛ از گزینه «Save as PDF» ذخیره کنید');
+  @media print{body{padding:0}}</style></head>
+  <body><h2>${title}</h2><div>تاریخ تهیه: ${currentJalaliDateFa()}</div><br><table>${body}</table>
+  <script>setTimeout(()=>window.print(),350);<\/script></body></html>`;
+
+  // نمایش پیش‌نمایش چاپی به‌صورت یک لایه‌ی داخل همین صفحه (نه یک پنجره‌ی جدا)، تا دکمه‌ی
+  // بازگشت همیشه و مستقل از رفتار window.close() در مرورگر/وب‌ویو کار کند.
+  let overlay=document.getElementById('dentyarPdfOverlay');
+  if(!overlay){
+    overlay=document.createElement('div');
+    overlay.id='dentyarPdfOverlay';
+    overlay.style.cssText='position:fixed;inset:0;z-index:5000;background:#fff;display:flex;flex-direction:column;';
+    const bar=document.createElement('div');
+    bar.style.cssText='flex:0 0 auto;background:#12305e;padding:10px 14px;display:flex;align-items:center;gap:10px;';
+    const backBtn=document.createElement('button');
+    backBtn.textContent='✕ بازگشت';
+    backBtn.style.cssText='background:#fff;color:#12305e;border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-size:13px;font-weight:700;';
+    backBtn.onclick=function(){ overlay.style.display='none'; };
+    bar.appendChild(backBtn);
+    const iframe=document.createElement('iframe');
+    iframe.id='dentyarPdfFrame';
+    iframe.style.cssText='flex:1 1 auto;border:none;width:100%;';
+    overlay.appendChild(bar);
+    overlay.appendChild(iframe);
+    document.body.appendChild(overlay);
+  }
+  overlay.style.display='flex';
+  const frame=document.getElementById('dentyarPdfFrame');
+  frame.srcdoc=html;
+  toast('پیش‌نمایش چاپی آماده شد؛ از دکمه‌ی چاپ یا «Save as PDF» ذخیره کنید');
 }
 
 /* ===================== پشتیبان‌گیری ===================== */
@@ -2725,17 +2746,93 @@ let settingsSelectedListItems = [];
 function renderSettings(){
   document.getElementById('pageContent').innerHTML = `
     <div class="card">
-      <h3>تغییر رمز عبور ورود</h3>
-      <label>رمز جدید (۸ رقم)</label>
-      <input type="text" id="newPassInput" maxlength="8" placeholder="********">
-      <button class="btn btn-primary btn-block" style="margin-top:8px" onclick="changePassword()">ذخیره‌ی رمز جدید</button>
-    </div>
-
-    <div class="card">
       <h3>تنظیم شاخص‌های داشبورد</h3>
       <p style="font-size:12px;color:var(--muted);line-height:1.9">همه شاخص‌های استاندارد در برنامه موجودند؛ فقط موارد انتخاب‌شده روی داشبورد نمایش داده می‌شوند.</p>
       <div class="grid2">${Object.entries({totalPatients:'کل بیماران',newPatients:'بیماران جدید سال',todayVisits:'مراجعات امروز',todayAppointments:'نوبت‌های امروز',treatments:'درمان‌های تکمیل‌شده',ongoing:'درمان‌های در حال انجام',referrals:'ارجاع‌شده',cancelled:'لغوشده',revenue:'خالص خدمات',received:'کل دریافتی',debts:'مطالبات/باقیمانده',insurance:'سهم بیمه',discounts:'کل تخفیف',cash:'دریافت نقدی',nonCash:'دریافت غیرنقدی',refunds:'استرداد وجه',treatmentCount:'تعداد کل درمان‌ها',topTreatment:'پرتکرارترین درمان',dentists:'دندان‌پزشکان',female:'بیماران زن',male:'بیماران مرد'}).map(([k,l])=>`<label class="switchLabel"><input type="checkbox" class="dashMetric" value="${k}" ${(STATE.meta.dashboardMetrics||[]).includes(k)?'checked':''}><span>${l}</span></label>`).join('')}</div>
       <button class="btn btn-primary btn-block" style="margin-top:10px" onclick="saveDashboardMetrics()">ذخیره شاخص‌های داشبورد</button>
+    </div>
+
+    <div class="card">
+      <h3>قالب پیامک‌ها</h3>
+      <p style="font-size:11px;color:var(--muted)">از {نام}، {تاریخ} و {ساعت} برای درج خودکار اطلاعات نوبت استفاده کنید. نام کلینیک و شماره تماس به‌صورت خودکار زیر پیامک درج می‌شود.</p>
+      <label>پیامک ثبت نوبت (بلافاصله پس از ثبت)</label>
+      <textarea id="smsConfirmInput">${esc(STATE.meta.smsConfirmTemplate)}</textarea>
+      <label>پیامک یادآوری (یک ساعت قبل از نوبت)</label>
+      <textarea id="smsReminderInput">${esc(STATE.meta.smsReminderTemplate)}</textarea>
+      <button class="btn btn-primary btn-block" style="margin-top:8px" onclick="saveSmsTemplates()">ذخیره‌ی قالب‌ها</button>
+    </div>
+
+    <div class="card">
+      <h3>شماره‌گذاری استاندارد پرونده</h3>
+      <p style="font-size:12px;color:var(--muted);line-height:1.9">شماره پرونده به‌صورت <b>تاریخ شمسی روز + سریال چهاررقمی</b> ساخته می‌شود؛ نمونه: ۱۴۰۵۰۶۲۴۰۰۰۱. حالت پیش‌فرض ادامه سریال بین روزهاست.</p>
+      <div class="grid2">
+        <label class="switchLabel"><input type="radio" name="fileNoMode" ${STATE.meta.fileNoMode!=='yearly'?'checked':''} onchange="setFileNoMode('continuous')"><span>ادامه سریال تا همیشه</span></label>
+        <label class="switchLabel"><input type="radio" name="fileNoMode" ${STATE.meta.fileNoMode==='yearly'?'checked':''} onchange="setFileNoMode('yearly')"><span>ریست در ابتدای هر سال</span></label>
+      </div>
+      <div class="notice">تاریخ روز همیشه در ابتدای شماره پرونده درج می‌شود. در صورت ریست دستی، از همان روز سریال از ۰۰۰۱ آغاز خواهد شد.</div>
+      <button class="btn btn-danger btn-block" onclick="modalConfirm('ریست سریال پرونده','از امروز شماره پرونده بعدی با سریال ۰۰۰۱ ساخته می‌شود. ادامه می‌دهید؟',resetFileSerialFromToday)">ریست سریال از امروز</button>
+    </div>
+
+    <div class="card">
+      <h3>مدیریت فیلدهای فرم‌ها</h3>
+      <p style="font-size:12px;color:var(--muted);line-height:1.9">همه اطلاعات استاندارد دو فرم «ثبت نوبت» و «ثبت بیمار» قابل نمایش/عدم نمایش و تعیین وضعیت الزامی هستند. فیلدهای سفارشی نیز می‌توانند اضافه یا حذف شوند.</p>
+      <div class="sectionTitle">ثبت نوبت</div>
+      ${formFieldSettingsHtml('appointment')}
+      <div class="row" style="margin-top:8px"><input class="col" id="newFieldName_appointment" placeholder="نام فیلد جدید برای نوبت"><select id="newFieldType_appointment" style="max-width:150px"><option value="text">متنی</option><option value="number">عددی</option><option value="textarea">متن بلند</option></select><button class="btn btn-primary" onclick="addCustomField('appointment')">افزودن</button></div>
+      <div class="sectionTitle">ثبت بیمار</div>
+      ${formFieldSettingsHtml('register')}
+      <div class="row" style="margin-top:8px"><input class="col" id="newFieldName_register" placeholder="نام فیلد جدید برای بیمار"><select id="newFieldType_register" style="max-width:150px"><option value="text">متنی</option><option value="number">عددی</option><option value="textarea">متن بلند</option></select><button class="btn btn-primary" onclick="addCustomField('register')">افزودن</button></div>
+    </div>
+
+    <div class="card">
+      <h3>بیمه‌های پایه و تکمیلی</h3>
+      <p style="font-size:12px;color:var(--muted);line-height:1.9">بیمه پایه و بیمه تکمیلی جداگانه ثبت می‌شوند. فهرست‌ها قابل ویرایش هستند تا بیمه‌های طرف قرارداد کلینیک نیز اضافه شوند.</p>
+      <div class="grid2"><div><label>بیمه‌های پایه</label><div class="listBox">${(STATE.lists.baseInsuranceTypes||[]).map(x=>`<div>${esc(x)}</div>`).join('')}</div></div><div><label>بیمه‌های تکمیلی</label><div class="listBox">${(STATE.lists.supplementalInsuranceTypes||[]).map(x=>`<div>${esc(x)}</div>`).join('')}</div></div></div>
+      <p style="font-size:11px;color:var(--muted);margin-top:8px">برای افزودن/حذف موارد از بخش «مدیریت لیست‌ها» استفاده کنید.</p>
+    </div>
+
+    <div class="card">
+      <h3>مدیریت لیست‌ها</h3>
+      <div class="filterChips">
+        ${Object.keys(LIST_LABELS).map(k=>`<span class="chip ${settingsActiveList===k?'active':''}" onclick="settingsActiveList='${k}'; settingsSelectedListItems=[]; renderSettings();">${LIST_LABELS[k]}</span>`).join('')}
+      </div>
+      <div class="row">
+        <input type="text" id="newListItem" placeholder="افزودن مورد جدید..." class="col">
+        <button class="btn btn-primary" onclick="addListItem()">افزودن</button>
+      </div>
+      <div style="margin-top:10px">
+        ${(STATE.lists[settingsActiveList]||[]).map((item,i)=>`
+          <div class="row" style="justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border)">
+            <label class="switchLabel" style="flex:1"><input type="checkbox" onchange="toggleListItemSelected(${i},this.checked)" ${((settingsSelectedListItems||[]).includes(i))?'checked':''}><span>${esc(item)}</span></label>
+          </div>
+        `).join('') || '<div class="empty">موردی ثبت نشده</div>'}
+      </div>
+      ${(settingsSelectedListItems&&settingsSelectedListItems.length)?`<div id="listMgmtDeleteBar"><button class="btn btn-danger btn-block" style="margin-top:8px" onclick="removeSelectedListItems()">حذف موارد انتخاب‌شده (${faDigits(settingsSelectedListItems.length)})</button></div>`:'<div id="listMgmtDeleteBar"></div>'}
+    </div>
+
+    <div class="card">
+      <h3>نرخ متعارف و پیش‌فرض خدمات</h3>
+      <p style="font-size:12px;color:var(--muted);line-height:1.9">نرخ‌های اولیه برای سال ۱۴۰۵ به‌عنوان نرخ پیشنهادی/متعارف وارد شده‌اند؛ این ارقام تعرفه الزام‌آور نیستند و دندان‌پزشک می‌تواند هر مورد را کمتر یا بیشتر کند. نرخ خدمت انتخاب‌شده هنگام ثبت بیمار به‌صورت خودکار درج می‌شود.</p>
+      <div class="notice" style="margin-bottom:10px">مبنای رسمی تعرفه‌های سلامت و قرارداد بیمه می‌تواند با نرخ واقعی مطب متفاوت باشد؛ نرخ نهایی همیشه قابل ویرایش است.</div>
+      ${STATE.lists.treatmentTypes.map(t=>`
+        <div class="row" style="align-items:center;margin-bottom:8px">
+          <span class="col" style="font-size:12.5px">${esc(t)}</span>
+          <input type="text" style="flex:1.2" value="${getTreatmentPrice(t)||''}" placeholder="0" onchange="setTreatmentPrice('${esc(t).replace(/'/g,"\\'")}', this.value)">
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="card">
+      <h3>مشخصات کلینیک</h3>
+      <p style="font-size:11.5px;color:var(--muted)">تغییر نام، لوگو و شعار کلینیک از بخش «پروفایل» (با رمز اختصاصی) انجام می‌شود.</p>
+      <button class="btn btn-outline btn-block" onclick="navigate('profile')">رفتن به پروفایل</button>
+    </div>
+
+    <div class="card">
+      <h3>تغییر رمز عبور ورود</h3>
+      <label>رمز جدید (۸ رقم)</label>
+      <input type="text" id="newPassInput" maxlength="8" placeholder="********">
+      <button class="btn btn-primary btn-block" style="margin-top:8px" onclick="changePassword()">ذخیره‌ی رمز جدید</button>
     </div>
 
     <div class="card">
@@ -2776,82 +2873,6 @@ function renderSettings(){
           <div id="savedUpdateInfo" style="font-size:11px;color:var(--muted);margin-top:8px">هنوز فایل بروزرسانی Android ذخیره نشده است.</div>
         </div>
       </div>
-    </div>
-
-    <div class="card">
-      <h3>مشخصات کلینیک</h3>
-      <p style="font-size:11.5px;color:var(--muted)">تغییر نام، لوگو و شعار کلینیک از بخش «پروفایل» (با رمز اختصاصی) انجام می‌شود.</p>
-      <button class="btn btn-outline btn-block" onclick="navigate('profile')">رفتن به پروفایل</button>
-    </div>
-
-    <div class="card">
-      <h3>شماره‌گذاری استاندارد پرونده</h3>
-      <p style="font-size:12px;color:var(--muted);line-height:1.9">شماره پرونده به‌صورت <b>تاریخ شمسی روز + سریال چهاررقمی</b> ساخته می‌شود؛ نمونه: ۱۴۰۵۰۶۲۴۰۰۰۱. حالت پیش‌فرض ادامه سریال بین روزهاست.</p>
-      <div class="grid2">
-        <label class="switchLabel"><input type="radio" name="fileNoMode" ${STATE.meta.fileNoMode!=='yearly'?'checked':''} onchange="setFileNoMode('continuous')"><span>ادامه سریال تا همیشه</span></label>
-        <label class="switchLabel"><input type="radio" name="fileNoMode" ${STATE.meta.fileNoMode==='yearly'?'checked':''} onchange="setFileNoMode('yearly')"><span>ریست در ابتدای هر سال</span></label>
-      </div>
-      <div class="notice">تاریخ روز همیشه در ابتدای شماره پرونده درج می‌شود. در صورت ریست دستی، از همان روز سریال از ۰۰۰۱ آغاز خواهد شد.</div>
-      <button class="btn btn-danger btn-block" onclick="modalConfirm('ریست سریال پرونده','از امروز شماره پرونده بعدی با سریال ۰۰۰۱ ساخته می‌شود. ادامه می‌دهید؟',resetFileSerialFromToday)">ریست سریال از امروز</button>
-    </div>
-
-    <div class="card">
-      <h3>بیمه‌های پایه و تکمیلی</h3>
-      <p style="font-size:12px;color:var(--muted);line-height:1.9">بیمه پایه و بیمه تکمیلی جداگانه ثبت می‌شوند. فهرست‌ها قابل ویرایش هستند تا بیمه‌های طرف قرارداد کلینیک نیز اضافه شوند.</p>
-      <div class="grid2"><div><label>بیمه‌های پایه</label><div class="listBox">${(STATE.lists.baseInsuranceTypes||[]).map(x=>`<div>${esc(x)}</div>`).join('')}</div></div><div><label>بیمه‌های تکمیلی</label><div class="listBox">${(STATE.lists.supplementalInsuranceTypes||[]).map(x=>`<div>${esc(x)}</div>`).join('')}</div></div></div>
-      <p style="font-size:11px;color:var(--muted);margin-top:8px">برای افزودن/حذف موارد از بخش «مدیریت لیست‌ها» استفاده کنید.</p>
-    </div>
-
-    <div class="card">
-      <h3>مدیریت فیلدهای فرم‌ها</h3>
-      <p style="font-size:12px;color:var(--muted);line-height:1.9">همه اطلاعات استاندارد دو فرم «ثبت نوبت» و «ثبت بیمار» قابل نمایش/عدم نمایش و تعیین وضعیت الزامی هستند. فیلدهای سفارشی نیز می‌توانند اضافه یا حذف شوند.</p>
-      <div class="sectionTitle">ثبت نوبت</div>
-      ${formFieldSettingsHtml('appointment')}
-      <div class="row" style="margin-top:8px"><input class="col" id="newFieldName_appointment" placeholder="نام فیلد جدید برای نوبت"><select id="newFieldType_appointment" style="max-width:150px"><option value="text">متنی</option><option value="number">عددی</option><option value="textarea">متن بلند</option></select><button class="btn btn-primary" onclick="addCustomField('appointment')">افزودن</button></div>
-      <div class="sectionTitle">ثبت بیمار</div>
-      ${formFieldSettingsHtml('register')}
-      <div class="row" style="margin-top:8px"><input class="col" id="newFieldName_register" placeholder="نام فیلد جدید برای بیمار"><select id="newFieldType_register" style="max-width:150px"><option value="text">متنی</option><option value="number">عددی</option><option value="textarea">متن بلند</option></select><button class="btn btn-primary" onclick="addCustomField('register')">افزودن</button></div>
-    </div>
-
-    <div class="card">
-      <h3>قالب پیامک‌ها</h3>
-      <p style="font-size:11px;color:var(--muted)">از {نام}، {تاریخ} و {ساعت} برای درج خودکار اطلاعات نوبت استفاده کنید. نام کلینیک و شماره تماس به‌صورت خودکار زیر پیامک درج می‌شود.</p>
-      <label>پیامک ثبت نوبت (بلافاصله پس از ثبت)</label>
-      <textarea id="smsConfirmInput">${esc(STATE.meta.smsConfirmTemplate)}</textarea>
-      <label>پیامک یادآوری (یک ساعت قبل از نوبت)</label>
-      <textarea id="smsReminderInput">${esc(STATE.meta.smsReminderTemplate)}</textarea>
-      <button class="btn btn-primary btn-block" style="margin-top:8px" onclick="saveSmsTemplates()">ذخیره‌ی قالب‌ها</button>
-    </div>
-
-    <div class="card">
-      <h3>مدیریت لیست‌ها</h3>
-      <div class="filterChips">
-        ${Object.keys(LIST_LABELS).map(k=>`<span class="chip ${settingsActiveList===k?'active':''}" onclick="settingsActiveList='${k}'; settingsSelectedListItems=[]; renderSettings();">${LIST_LABELS[k]}</span>`).join('')}
-      </div>
-      <div class="row">
-        <input type="text" id="newListItem" placeholder="افزودن مورد جدید..." class="col">
-        <button class="btn btn-primary" onclick="addListItem()">افزودن</button>
-      </div>
-      <div style="margin-top:10px">
-        ${(STATE.lists[settingsActiveList]||[]).map((item,i)=>`
-          <div class="row" style="justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border)">
-            <label class="switchLabel" style="flex:1"><input type="checkbox" onchange="toggleListItemSelected(${i},this.checked)" ${((settingsSelectedListItems||[]).includes(i))?'checked':''}><span>${esc(item)}</span></label>
-          </div>
-        `).join('') || '<div class="empty">موردی ثبت نشده</div>'}
-      </div>
-      ${(settingsSelectedListItems&&settingsSelectedListItems.length)?`<div id="listMgmtDeleteBar"><button class="btn btn-danger btn-block" style="margin-top:8px" onclick="removeSelectedListItems()">حذف موارد انتخاب‌شده (${faDigits(settingsSelectedListItems.length)})</button></div>`:'<div id="listMgmtDeleteBar"></div>'}
-    </div>
-
-    <div class="card">
-      <h3>نرخ متعارف و پیش‌فرض خدمات</h3>
-      <p style="font-size:12px;color:var(--muted);line-height:1.9">نرخ‌های اولیه برای سال ۱۴۰۵ به‌عنوان نرخ پیشنهادی/متعارف وارد شده‌اند؛ این ارقام تعرفه الزام‌آور نیستند و دندان‌پزشک می‌تواند هر مورد را کمتر یا بیشتر کند. نرخ خدمت انتخاب‌شده هنگام ثبت بیمار به‌صورت خودکار درج می‌شود.</p>
-      <div class="notice" style="margin-bottom:10px">مبنای رسمی تعرفه‌های سلامت و قرارداد بیمه می‌تواند با نرخ واقعی مطب متفاوت باشد؛ نرخ نهایی همیشه قابل ویرایش است.</div>
-      ${STATE.lists.treatmentTypes.map(t=>`
-        <div class="row" style="align-items:center;margin-bottom:8px">
-          <span class="col" style="font-size:12.5px">${esc(t)}</span>
-          <input type="text" style="flex:1.2" value="${getTreatmentPrice(t)||''}" placeholder="0" onchange="setTreatmentPrice('${esc(t).replace(/'/g,"\\'")}', this.value)">
-        </div>
-      `).join('')}
     </div>
   `;
   loadSavedUpdateInfo();
@@ -3790,10 +3811,10 @@ table{background:#0a3937!important;color:#e7f5f3!important}th{background:#0e514d
 #app{padding-top:150px;}
 @media(max-width:480px){#app{padding-top:130px;}}
 
-/* نوار فیروزه‌ای پایین: ارتفاع بیشتر و z-index بالاتر از هر عنصر دیگر صفحه تا همیشه قابل مشاهده باشد */
+/* نوار فیروزه‌ای پایین: نازک و استاندارد، هماهنگ با نوار بالای صفحه (accent bar) */
 #dentyarBottomSafeBar{
-  height:10px!important;
-  z-index:999999!important;
+  height:4px!important;
+  z-index:1200!important;
   opacity:1!important;
   visibility:visible!important;
 }
@@ -4025,6 +4046,43 @@ body{display:flex!important;flex-direction:column!important;}
   text-align:center!important;margin:0!important;
 }
 #lockScreen > *{margin-left:auto!important;margin-right:auto!important;}
+
+/* هم‌ترازی و تقارن کامل هدر: هر سه عنصر (دکمه‌ی خروج، لوگوی برنامه، لوگوی کلینیک) دقیقاً هم‌سایز و
+   هم‌شکل‌اند (دایره‌ی سفید با حاشیه‌ی یکسان)، فقط لوگوی وسط (برنامه) بزرگ‌تر است چون نماینده‌ی خود اپلیکیشن است. */
+#topHeader{display:grid!important;grid-template-columns:64px minmax(0,1fr) 64px!important;align-items:center!important;column-gap:8px!important;}
+#topHeader .headerSide,#topHeader .clinicSide{width:64px!important;height:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;gap:4px!important;transform:none!important;}
+#topHeader .logoutBtn{
+  display:flex!important;width:52px!important;height:52px!important;flex:0 0 52px!important;
+  border-radius:50%!important;background:#fff!important;border:1px solid var(--lt-border,#d7e5ea)!important;
+  box-shadow:0 3px 10px rgba(18,59,93,.10)!important;
+  color:var(--yz-red,#e0574c)!important;
+}
+#topHeader .logoutBtn svg{width:22px!important;height:22px!important;}
+#topHeader .logoutBtn svg,#topHeader .logoutBtn svg *{stroke:var(--yz-red,#e0574c)!important;}
+#topHeader .clinicLogo{
+  width:52px!important;height:52px!important;flex:0 0 52px!important;
+  border-radius:50%!important;object-fit:cover!important;
+  background:#fff!important;border:1px solid var(--lt-border,#d7e5ea)!important;
+  box-shadow:0 3px 10px rgba(18,59,93,.10)!important;
+}
+#topHeader .appLogo{
+  width:76px!important;height:76px!important;
+  border-radius:50%!important;object-fit:cover!important;
+  background:#fff!important;border:1px solid var(--lt-border,#d7e5ea)!important;
+  box-shadow:0 4px 14px rgba(18,59,93,.13)!important;
+}
+#topHeader .logoutLabel{display:none!important;}
+#dentyarLightLogoutBar{display:none!important;}
+
+/* لوگوی وسط صفحه‌ی قفل: بزرگ‌تر از لوگوهای هدر چون نماد اصلی اپلیکیشن است */
+#lockScreen .lockLogo{width:116px!important;height:116px!important;}
+@media(max-width:480px){ #lockScreen .lockLogo{width:104px!important;height:104px!important;} }
+
+/* شعار فارسی زیر لوگوی قفل: پررنگ‌تر و تیره‌تر برای خوانایی بهتر */
+#lockScreen .lockSlogan{color:var(--yz-navy,#12305e)!important;font-size:14px!important;font-weight:800!important;}
+
+/* نوار سبز/فیروزه‌ای پایین صفحات گزارش (خط ثابت زیر جدول‌ها): باید مانند بقیه‌ی محتوا افقی اسکرول شود، نه ثابت بماند */
+.card[style*="overflow-x:auto"]{-webkit-overflow-scrolling:touch!important;}
 </style>
 </head>
 <body>
