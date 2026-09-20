@@ -58,12 +58,12 @@
   #topHeader .appSlogan{color:var(--gold-dark);font-size:11.5px;font-weight:800;line-height:1.25;white-space:nowrap;margin-top:2px;}
   #topHeader .clinicSide{grid-column:3;grid-row:1;direction:rtl;}
   #topHeader .clinicLogo{width:58px!important;height:58px!important;object-fit:cover!important;flex:0 0 58px;display:block;border-radius:50%;background:#fff;border:1px solid #d7e5ea;box-shadow:0 3px 10px rgba(18,59,93,.10);}
-  #topHeader .clinicSideName{font-weight:900;font-size:14px;line-height:16px;height:16px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;text-align:center;margin-top:4px;}
+  #topHeader .clinicSideName{font-weight:900;font-size:12.5px;line-height:14px;height:auto;max-height:28px;color:var(--navy);white-space:normal;overflow:visible;word-break:break-word;max-width:76px;text-align:center;margin-top:4px;}
   #topHeader .logoutLabel{font-weight:900;font-size:13px;line-height:16px;height:16px;color:var(--navy);white-space:nowrap;text-align:center;margin-top:4px;}
   #topHeader .logoutBtn{width:58px;height:58px;flex:0 0 58px;border-radius:50%;background:var(--danger);color:#fff;border:none;padding:0;margin:0;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(226,87,76,.24);}
   #topHeader .logoutBtn svg{width:25px;height:25px;}
   #topHeader .headerBalance{display:none;}
-  @media(max-width:480px){#topHeader{grid-template-columns:74px minmax(0,1fr) 74px;gap:4px;padding:7px 12px 9px;}#topHeader .headerSide,#topHeader .clinicSide{width:66px;height:86px;transform:none;}#topHeader .appBrand{min-width:0;}#topHeader .appLogo{width:72px;height:72px;}#topHeader .appName{font-size:18px;}#topHeader .appSlogan{font-size:9.5px;}#topHeader .clinicLogo{width:54px!important;height:54px!important;flex-basis:54px!important;}#topHeader .logoutBtn{width:54px;height:54px;flex-basis:54px;}#topHeader .clinicSideName{font-size:12.5px;max-width:92px;height:15px;line-height:15px;}#topHeader .logoutLabel{font-size:11.5px;height:15px;line-height:15px;}}
+  @media(max-width:480px){#topHeader{grid-template-columns:74px minmax(0,1fr) 74px;gap:4px;padding:7px 12px 9px;}#topHeader .headerSide,#topHeader .clinicSide{width:66px;height:86px;transform:none;}#topHeader .appBrand{min-width:0;}#topHeader .appLogo{width:72px;height:72px;}#topHeader .appName{font-size:18px;}#topHeader .appSlogan{font-size:9.5px;}#topHeader .clinicLogo{width:54px!important;height:54px!important;flex-basis:54px!important;}#topHeader .logoutBtn{width:54px;height:54px;flex-basis:54px;}#topHeader .clinicSideName{font-size:11.5px;max-width:76px;height:auto;max-height:26px;line-height:13px;white-space:normal;overflow:visible;word-break:break-word;}#topHeader .logoutLabel{font-size:11.5px;height:15px;line-height:15px;}}
 
 
   /* Fixed horizontally-scrolling nav strip (constant height regardless of item count) */
@@ -4220,6 +4220,14 @@ body{display:flex!important;flex-direction:column!important;}
   border-radius:50%!important;object-fit:cover!important;
   background:#fff!important;border:1px solid var(--lt-border,#d7e5ea)!important;
   box-shadow:0 3px 10px rgba(18,59,93,.10)!important;
+}
+/* نام کلینیک زیر لوگوی سمت راست: کامل و خوانا نمایش داده شود، حتی اگر به دو خط نیاز باشد (بدون سه‌نقطه یا برش) */
+#topHeader .clinicSideName{
+  max-width:76px!important;width:auto!important;
+  height:auto!important;max-height:none!important;
+  white-space:normal!important;overflow:visible!important;
+  text-overflow:clip!important;word-break:break-word!important;
+  line-height:1.25!important;font-size:11px!important;
 }
 #topHeader .appLogo{
   width:76px!important;height:76px!important;
