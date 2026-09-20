@@ -1302,6 +1302,10 @@ const XLSXWriter = (function(){
 
 
 async function v27NativeFile(bytes, filename, mime, shouldShare=true){
+  // توجه: از اندروید ۱۰ به بعد (Scoped Storage)، نوشتن مستقیم در پوشه‌ی عمومی DOCUMENTS بدون
+  // مجوز ویژه ممکن است بی‌صدا شکست بخورد. برای اطمینان، ابتدا فایل در فضای مخصوص خودِ برنامه
+  // (CACHE — همیشه در دسترس، بدون نیاز به مجوز) نوشته می‌شود و سپس با کادر رسمی «اشتراک‌گذاری»
+  // اندروید به کاربر تحویل داده می‌شود تا خودش مقصد ذخیره (Downloads، Drive، دیگر برنامه‌ها) را انتخاب کند.
   try{
     const C=window.Capacitor;
     if(!C || !C.isNativePlatform || !C.isNativePlatform()) return {saved:false,shared:false};
@@ -1314,18 +1318,27 @@ async function v27NativeFile(bytes, filename, mime, shouldShare=true){
     for(let p=0;p<arr.length;p+=chunk) binary+=String.fromCharCode.apply(null,arr.subarray(p,p+chunk));
     const data=btoa(binary);
     const safeName=String(filename).replace(/[\\/:*?"<>|]/g,'_');
-    const path='DENTYAR/'+safeName;
-    await fs.writeFile({path,data,directory:'DOCUMENTS',recursive:true});
+    const path=safeName;
+    let writtenDir='CACHE';
+    try{
+      await fs.writeFile({path,data,directory:'CACHE',recursive:true});
+    }catch(cacheErr){
+      // اگر CACHE هم در دسں دستگاه در دسترس نبود، تلاش دوم روی DOCUMENTS (رفتار قدیمی)
+      console.warn('V27: write to CACHE failed, trying DOCUMENTS',cacheErr);
+      await fs.writeFile({path:'DENTYAR/'+safeName,data,directory:'DOCUMENTS',recursive:true});
+      writtenDir='DOCUMENTS';
+    }
+    const writtenPath = writtenDir==='CACHE' ? path : 'DENTYAR/'+safeName;
     let shared=false;
-    if(shouldShare && sh && sh.share){
+    if(sh && sh.share){
       try{
         let uri='';
         if(fs.getUri){
-          const r=await fs.getUri({path,directory:'DOCUMENTS'});
+          const r=await fs.getUri({path:writtenPath,directory:writtenDir});
           uri=r && (r.uri||r.path||'');
         }
         if(uri){
-          await sh.share({title:'DENTYAR',text:'فایل دنت‌یار: '+safeName,url:uri,dialogTitle:'ارسال فایل'});
+          await sh.share({title:'DENTYAR',text:'فایل دنت‌یار: '+safeName,url:uri,dialogTitle:'ذخیره یا ارسال فایل'});
           shared=true;
         }
       }catch(e){ console.warn('V27 native share failed',e); }
