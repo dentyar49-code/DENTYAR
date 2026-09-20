@@ -2274,11 +2274,10 @@ function printReceipt(patientId, visitId){
   const v = (p.visits||[]).find(x=>x.id===visitId);
   if(!p || !v) return;
   const dentistName = v.dentistId? (STATE.dentists.find(d=>d.id===v.dentistId)||{}).name : '-';
-  const win = window.open('', '_blank');
-  win.document.write(`
+  const html=`
     <!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"><title>رسید</title>
     <style>
-      body{font-family:Tahoma,Arial,sans-serif;padding:24px;color:#1c2b36;}
+      body{font-family:Tahoma,Arial,sans-serif;padding:24px;color:#1c2b36;margin:0;}
       h2{color:#153a63;margin-bottom:2px;}
       .muted{color:#6b7c88;font-size:13px;margin-bottom:18px;}
       table{width:100%;border-collapse:collapse;margin-top:14px;}
@@ -2287,8 +2286,6 @@ function printReceipt(patientId, visitId){
       .total{font-size:17px;font-weight:bold;color:#1e8f5f;text-align:left;margin-top:16px;}
       .footer{margin-top:30px;font-size:12px;color:#6b7c88;text-align:center;}
     </style>
-
-
 </head><body>
       <h2>DENTYAR</h2>
       <div class="muted">${esc(STATE.meta.slogan||'')}</div>
@@ -2302,13 +2299,33 @@ function printReceipt(patientId, visitId){
       </table>
       <div class="total">مبلغ: ${fmtMoney(v.cost)}</div>
       <div class="footer">${esc(STATE.meta.supportPhone||'')}</div>
-    
-
-</body></html>
-  `);
-  win.document.close();
-  win.focus();
-  win.print();
+<script>setTimeout(()=>window.print(),350);<\/script></body></html>`;
+  showDentyarPrintOverlay(html);
+}
+/* نمایش هر پیش‌نمایش چاپی (رسید تکی یا گزارش) به‌صورت یک لایه‌ی داخل همین صفحه، به‌همراه
+   دکمه‌ی بازگشت همیشه-کاربردی — مستقل از رفتار window.close() در مرورگر/وب‌ویو نصب‌شده */
+function showDentyarPrintOverlay(html){
+  let overlay=document.getElementById('dentyarPdfOverlay');
+  if(!overlay){
+    overlay=document.createElement('div');
+    overlay.id='dentyarPdfOverlay';
+    overlay.style.cssText='position:fixed;inset:0;z-index:5000;background:#fff;display:flex;flex-direction:column;';
+    const bar=document.createElement('div');
+    bar.style.cssText='flex:0 0 auto;background:#12305e;padding:10px 14px;display:flex;align-items:center;gap:10px;';
+    const backBtn=document.createElement('button');
+    backBtn.textContent='✕ بازگشت';
+    backBtn.style.cssText='background:#fff;color:#12305e;border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-size:13px;font-weight:700;';
+    backBtn.onclick=function(){ overlay.style.display='none'; };
+    bar.appendChild(backBtn);
+    const iframe=document.createElement('iframe');
+    iframe.id='dentyarPdfFrame';
+    iframe.style.cssText='flex:1 1 auto;border:none;width:100%;';
+    overlay.appendChild(bar);
+    overlay.appendChild(iframe);
+    document.body.appendChild(overlay);
+  }
+  overlay.style.display='flex';
+  document.getElementById('dentyarPdfFrame').srcdoc=html;
 }
 
 function addVisit(patientId){
@@ -2613,40 +2630,79 @@ async function exportReportXLSX(){
 }
 function exportReportPDF(){
   const rows=getReportRowsForExport();
-  const title='گزارش دنت‌یار';
-  const body=rows.map((r,i)=>'<tr>'+r.map(c=>'<td>'+esc(faDigits(c==null?'':c))+'</td>').join('')+'</tr>').join('');
+  const header=rows[0]||[];
+  const dataRows=rows.slice(1);
+  const title='گزارش رسمی دنت‌یار';
+  const clinicName=esc(STATE.meta.clinicName||'مطب لبخند زیبا');
+  const clinicPhone=esc(STATE.meta.supportPhone||'');
+  const logoSrc=clinicLogoSrc();
+
+  // نام دندان‌پزشک برای ردیف امضا: اگر فیلتر گزارش روی یک دندان‌پزشک خاص تنظیم شده، همان درج می‌شود؛
+  // در غیر این صورت جای خالی برای امضای دستی باقی می‌ماند.
+  let dentistName='';
+  if(reportFilters && reportFilters.dentistId){
+    const dSel=STATE.dentists.find(d=>d.id===reportFilters.dentistId);
+    if(dSel) dentistName=esc(dSel.name);
+  }
+
+  const thead='<tr>'+header.map(h=>`<th>${esc(faDigits(h==null?'':h))}</th>`).join('')+'</tr>';
+  const tbody=dataRows.map(r=>'<tr>'+r.map(c=>`<td>${esc(faDigits(c==null?'':c))}</td>`).join('')+'</tr>').join('');
+
   const html=`<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><title>${title}</title>
-  <style>body{font-family:Tahoma,Arial,sans-serif;padding:18px;color:#17363a}h2{text-align:center;color:#0f766e}
-  table{width:100%;border-collapse:collapse;font-size:11px}th,td{border:1px solid #ccdcd9;padding:6px;text-align:right}
-  tr:first-child{font-weight:bold;background:#e9f7f5}
-  @media print{body{padding:0}}</style></head>
-  <body><h2>${title}</h2><div>تاریخ تهیه: ${currentJalaliDateFa()}</div><br><table>${body}</table>
+  <style>
+    *{box-sizing:border-box;}
+    body{font-family:Tahoma,Arial,sans-serif;padding:22px;color:#17303f;margin:0;}
+    .letterhead{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #12305e;padding-bottom:14px;margin-bottom:16px;}
+    .letterhead .side{flex:1;font-size:11px;color:#5a6072;line-height:1.8;}
+    .letterhead .side.left{text-align:left;}
+    .letterhead .side.right{text-align:right;}
+    .letterhead .center{flex:0 0 auto;text-align:center;padding:0 14px;}
+    .letterhead .center img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid #d7e5ea;}
+    .letterhead .clinic-name{font-size:16px;font-weight:800;color:#12305e;margin-top:6px;}
+    .report-title{text-align:center;font-size:14px;font-weight:800;color:#0f766e;margin-bottom:14px;}
+    table{width:100%;border-collapse:collapse;font-size:10.5px;}
+    th,td{border:1px solid #ccdcd9;padding:6px;text-align:center;}
+    th{font-weight:800;background:#eef4fb;color:#12305e;}
+    tbody tr:nth-child(even){background:#fafbfd;}
+    .signrow{display:flex;justify-content:space-between;margin-top:46px;padding:0 6px;}
+    .signbox{flex:1;text-align:center;font-size:12px;color:#17303f;}
+    .signbox .line{margin-top:38px;border-top:1px solid #9aa4ae;padding-top:6px;font-size:11px;color:#5a6072;}
+    .signbox .name{font-weight:800;min-height:16px;}
+    .footer-note{margin-top:24px;text-align:center;font-size:10px;color:#9aa4ae;}
+    @media print{body{padding:8mm;} .no-print{display:none;}}
+  </style></head>
+  <body>
+    <div class="letterhead">
+      <div class="side right">
+        <div>تاریخ صدور:</div>
+        <div style="font-weight:700">${currentJalaliDateFa()}</div>
+      </div>
+      <div class="center">
+        <img src="${logoSrc}" alt="لوگو">
+        <div class="clinic-name">${clinicName}</div>
+      </div>
+      <div class="side left">
+        ${clinicPhone?`<div>تلفن تماس:</div><div style="font-weight:700">${faDigits(clinicPhone)}</div>`:''}
+      </div>
+    </div>
+    <div class="report-title">${title}</div>
+    <table>
+      <thead>${thead}</thead>
+      <tbody>${tbody}</tbody>
+    </table>
+    <div class="signrow">
+      <div class="signbox">
+        <div class="line">مهر و امضای دندان‌پزشک</div>
+        <div class="name">${dentistName}</div>
+      </div>
+      <div class="signbox">
+        <div class="line">مهر و امضای مسئول مطب</div>
+      </div>
+    </div>
+    <div class="footer-note">${clinicName} — سند این گزارش به‌صورت رسمی و بر اساس اطلاعات ثبت‌شده در سامانه دنت‌یار صادر شده است.</div>
   <script>setTimeout(()=>window.print(),350);<\/script></body></html>`;
 
-  // نمایش پیش‌نمایش چاپی به‌صورت یک لایه‌ی داخل همین صفحه (نه یک پنجره‌ی جدا)، تا دکمه‌ی
-  // بازگشت همیشه و مستقل از رفتار window.close() در مرورگر/وب‌ویو کار کند.
-  let overlay=document.getElementById('dentyarPdfOverlay');
-  if(!overlay){
-    overlay=document.createElement('div');
-    overlay.id='dentyarPdfOverlay';
-    overlay.style.cssText='position:fixed;inset:0;z-index:5000;background:#fff;display:flex;flex-direction:column;';
-    const bar=document.createElement('div');
-    bar.style.cssText='flex:0 0 auto;background:#12305e;padding:10px 14px;display:flex;align-items:center;gap:10px;';
-    const backBtn=document.createElement('button');
-    backBtn.textContent='✕ بازگشت';
-    backBtn.style.cssText='background:#fff;color:#12305e;border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-size:13px;font-weight:700;';
-    backBtn.onclick=function(){ overlay.style.display='none'; };
-    bar.appendChild(backBtn);
-    const iframe=document.createElement('iframe');
-    iframe.id='dentyarPdfFrame';
-    iframe.style.cssText='flex:1 1 auto;border:none;width:100%;';
-    overlay.appendChild(bar);
-    overlay.appendChild(iframe);
-    document.body.appendChild(overlay);
-  }
-  overlay.style.display='flex';
-  const frame=document.getElementById('dentyarPdfFrame');
-  frame.srcdoc=html;
+  showDentyarPrintOverlay(html);
   toast('پیش‌نمایش چاپی آماده شد؛ از دکمه‌ی چاپ یا «Save as PDF» ذخیره کنید');
 }
 
