@@ -5,7 +5,7 @@
   "description": "DENTYAR — Your Smart Dental Assistant",
   "lang": "fa-IR",
   "dir": "rtl",
-  "start_url": "./index.html?v=30",
+  "start_url": "./index.html?v=31",
   "scope": "./",
   "display": "standalone",
   "display_override": [

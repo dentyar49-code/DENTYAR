@@ -1,8 +1,8 @@
 {
   "name": "dentyar-multiplatform",
-  "version": "30.0.0",
+  "version": "31.0.0",
   "private": true,
-  "description": "DENTYAR — Your Smart Dental Assistant | V30",
+  "description": "DENTYAR — Your Smart Dental Assistant | V31",
   "scripts": {
     "web": "npx serve www",
     "sync": "npx cap sync",

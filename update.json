@@ -1,9 +1,9 @@
 {
   "app": "DENTYAR",
-  "version": "V30",
-  "notes": "نسخه V30؛ بازطراحی کامل داشبورد، هویت فیروزه‌ای تیره، تراز و واکنش‌گرایی بهتر، اعداد فارسی، خروجی واقعی گزارش و بروزرسانی داخلی.",
+  "version": "V31",
+  "notes": "نسخه V31؛ اصلاح خروجی Android و رفع گیر مسیر پرونده بیماران، بدون تغییر طراحی و پنل‌ها.",
   "android": {
-    "version": "V30",
+    "version": "V31",
     "apkUrl": "https://github.com/dentyar49-code/DENTYAR/releases/latest/download/DENTYAR-latest.apk",
     "fileName": "DENTYAR-latest.apk"
   }
