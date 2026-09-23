@@ -448,7 +448,8 @@ const DEFAULT_STATE = () => ({
       legalName:'', managerName:'', medicalDirector:'', clinicPhone:'', clinicMobile:'', clinicEmail:'', website:'',
       address:'', city:'', postalCode:'', licenseNo:'', nationalIdentifier:'', economicCode:'', workingHours:'', emergencyPhone:'', notes:''
     },
-    appAdminPassword:'49944994', appAdminEnabled:true, appAdminHidden:true
+    appAdminPassword:'49944994', appAdminEnabled:true, appAdminHidden:true,
+    sync:{ enabled:false, clinicCode:'', deviceName:'', firebaseConfig:null, lastSyncAt:null, pairedAt:null }
   },
   formFields: { appointment: [], register: [] },
   patients: [],       // {id, fileNo, name, nationalId, phone, gender, birthYear, address, notes, insuranceType, visitType, createdAt, visits:[], files:[]}
@@ -774,6 +775,7 @@ function saveState(){
   if (typeof indexedDB !== 'undefined' && location.protocol !== 'content:') {
     idbPutAll(STATE).catch(err=>console.warn('IndexedDB mirror save failed:', err));
   }
+  if(window.DentyarSync && STATE.meta && STATE.meta.sync && STATE.meta.sync.enabled){ DentyarSync.schedulePush(); }
 }
 function uid(prefix){ return (prefix||'id') + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
 
@@ -2896,6 +2898,7 @@ let settingsSelectedListItems = [];
 
 function renderSettings(){
   document.getElementById('pageContent').innerHTML = `
+    ${window.DentyarSync ? DentyarSync.settingsCardHtml() : ''}
     <div class="card">
       <h3>تنظیم شاخص‌های داشبورد</h3>
       <p style="font-size:12px;color:var(--muted);line-height:1.9">همه شاخص‌های استاندارد در برنامه موجودند؛ فقط موارد انتخاب‌شده روی داشبورد نمایش داده می‌شوند.</p>
@@ -4366,5 +4369,235 @@ document.addEventListener('blur',e=>{
   },true);
 })();
 </script>
+<script>
+(function(){
+  const SYNC = {};
+  let fb=null, dbm=null, fbApp=null, db=null, rootRef=null;
+  let subs=[], deviceId=null, pushTimer=null, merging=false, connected=false, started=false;
+  const FB_APP_URL='https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
+  const FB_DB_URL ='https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
+  const PUSHED_KEY='dentyar_sync_pushed_ids';
+
+  SYNC.cfg = function(){ return (STATE && STATE.meta && STATE.meta.sync) ? STATE.meta.sync : null; };
+  SYNC.isReady = function(){ return started && connected; };
+
+  function ensureDeviceId(){
+    let id = localStorage.getItem('dentyar_device_id');
+    if(!id){ id='dev_'+Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('dentyar_device_id', id); }
+    deviceId = id; return id;
+  }
+  function sensitiveKeys(){ return ['password','profilePassword','appAdminPassword','appAdminEnabled','appAdminHidden','sync','_syncUpdatedAt']; }
+  function sanitizedMeta(){
+    const m = JSON.parse(JSON.stringify(STATE.meta||{}));
+    sensitiveKeys().forEach(function(k){ delete m[k]; });
+    return m;
+  }
+  async function loadSdk(){
+    if(fb) return;
+    fb = await import(FB_APP_URL);
+    dbm = await import(FB_DB_URL);
+  }
+  function clearSubs(){ subs.forEach(function(u){ try{u();}catch(_){} }); subs=[]; }
+  function base(){ return 'clinics/'+SYNC.cfg().clinicCode; }
+
+  SYNC.connect = async function(){
+    const cfg = SYNC.cfg();
+    if(!cfg || !cfg.enabled || !cfg.clinicCode || !cfg.firebaseConfig){ return; }
+    try{
+      await loadSdk();
+      if(fbApp){ try{ await fb.deleteApp(fbApp); }catch(_){} }
+      fbApp = fb.initializeApp(cfg.firebaseConfig, 'dentyar-sync');
+      db = dbm.getDatabase(fbApp);
+      try{ await dbm.enableIndexedDbPersistence(db); }catch(e){ console.warn('Sync persistence unavailable (multi-tab):', e); }
+      ensureDeviceId();
+      dbm.set(dbm.ref(db, base()+'/devices/'+deviceId),
+        { name: cfg.deviceName||('دستگاه '+deviceId.slice(-4)), lastSeen: dbm.serverTimestamp() });
+      subs.push(dbm.onValue(dbm.ref(db,'.info/connected'), function(s){ connected=!!s.val(); SYNC.renderStatus&&SYNC.renderStatus(); }));
+      ['patients','dentists','appointments'].forEach(subscribeCollection);
+      ['lists','formFields','treatmentPrices'].forEach(subscribeValue);
+      subscribeValue('meta');
+      ['patients','dentists','appointments'].forEach(subscribeTombstones);
+      started=true;
+      SYNC.renderStatus&&SYNC.renderStatus();
+      toast('همگام‌سازی چنددستگاهی فعال شد');
+      setTimeout(function(){ SYNC.schedulePush(true); }, 1500);
+    }catch(e){ console.error('DentyarSync connect failed', e); toast('اتصال همگام‌سازی ناموفق بود: '+(e&&e.message||e)); }
+  };
+
+  SYNC.disconnect = function(){
+    clearSubs();
+    if(db){ try{ dbm.goOffline(db); }catch(_){} }
+    if(fbApp){ try{ fb.deleteApp(fbApp); }catch(_){} }
+    fbApp=null; db=null; rootRef=null; started=false; connected=false;
+    SYNC.renderStatus&&SYNC.renderStatus();
+  };
+
+  function subscribeCollection(coll){
+    const r = dbm.ref(db, base()+'/records/'+coll);
+    subs.push(dbm.onChildAdded(r, function(s){ mergeRecord(coll, s.key, s.val()); }));
+    subs.push(dbm.onChildChanged(r, function(s){ mergeRecord(coll, s.key, s.val()); }));
+  }
+  function subscribeTombstones(coll){
+    const r = dbm.ref(db, base()+'/tombstones/'+coll);
+    subs.push(dbm.onChildAdded(r, function(s){ applyTombstone(coll, s.key, (s.val()&&s.val()._updatedAt)||0); }));
+    subs.push(dbm.onChildChanged(r, function(s){ applyTombstone(coll, s.key, (s.val()&&s.val()._updatedAt)||0); }));
+  }
+  function subscribeValue(name){
+    const r = dbm.ref(db, base()+'/records/'+name);
+    subs.push(dbm.onValue(r, function(s){ mergeValue(name, s.val()); }));
+  }
+
+  function mergeRecord(coll, id, val){
+    if(merging || !val) return;
+    const arr = STATE[coll]||(STATE[coll]=[]);
+    const idx = arr.findIndex(function(x){ return x.id===id; });
+    const remoteTs = val._updatedAt||0;
+    let changed=false;
+    if(idx>=0){
+      const localTs = arr[idx]._updatedAt||0;
+      if(remoteTs > localTs){ merging=true; arr[idx]=Object.assign({}, val); changed=true; }
+    }else{ merging=true; arr.push(Object.assign({}, val)); changed=true; }
+    if(changed){ saveState(); merging=false; renderPage(); }
+  }
+  function applyTombstone(coll, id, ts){
+    if(merging || !ts) return;
+    const arr = STATE[coll]||[];
+    const idx = arr.findIndex(function(x){ return x.id===id; });
+    if(idx>=0){
+      const localTs = arr[idx]._updatedAt||0;
+      if(ts >= localTs){ merging=true; arr.splice(idx,1); saveState(); merging=false; renderPage(); }
+    }
+  }
+  function mergeValue(name, val){
+    if(merging || !val) return;
+    const remoteTs = val._updatedAt||0;
+    if(name==='meta'){
+      const localTs = STATE.meta._syncUpdatedAt||0;
+      if(remoteTs > localTs){
+        merging=true;
+        const clean = Object.assign({}, val); delete clean._updatedAt;
+        Object.keys(clean).forEach(function(k){ STATE.meta[k] = clean[k]; });
+        STATE.meta._syncUpdatedAt = remoteTs;
+        saveState(); merging=false;
+      }
+      return;
+    }
+    const local = STATE[name]||{};
+    const localTs = (local && local._updatedAt)||0;
+    if(remoteTs > localTs){
+      merging=true;
+      const clean = Object.assign({}, val); delete clean._updatedAt;
+      STATE[name] = Object.assign(clean, { _updatedAt: remoteTs });
+      saveState(); merging=false;
+    }
+  }
+
+  SYNC.schedulePush = function(force){
+    if(merging) return;
+    const cfg = SYNC.cfg();
+    if(!cfg || !cfg.enabled || !cfg.firebaseConfig || !cfg.clinicCode) return;
+    if(pushTimer) clearTimeout(pushTimer);
+    pushTimer = setTimeout(function(){ doPush(!!force); }, 900);
+  };
+
+  async function doPush(force){
+    if(!db) return;
+    const cfg = SYNC.cfg();
+    const now = Date.now();
+    const b = base();
+    let prevIds={};
+    try{ prevIds = JSON.parse(localStorage.getItem(PUSHED_KEY)||'{}')||{}; }catch(_){ prevIds={}; }
+    const nextIds={};
+    try{
+      const meta = sanitizedMeta(); meta._updatedAt = now;
+      await dbm.set(dbm.ref(db, b+'/records/meta'), meta);
+      const lists = JSON.parse(JSON.stringify(STATE.lists||{})); lists._updatedAt = now;
+      await dbm.set(dbm.ref(db, b+'/records/lists'), lists);
+      const ff = JSON.parse(JSON.stringify(STATE.formFields||{})); ff._updatedAt = now;
+      await dbm.set(dbm.ref(db, b+'/records/formFields'), ff);
+      const tp = JSON.parse(JSON.stringify(STATE.treatmentPrices||{})); tp._updatedAt = now;
+      await dbm.set(dbm.ref(db, b+'/records/treatmentPrices'), tp);
+      ['patients','dentists','appointments'].forEach(function(coll){
+        const arr = STATE[coll]||[];
+        const curIds = arr.map(function(x){ return x.id; });
+        arr.forEach(function(rec){
+          const out = Object.assign({}, rec, { _updatedAt: (rec._updatedAt&&!force)?rec._updatedAt:now });
+          dbm.set(dbm.ref(db, b+'/records/'+coll+'/'+rec.id), out);
+        });
+        const prev = prevIds[coll]||[];
+        prev.forEach(function(id){ if(curIds.indexOf(id)===-1){
+          dbm.set(dbm.ref(db, b+'/records/'+coll+'/'+id), null);
+          dbm.set(dbm.ref(db, b+'/tombstones/'+coll+'/'+id), { _updatedAt: now });
+        } });
+        nextIds[coll] = curIds;
+      });
+      localStorage.setItem(PUSHED_KEY, JSON.stringify(nextIds));
+      STATE.meta.sync.lastSyncAt = now; saveState();
+      SYNC.renderStatus&&SYNC.renderStatus();
+    }catch(e){ console.warn('DentyarSync push failed', e); }
+  }
+
+  SYNC.renderStatus = function(){
+    const b=document.getElementById('syncStatusBadge');
+    if(b){ b.textContent = SYNC.isReady() ? 'متصل' : (SYNC.cfg()&&SYNC.cfg().enabled ? 'در حال اتصال…' : 'غیرفعال'); }
+  };
+
+  SYNC.settingsCardHtml = function(){
+    const cfg = SYNC.cfg()||{ enabled:false, clinicCode:'', deviceName:'', firebaseConfig:null, lastSyncAt:null };
+    const fbCfg = cfg.firebaseConfig||{};
+    const ls = cfg.lastSyncAt ? new Date(cfg.lastSyncAt).toLocaleString('fa-IR') : '—';
+    const ready = SYNC.isReady();
+    const qr = (cfg.clinicCode && cfg.enabled)
+      ? '<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent('DENTYAR:'+cfg.clinicCode)+'" width="120" height="120" alt="QR" style="margin:6px auto;display:block;border:1px solid var(--border);border-radius:8px" onerror="this.style.display=\'none\'">'
+      : '';
+    return '\n    <div class="card">\n      <h3>همگام‌سازی چنددستگاهی (آنلاین)</h3>\n      <p style="font-size:12px;color:var(--muted);line-height:1.9">با فعال‌کردن این قابلیت، اطلاعات مطب (بیمار، نوبت، دندان‌پزشک، تنظیمات) به‌صورت آنی روی حداقل ۳ دستگاه هم‌زمان همگام می‌شود. برنامه آفلاین-اول باقی می‌ماند؛ رمزهای ورود و تنظیمات مدیر همگام نمی‌شوند. سرویس رایگان Firebase استفاده می‌شود.</p>\n      <div class="row" style="align-items:center;gap:8px;margin:6px 0">\n        <span id="syncStatusBadge" class="updateBadge" style="margin:0">'+(ready?'متصل':(cfg.enabled?'در حال اتصال…':'غیرفعال'))+'</span>\n        <span style="font-size:11px;color:var(--muted)">آخرین همگام‌سازی: '+esc(ls)+'</span>\n      </div>\n      <div class="grid2">\n        <label>کد مطب (Clinic Code)</label>\n        <input id="syncClinicCode" value="'+esc(cfg.clinicCode||'')+'" placeholder="مثلاً AB12CD34" style="font-family:var(--font-mono)">\n        <label>نام این دستگاه</label>\n        <input id="syncDeviceName" value="'+esc(cfg.deviceName||'')+'" placeholder="مثلاً منشی-کامپیوتر">\n      </div>\n      <div class="sectionTitle" style="margin-top:10px">تنظیمات Firebase (رایگان)</div>\n      <p style="font-size:11px;color:var(--muted)">یک پروژه‌ی Firebase بسازید، Realtime Database را فعال کنید (قوانین را روی auth!=null بگذارید) و مقادیر زیر را از تنظیمات وب Firebase کپی کنید.</p>\n      <div class="grid2">\n        <label>apiKey</label><input id="fb_apiKey" value="'+esc(fbCfg.apiKey||'')+'" style="font-family:var(--font-mono);font-size:11px">\n        <label>authDomain</label><input id="fb_authDomain" value="'+esc(fbCfg.authDomain||'')+'" style="font-family:var(--font-mono);font-size:11px">\n        <label>databaseURL</label><input id="fb_databaseURL" value="'+esc(fbCfg.databaseURL||'')+'" style="font-family:var(--font-mono);font-size:11px">\n        <label>projectId</label><input id="fb_projectId" value="'+esc(fbCfg.projectId||'')+'" style="font-family:var(--font-mono);font-size:11px">\n        <label>storageBucket</label><input id="fb_storageBucket" value="'+esc(fbCfg.storageBucket||'')+'" style="font-family:var(--font-mono);font-size:11px">\n        <label>messagingSenderId</label><input id="fb_messagingSenderId" value="'+esc(fbCfg.messagingSenderId||'')+'" style="font-family:var(--font-mono);font-size:11px">\n        <label>appId</label><input id="fb_appId" value="'+esc(fbCfg.appId||'')+'" style="font-family:var(--font-mono);font-size:11px">\n      </div>\n      <div class="row" style="margin-top:10px;gap:8px;flex-wrap:wrap">\n        <button class="btn btn-primary" onclick="DentyarSync.saveAndConnect()">اتصال و فعال‌سازی</button>\n        <button class="btn btn-outline" onclick="DentyarSync.genCode()">تولید کد مطب جدید</button>\n        '+(cfg.enabled?'<button class="btn btn-outline" onclick="DentyarSync.toggleOff()">قطع اتصال</button>':'')+'\n        '+(cfg.enabled?'<button class="btn btn-danger" onclick="DentyarSync.removeConfig()">حذف تنظیمات همگام‌سازی</button>':'')+'\n      </div>\n      '+(cfg.enabled&&cfg.clinicCode?'<div class="notice" style="margin-top:10px"><b>اتصال دستگاه جدید:</b> روی دستگاه دیگر به همین بخش بیایید، همین تنظیمات Firebase و همین «کد مطب» را وارد کنید و «اتصال و فعال‌سازی» را بزنید. '+qr+' کد مطب: <b dir="ltr">'+esc(cfg.clinicCode)+'</b></div>':'')+'\n    </div>';
+  };
+
+  SYNC.genCode = function(){
+    const c = (Math.random().toString(36).slice(2,6)+Math.random().toString(36).slice(2,6)).toUpperCase();
+    const el = document.getElementById('syncClinicCode'); if(el) el.value = c;
+    toast('کد مطب جدید ساخته شد: '+c);
+  };
+  SYNC.readForm = function(){
+    const cfg = SYNC.cfg()||{};
+    const firebaseConfig = {
+      apiKey: (document.getElementById('fb_apiKey')||{}).value||'',
+      authDomain: (document.getElementById('fb_authDomain')||{}).value||'',
+      databaseURL: (document.getElementById('fb_databaseURL')||{}).value||'',
+      projectId: (document.getElementById('fb_projectId')||{}).value||'',
+      storageBucket: (document.getElementById('fb_storageBucket')||{}).value||'',
+      messagingSenderId: (document.getElementById('fb_messagingSenderId')||{}).value||'',
+      appId: (document.getElementById('fb_appId')||{}).value||''
+    };
+    cfg.clinicCode = ((document.getElementById('syncClinicCode')||{}).value||'').trim();
+    cfg.deviceName = ((document.getElementById('syncDeviceName')||{}).value||'').trim();
+    cfg.firebaseConfig = firebaseConfig;
+    return cfg;
+  };
+  SYNC.saveAndConnect = async function(){
+    const cfg = SYNC.readForm();
+    if(!cfg.clinicCode){ toast('کد مطب را وارد کنید یا «تولید کد» را بزنید'); return; }
+    if(!cfg.firebaseConfig.apiKey || !cfg.firebaseConfig.databaseURL || !cfg.firebaseConfig.appId){ toast('تنظیمات Firebase ناقص است (apiKey، databaseURL، appId الزامی است)'); return; }
+    STATE.meta.sync = Object.assign({ enabled:false, clinicCode:'', deviceName:'', firebaseConfig:null, lastSyncAt:null, pairedAt:null }, cfg, { enabled:true, pairedAt: Date.now() });
+    saveState();
+    SYNC.disconnect();
+    await SYNC.connect();
+    renderSettings();
+  };
+  SYNC.toggleOff = function(){
+    if(STATE.meta.sync) STATE.meta.sync.enabled = false; saveState();
+    SYNC.disconnect(); toast('همگام‌سازی قطع شد (داده‌های محلی نگه‌دری شد)'); renderSettings();
+  };
+  SYNC.removeConfig = function(){
+    modalConfirm('حذف تنظیمات همگام‌سازی','تنظیمات اتصال حذف شود؟ داده‌های محلی این دستگاه دست‌نخورده باقی می‌مانند.', function(){ STATE.meta.sync = { enabled:false, clinicCode:'', deviceName:'', firebaseConfig:null, lastSyncAt:null, pairedAt:null }; saveState(); SYNC.disconnect(); toast('تنظیمات همگام‌سازی حذف شد'); renderSettings(); });
+  };
+
+  window.DentyarSync = SYNC;
+  function autoStart(){ const c=SYNC.cfg(); if(c&&c.enabled){ SYNC.connect(); } }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', autoStart, {once:true});
+  else autoStart();
+})();
+</script>
+
 </body>
 </html>
