@@ -1,11 +1,1 @@
-{
-  "appId": "ir.dentyar.app",
-  "appName": "DENTYAR",
-  "webDir": "www",
-  "bundledWebRuntime": false,
-  "server": { "androidScheme": "https" },
-  "plugins": {
-    "SplashScreen": { "launchShowDuration": 0 },
-    "StatusBar": { "overlaysWebView": false, "style": "LIGHT", "backgroundColor": "#eef1f6" }
-  }
-}
+{"appId":"ir.dentyar.app","appName":"DENTYAR","webDir":"www","bundledWebRuntime":false,"server":{"androidScheme":"https"},"plugins":{"SplashScreen":{"launchShowDuration":0},"StatusBar":{"overlaysWebView":false,"style":"LIGHT","backgroundColor":"#eef1f6"}}}
